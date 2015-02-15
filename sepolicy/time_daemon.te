@@ -1,0 +1,4 @@
+allow time_daemon platform_app:dir search;
+allow time_daemon platform_app:file { read open };
+allow time_daemon system_server:dir search;
+allow time_daemon system_server:file { read open };

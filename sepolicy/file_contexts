@@ -1,0 +1,14 @@
+/data/system/default_values									u:object_r:mpctl_data_file:s0
+
+/dev/batch_io												u:object_r:io_device:s0
+/dev/block/mmcblk0(.*)										u:object_r:mmc_block_device:s0
+/dev/sec-nfc												u:object_r:nfc_device:s0
+/dev/rfkill													u:object_r:wpa_device:s0
+
+/efs/bluetooth/bt_addr										u:object_r:bluetooth_efs_file:s0
+/efs/prox_cal												u:object_r:system_data_file:s0
+/sys/devices/virtual/sec/sec_touchkey(/.*)?					u:object_r:touch_key_sysfs:s0
+/sys/devices/virtual/timed_output/vibrator/pwm_value		u:object_r:vibe_dev:s0
+/sys/devices/virtual/lcd/panel/power_reduce					u:object_r:lcd_dev:s0
+
+/system/bin/macloader										u:object_r:macloader_exec:s0
