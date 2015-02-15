@@ -21,13 +21,17 @@ LOCAL_PATH := device/samsung/lentislte-common
 
 # Architecture
 TARGET_CPU_VARIANT := krait
-TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
-AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := true
-AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
+AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
 BOARD_USES_ES705 := true
+
+# Bluetooth
+# BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/vnd_lentislte.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+BOARD_BLUETOOTH_USES_HCIATTACH_PROPERTY := true
+BOARD_HAVE_BLUETOOTH_QCOM 	:= true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := APQ8084
@@ -61,7 +65,7 @@ TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 # Kernel
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 dwc3_msm.cpu_to_affin=1
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.selinux=permissive user_debug=31 msm_rtb.filter=0x37 dwc3_msm.cpu_to_affin=1
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02600000 --tags_offset 0x02400000 --second_offset 0x00f00000
@@ -70,6 +74,9 @@ TARGET_KERNEL_SOURCE := kernel/samsung/lentislte
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
+
+# Media
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # NFC
 BOARD_NFC_CHIPSET := pn547
@@ -152,14 +159,6 @@ WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME          := "wlan"
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
-
-# Bluetooth
-BOARD_HAVE_BLUETOOTH 		:= true
-BOARD_HAVE_BLUETOOTH_QCOM 	:= true
-#QCOM_BT_USE_SMD_TTY := true
-BLUETOOTH_HCI_USE_MCT 		:= true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
-# BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/vnd_lentislte.txt
 
 # Vold
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true

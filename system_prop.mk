@@ -18,7 +18,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true \
     ro.hdcp2.rx=tz \
-    ro.qualcomm.cabl=0 \
+    ro.qualcomm.cabl=1 \
     ro.secwvk=144 \
     ro.sf.lcd_density=560 \
     ro.opengles.version=196608
@@ -49,8 +49,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sensors=1
-
-# disable strict mode (no more UI flashing red)
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.android.strictmode=0 \
-    persist.sys.strictmode.disable=1
