@@ -898,31 +898,31 @@ on boot
     mkdir /dev/bus/usb 755 root root
 
     # Permissions for InputDevices.
-	chown system radio /sys/class/sec/tsp/cmd
-	chown system system /sys/class/sec/tsp/input/enabled
-	chmod 0660 /sys/class/sec/tsp/input/enabled
+    chown system radio /sys/class/sec/tsp/cmd
+    chown system system /sys/class/sec/tsp/input/enabled
+    chmod 0660 /sys/class/sec/tsp/input/enabled
 
-	chown system system /sys/class/sec/sec_touchkey/input/enabled
-	chmod 0660 /sys/class/sec/sec_touchkey/input/enabled
-	chown system system /sys/class/sec/sec_touchkey/brightness
+    chown system system /sys/class/sec/sec_touchkey/input/enabled
+    chmod 0660 /sys/class/sec/sec_touchkey/input/enabled
+    chown system system /sys/class/sec/sec_touchkey/brightness
 
-	chown system system /sys/class/sec/sec_epen/input/enabled
-	chmod 0660 /sys/class/sec/sec_epen/input/enabled
+    chown system system /sys/class/sec/sec_epen/input/enabled
+    chmod 0660 /sys/class/sec/sec_epen/input/enabled
 
     # Permissions for Camera
-	chown system radio /sys/class/camera/rear/rear_camfw
-	chown system radio /sys/class/camera/rear/rear_camfw_full
-	chown system radio /sys/class/camera/rear/rear_camfw_load
-	chown system radio /sys/class/camera/rear/rear_latest_module_check
-	chown system radio /sys/class/camera/rear/rear_camtype
-	chown system radio /sys/class/camera/rear/rear_corever
-	chown system radio /sys/class/camera/rear/rear_companionfw_full
-	chown system radio /sys/class/camera/rear/rear_calcheck
-	chown system radio /sys/class/camera/rear/rear_fwcheck
-	chown system radio /sys/class/camera/rear/isp_core
-	chown system radio /sys/class/camera/flash/rear_flash
-	chown system radio /sys/class/camera/front/front_camfw
-	chown system radio /sys/class/camera/front/front_camtype
+    chown system radio /sys/class/camera/rear/rear_camfw
+    chown system radio /sys/class/camera/rear/rear_camfw_full
+    chown system radio /sys/class/camera/rear/rear_camfw_load
+    chown system radio /sys/class/camera/rear/rear_latest_module_check
+    chown system radio /sys/class/camera/rear/rear_camtype
+    chown system radio /sys/class/camera/rear/rear_corever
+    chown system radio /sys/class/camera/rear/rear_companionfw_full
+    chown system radio /sys/class/camera/rear/rear_calcheck
+    chown system radio /sys/class/camera/rear/rear_fwcheck
+    chown system radio /sys/class/camera/rear/isp_core
+    chown system radio /sys/class/camera/flash/rear_flash
+    chown system radio /sys/class/camera/front/front_camfw
+    chown system radio /sys/class/camera/front/front_camtype
 
     #OTG Test
     chown system radio /sys/class/host_notify/usb_otg/booster
@@ -1258,12 +1258,13 @@ service qseecomd /system/bin/qseecomd
     group system
 
 service mpdecision /system/bin/mpdecision --avg_comp
+    class main
     user root
     group system
     disabled
 
 service thermal-engine /system/bin/thermal-engine
-    class core
+    class main
     user root
     group radio system
 
@@ -1291,10 +1292,6 @@ service qmuxd /system/bin/qmuxd
     class core
     user radio
     group radio audio bluetooth gps qcom_diag log
-
-service qti /system/vendor/bin/qti
-    class main
-    disabled
 
 service mdm_helper /system/bin/mdm_helper
     class core
@@ -1346,7 +1343,6 @@ on property:bluetooth.startbtsnoop=false
     stop btsnoop
 
 on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
     start config_bluetooth
 
 on property:persist.env.fastdorm.enabled=true
@@ -1591,26 +1587,6 @@ on property:persist.sys.ssr.restart_level=1
 
 on property:persist.sys.ssr.restart_level=3
     write /sys/module/subsystem_restart/parameters/restart_level 3
-
-on property:vold.decrypt=trigger_reset_main
-    stop gnss-svcd
-
-# QCA1530 SoC core detect
-service gnss-detect /system/vendor/bin/gnss.qca1530.sh detect
-   class core
-   oneshot
-
-# QCA1530 SoC late_start group trigger
-service gnss-init /system/vendor/bin/gnss.qca1530.sh init
-   class late_start
-   oneshot
-
-# QCA1530 SoC Service Daemon
-service gnss-svcd /system/vendor/bin/gnss.qca1530.sh start
-   class late_start
-   user root
-   group gps system qcom_diag diag log inet net_raw
-   disabled
 
 on property:service.bootanim.exit=1
     #write /sys/module/rmnet_usb/parameters/dump_ctrl_msg 2

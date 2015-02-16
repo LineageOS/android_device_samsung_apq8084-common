@@ -30,21 +30,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.izat.premium_enabled=0 \
     ro.qc.sdk.izat.service_mask=0x0
 
-# System prop for standalone GNSS service
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.qca1530=detect
-
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.jbims=1 \
-    ro.use_data_netmgrd=false \
     persist.data.netmgrd.qos.enable=true \
     persist.radio.add_power_save=1 \
     persist.radio.lte_vrat_report=1
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15 
 
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
