@@ -27,26 +27,6 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# Update USB serial number from persist storage if present, if not update
-# with value passed from kernel command line, if none of these values are
-# set then use the default value. This order is needed as for devices which
-# do not have unique serial number.
-# User needs to set unique usb serial number to persist.usb.serialno
-#
-serialno=`getprop persist.usb.serialno`
-case "$serialno" in
-    "")
-    serialnum=`getprop ro.serialno`
-    case "$serialnum" in
-        "");; #Do nothing, use default serial number
-        *)
-        echo "$serialnum" > /sys/class/android_usb/android0/iSerial
-    esac
-    ;;
-    *)
-    echo "$serialno" > /sys/class/android_usb/android0/iSerial
-esac
-
 chown -h root.system /sys/devices/platform/msm_hsusb/gadget/wakeup
 chmod -h 220 /sys/devices/platform/msm_hsusb/gadget/wakeup
 
@@ -97,6 +77,17 @@ for f in /sys/bus/esoc/devices/*; do
     fi
 done
 fi
+
+# Seperate RMNET interface
+case "$esoc_link" in
+          "HSIC")
+	echo "hsic,hsic" > /sys/class/android_usb/android0/f_rmnet/transports
+	echo "rmnet_hsic" > /sys/class/android_usb/android0/f_rmnet/transport_names
+          ;;
+          "HSIC+PCIe")
+	echo "qti,ether" > /sys/class/android_usb/android0/f_rmnet/transports
+          ;;
+esac
 
 target=`getprop ro.product.device`
 cdromenable=`getprop persist.service.cdrom.enable`
@@ -253,3 +244,11 @@ case "$target" in
                 esac
                 ;;
 esac
+
+#
+# Initialize RNDIS Diag option. If unset, set it to 'none'.
+#
+diag_extra=`getprop persist.sys.usb.config.extra`
+if [ "$diag_extra" == "" ]; then
+	setprop persist.sys.usb.config.extra none
+fi

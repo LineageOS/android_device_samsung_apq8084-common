@@ -16,7 +16,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc.mdpcomp.enable=true \
+    persist.hwc.mdpcomp.enable=false \
     ro.hdcp2.rx=tz \
     ro.qualcomm.cabl=1 \
     ro.secwvk=144 \
