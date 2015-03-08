@@ -78,17 +78,6 @@ for f in /sys/bus/esoc/devices/*; do
 done
 fi
 
-# Seperate RMNET interface
-case "$esoc_link" in
-          "HSIC")
-	echo "hsic,hsic" > /sys/class/android_usb/android0/f_rmnet/transports
-	echo "rmnet_hsic" > /sys/class/android_usb/android0/f_rmnet/transport_names
-          ;;
-          "HSIC+PCIe")
-	echo "qti,ether" > /sys/class/android_usb/android0/f_rmnet/transports
-          ;;
-esac
-
 target=`getprop ro.product.device`
 cdromenable=`getprop persist.service.cdrom.enable`
 create_luns() {
@@ -244,11 +233,3 @@ case "$target" in
                 esac
                 ;;
 esac
-
-#
-# Initialize RNDIS Diag option. If unset, set it to 'none'.
-#
-diag_extra=`getprop persist.sys.usb.config.extra`
-if [ "$diag_extra" == "" ]; then
-	setprop persist.sys.usb.config.extra none
-fi
