@@ -36,7 +36,6 @@ BOARD_HAVE_BLUETOOTH	 	:= true
 BOARD_HAVE_BLUETOOTH_QCOM 	:= true
 BOARD_HAS_QCA_BT_ROME 		:= true
 QCOM_BT_USE_SIBS 		:= false
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := APQ8084
@@ -70,16 +69,6 @@ EXTENDED_FONT_FOOTPRINT := true
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
-# Kernel
-BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
-BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.selinux=permissive user_debug=31 msm_rtb.filter=0x37 dwc3_msm.cpu_to_affin=1
-BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_SEPARATED_DT := true
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02600000 --tags_offset 0x02400000 --second_offset 0x00f00000
-TARGET_KERNEL_CONFIG := say_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/lentislte
-
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
@@ -89,14 +78,6 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 # NFC
 BOARD_NFC_CHIPSET := pn547
 BOARD_NFC_HAL_SUFFIX := apq8084
-
-# Partitions
-BOARD_FLASH_BLOCK_SIZE := 262144
-TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_BOOTIMAGE_PARTITION_SIZE := 13631488
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 15728640
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2458009600
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 3859718144
 
 # Platform
 TARGET_BOARD_PLATFORM := apq8084
@@ -118,7 +99,6 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
@@ -167,11 +147,6 @@ WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME          := "wlan"
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
-
-# Vold
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-BOARD_VOLD_MAX_PARTITIONS := 28
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)

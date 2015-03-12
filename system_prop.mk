@@ -20,7 +20,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hdcp2.rx=tz \
     ro.qualcomm.cabl=1 \
     ro.secwvk=144 \
-    ro.sf.lcd_density=560 \
     ro.opengles.version=196608
 
 # GPS
