@@ -18,17 +18,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.egl.hw=0 \
-    debug.sf.hw=0 \
-    persist.hwc.mdpcomp.enable=true \
-    persist.mdpcomp.4k2kSplit=1 \
-    debug.mdpcomp.logs=0
-
-PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple=0
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.hwc.mdpcomp.enable=false \
     ro.hdcp2.rx=tz \
     ro.qualcomm.cabl=1 \
     ro.secwvk=144 \
