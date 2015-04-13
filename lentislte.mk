@@ -21,8 +21,7 @@ $(call inherit-product-if-exists, vendor/samsung/lentislte-common/lentislte-comm
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    device/samsung/qcom-common/overlay
+    $(LOCAL_PATH)/overlay
 
 # System properties
 -include $(LOCAL_PATH)/system_prop.mk
