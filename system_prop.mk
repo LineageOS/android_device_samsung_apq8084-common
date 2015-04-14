@@ -3,8 +3,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.speaker=true \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicerec=false \
-    ro.qc.sdk.audio.fluencetype=none \
-    use.voice.path.for.pcm.voip=true \
+    ro.qc.sdk.audio.fluencetype=fluence \
+    use.voice.path.for.pcm.voip=false \
+    use.dedicated.device.for.voip=true \
     audio.offload.buffer.size.kb=32 \
     av.offload.enable=true \
     av.streaming.offload.enable=true \
@@ -12,13 +13,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.gapless.enabled=true \
     audio.offload.pcm.16bit.enable=true \
     audio.offload.pcm.24bit.enable=true
-
-# System properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    com.qc.hardware=true
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.call_ring.multiple=0
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
