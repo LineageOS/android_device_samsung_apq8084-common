@@ -37,11 +37,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.use_data_netmgrd=false \
-    persist.data.netmgrd.qos.enable=false \
+    persist.data.netmgrd.qos.enable=true \
     persist.radio.add_power_save=1 \
-    persist.radio.apm_mdm_not_pwdn=1 \
-    persist.radio.apm_sim_not_pwdn=1
+    persist.radio.lte_vrat_report=1
 
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
