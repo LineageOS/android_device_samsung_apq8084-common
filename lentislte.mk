@@ -125,8 +125,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sap.conf:/system/etc/sap.conf
 
 # IR
-PRODUCT_PACKAGES += \
-    consumerir.apq8084
+#PRODUCT_PACKAGES += \
+#    consumerir.apq8084
 
 # Keystore
 PRODUCT_PACKAGES += \
