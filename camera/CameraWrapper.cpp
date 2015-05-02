@@ -147,6 +147,9 @@ static char *camera_fixup_setparams(int id, const char *settings)
     params.dump();
 #endif
 
+    params.set(KEY_VIDEO_FRAME_FORMAT, "yuv420sp");
+    params.setPreviewFormat("nv12-venus");
+
     const char *recordingHint = params.get(android::CameraParameters::KEY_RECORDING_HINT);
     bool isVideo = recordingHint && !strcmp(recordingHint, "true");
 
