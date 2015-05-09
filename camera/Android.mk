@@ -3,10 +3,6 @@ ifeq ($(TARGET_PROVIDES_CAMERA_HAL),true)
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-ifeq ($(TARGET_FIXUP_PREVIEW),true)
-    LOCAL_CFLAGS := -DFIXUP_PREVIEW
-endif
-
 LOCAL_SRC_FILES := \
     CameraWrapper.cpp
 
