@@ -108,7 +108,7 @@ static bool is480Preview(android::CameraParameters &params) {
     int video_width, video_height;
     params.getPreviewSize(&video_width, &video_height);
     ALOGV("%s : PreviewSize is %x", __FUNCTION__, video_width*video_height);
-    return video_width*video_height < 800*480;
+    return video_width*video_height == 720*480;
 }
 
 static char *camera_fixup_getparams(int __attribute__((unused)) id,
@@ -121,7 +121,6 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id,
     ALOGV("%s: Original parameters:", __FUNCTION__);
     params.dump();
 #endif
-    params.set("preview-format", "yuv420sp");
 
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
@@ -145,6 +144,7 @@ static char *camera_fixup_setparams(int id, const char *settings)
 #endif
 
     if (is480Preview(params)) {
+        ALOGV("%s: 480p preview detected, switching preview format to nv12-venus", __FUNCTION__);
         params.set("preview-format", "nv12-venus");
     }
 
@@ -289,7 +289,11 @@ static int camera_start_recording(struct camera_device *device)
     parameters.unflatten(android::String8(camera_get_parameters(device)));
     parameters.set("dis", "disable");
     parameters.set("zsl", "off");
-    parameters.set("preview-format", "nv12-venus");
+
+    if (is4kVideo(parameters)) {
+        ALOGV("%s: UHD detected, switching preview-format to nv12-venus", __FUNCTION__);
+        parameters.set("preview-format", "nv12-venus");
+    }
 
     camera_set_parameters(device, strdup(parameters.flatten().string()));
 
