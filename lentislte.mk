@@ -194,6 +194,7 @@ PRODUCT_PACKAGES += \
     dhcpcd.conf \
     libwpa_client \
     hostapd \
+    libQWiFiSoftApCfg \
     wpa_supplicant \
     hostapd_default.conf \
     hostapd.accept \
