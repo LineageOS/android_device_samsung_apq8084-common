@@ -144,8 +144,8 @@ static char *camera_fixup_setparams(int id, const char *settings)
 #endif
 
     if (is480Preview(params)) {
-        ALOGV("%s: 480p preview detected, switching preview format to nv12-venus", __FUNCTION__);
-        params.set("preview-format", "nv12-venus");
+        ALOGV("%s: 480p preview detected, switching preview format to yuv420p", __FUNCTION__);
+        params.set("preview-format", "yuv420p");
     }
 
     android::String8 strParams = params.flatten();
