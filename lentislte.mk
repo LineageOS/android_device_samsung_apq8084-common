@@ -171,16 +171,6 @@ PRODUCT_PACKAGES += \
     NfcNci \
     Tag
 
-# Ramdisk
-PRODUCT_PACKAGES += \
-    fstab.qcom \
-    init.crda.sh \
-    init.qcom.rc \
-    init.qcom.usb.rc \
-    init.qcom.usb.sh \
-    init.sec.boot.sh \
-    ueventd.qcom.rc
-
 # Torch
 PRODUCT_PACKAGES += \
     Torch
