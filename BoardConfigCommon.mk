@@ -83,9 +83,7 @@ BOARD_NFC_CHIPSET := pn547
 TARGET_BOARD_PLATFORM := apq8084
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno420
 
-# Power HAL
-TARGET_POWERHAL_SET_INTERACTIVE_EXT := $(LOCAL_PATH)/power/power_ext.c
-TARGET_POWERHAL_VARIANT := qcom
+# Power HAL not specified, we're using the one in trlte-common instead.
 
 # Qualcomm support
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
