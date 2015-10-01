@@ -24,14 +24,17 @@
 #define LOG_NDEBUG 0
 
 #define LOG_TAG "CameraWrapper"
-#include <cutils/log.h>
 
+#include "CameraHardwareInterface.h"
+#include <cutils/log.h>
 #include <utils/threads.h>
 #include <utils/String8.h>
 #include <hardware/hardware.h>
 #include <hardware/camera.h>
 #include <camera/Camera.h>
 #include <camera/CameraParameters.h>
+#include <dlfcn.h>
+#include <stdio.h>
 
 static android::Mutex gCameraWrapperLock;
 static camera_module_t *gVendorModule = 0;
@@ -43,6 +46,89 @@ static int camera_device_open(const hw_module_t *module, const char *name,
 static int camera_device_close(hw_device_t *device);
 static int camera_get_number_of_cameras(void);
 static int camera_get_camera_info(int camera_id, struct camera_info *info);
+
+static camera_data_callback org_data_cb;
+
+static void*  g_hNSMemMgr = 0;
+static void*  membuffer = 0;
+static void*  g_hEnhancer = 0;
+static void*  JPEGbuffer;
+
+struct PicInfo{
+   int format;
+   int width;
+   int height;
+   void *pYUVdata;
+   void *pYuv2ndpart; //=pYUVdata+width*height.
+   int nothing;
+   int nothing2;
+   int width2;
+   int width3;
+   int nothing3;
+   int nothing4;
+};
+
+struct tPicSummary{
+   int numberofpics;
+   int minusone;
+   void *Picinfo0;
+   void *Picinfo1;
+   void *Picinfo2;
+   void *Picinfo3;
+} PicSummary;
+
+struct tJPEGinfo{
+   void *pYUVdata;
+   int YUVsize;
+   int nothing;
+   void *somecode;
+   int width;
+   int height;
+   int JPEGformat;
+   void *destbuf;
+   int YUVsize2;
+   int quality;
+   int nothing1;
+   int JPEGsize;
+   int nothing3;
+   int nothing4;
+} JPEGinfo;
+
+static struct camera_device *current_camera_device;
+
+static PicInfo sourcepic[6]; 
+static void *destbuffer;
+static PicInfo destpic;
+static int AMNC_params[12]; 
+static int lightcondition = 0;
+static bool lowlightphotoinprogress = false;
+typedef void* MHandle;
+typedef void* (*pfMMemMgrCreate)(void*, long);
+typedef void (*pMMemMgrDestroy)(MHandle);
+typedef int (*pAMNC_Init)(MHandle, MHandle*);
+typedef int (*pAMNC_Uninit)(MHandle*);
+typedef int (*pAMNC_GetDefaultParam)(void*);
+typedef int (*pAMNC_Enhancement) (void*, void*, void*, void*, int, int);
+typedef int (*pjpegencoder) (void *, void*);
+typedef void* (*pjpegencoderInit)(void*, int);
+
+static pfMMemMgrCreate MMemMgrCreate;
+static pMMemMgrDestroy MMemMgrDestroy;
+static pAMNC_Init AMNC_Init;
+static pAMNC_Uninit AMNC_Uninit;
+static pAMNC_GetDefaultParam AMNC_GetDefaultParam;
+static pAMNC_Enhancement AMNC_Enhancement;
+static pjpegencoderInit jpegencoderInit;
+static pjpegencoder jpegencoder;
+
+static int devrotation;
+static int picwidth;
+static int picheight;
+static int idx = 0;
+static int CurrentCamId;
+static void *arcsoftlib;
+static void * secjpeginterface;
+static bool CMcamapp = false;
 
 static struct hw_module_methods_t camera_module_methods = {
     .open = camera_device_open
@@ -154,7 +240,20 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id,
     return ret;
 }
 
-static char *camera_fixup_setparams(int id, const char *settings)
+static int camera_send_command(struct camera_device *device,
+        int32_t cmd, int32_t arg1, int32_t arg2)
+{
+    ALOGV("%s->%08X->%08X command :%d ", __FUNCTION__, (uintptr_t)device,
+            (uintptr_t)(((wrapper_camera_device_t*)device)->vendor), cmd);
+
+    if (!device)
+        return -EINVAL;
+
+    return VENDOR_CALL(device, send_command, cmd, arg1, arg2);
+}
+
+
+static char *camera_fixup_setparams(int id, const char *settings, camera_device *device)
 {
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
@@ -184,6 +283,25 @@ static char *camera_fixup_setparams(int id, const char *settings)
 	     params.set("fast-fps-mode", "1");
 	     params.set("preview-frame-rate", "60");
 	}
+    }
+
+    if (strcmp (params.get("jpeg-quality"), "18") == 0)
+    {
+        ALOGI ("Special jpegquality command received from CM cam app. Camid: %d", CurrentCamId);
+        params.set("jpeg-quality", "96");
+
+       if ((CMcamapp == false) && (CurrentCamId == 0))  //Only back camera does low light photo mode.
+       {
+   	   ALOGI("CameraId = 0, send init vendor commands for lowlight mode");
+           camera_send_command(device, 1515, 1, 0);
+	   camera_send_command(device, 1508, 0, 0);//Samsung_camera
+           camera_send_command(device, 1521, 0, 0); //Device orientation
+           camera_send_command(device, 1515, 1, 0);
+    	   camera_send_command(device, 1334, 0, 0); //Drama shot mode
+           camera_send_command(device, 1801, 1, 0);
+       	   camera_send_command(device, 1351, 1, 0); //Auto Low Light 
+           CMcamapp = true;
+        }
     }
 
     android::String8 strParams = params.flatten();
@@ -218,6 +336,215 @@ static int camera_set_preview_window(struct camera_device *device,
     return VENDOR_CALL(device, set_preview_window, window);
 }
 
+
+static void mydataCallback(int32_t msg_type,
+                          const camera_memory_t *data, unsigned int index,
+                          camera_frame_metadata_t *metadata,
+                          void *user)
+{
+    ALOGI("ThisisMyDataCallback ! msg_type: %d", msg_type);
+
+    if (msg_type == CAMERA_MSG_PREVIEW_METADATA)   
+    {
+       lightcondition = *((int*)metadata+5);
+       ALOGI("Lightcondition: %i", lightcondition);
+    }
+
+    bool ready = false;
+
+    if ((msg_type == CAMERA_MSG_COMPRESSED_IMAGE) && (lowlightphotoinprogress == true) )
+    {
+        ALOGI("CAMERA_MSG_COMPRESSED_IMAGE, idx: %i", idx);
+        android::sp<android::IMemoryHeap> heap  = 0;
+        android::sp<android::CameraHardwareInterface::CameraHeapMemory> mem(static_cast<android::CameraHardwareInterface::CameraHeapMemory *>(data->handle));
+        android::sp<android::IMemory> dataPtr = mem->mBuffers[index];
+        ssize_t         offset = 0;
+        size_t          size = 0;
+
+        if (dataPtr.get())
+        {
+            heap = dataPtr->getMemory(&offset, &size);  //size = 23842816, offset 0
+
+            sourcepic[idx].pYUVdata = operator new(size);
+
+            if(sourcepic[idx].pYUVdata==NULL)                     
+               ALOGE("Error! Destination memory not allocated.");
+            else
+               ALOGI("Destination Memory successfully allocated.");
+                
+            if  (NULL != heap.get() && NULL != heap->base())
+            {
+               ALOGI("Copying picture data now from the heap to our buffer");
+               ::memcpy(sourcepic[idx].pYUVdata, ((uint8_t*)heap->base()) , size);  //Copy van heap mem naar onze buffer !
+            }
+            else
+               ALOGE("Error ! Serious problem with heap memory !!");
+
+            sourcepic[idx].format = 2050; //YUV NV21
+            sourcepic[idx].width = picwidth; //0x14C0;
+            sourcepic[idx].height = picheight; //0xBAC;
+            sourcepic[idx].pYuv2ndpart= sourcepic[idx].pYUVdata + (picwidth*picheight);// + 0xF23100;
+            sourcepic[idx].nothing = 0;
+            sourcepic[idx].nothing2 = 0;
+            sourcepic[idx].width2 = picwidth; //0x14C0;
+            sourcepic[idx].width3 = picwidth; //0x14C0;
+            sourcepic[idx].nothing3 = 0;
+            sourcepic[idx].nothing4 = 0;
+                
+            if (idx==5)
+            {
+                ALOGI("Going to make the final Nightshot photo now");
+                AMNC_GetDefaultParam(&AMNC_params);
+                PicSummary.numberofpics = 4;
+                PicSummary.minusone = -1;
+                //Don't use the first 2 pics, because of timing issue's.
+                PicSummary.Picinfo0 = &sourcepic[2];
+                PicSummary.Picinfo1 = &sourcepic[3];
+                PicSummary.Picinfo2 = &sourcepic[4];
+                PicSummary.Picinfo3 = &sourcepic[5];
+
+                if (AMNC_Enhancement (g_hEnhancer, &PicSummary, &destpic, &AMNC_params, 0, 0))
+                   ALOGE("error AMNC_Enhancement!" );
+                else
+                   ALOGI("Succesful AMNC_Enhancement!");
+
+                //Allocate JPEG destination buffer;
+                JPEGbuffer = operator new(0x16b498f);//fixme: make size dependent on quality and photo dimensions. Currently max size.
+                JPEGinfo.pYUVdata = destpic.pYUVdata;
+                JPEGinfo.YUVsize= picwidth*picheight*1.5; //0x16B4980;
+                JPEGinfo.nothing = 0;
+                JPEGinfo.destbuf = JPEGbuffer;
+                JPEGinfo.height = picheight;
+                JPEGinfo.width = picwidth; 
+                JPEGinfo.JPEGformat = 2;
+                JPEGinfo.YUVsize2 =picwidth*picheight*1.5; //0x16B4980;
+                JPEGinfo.quality = 96;
+                JPEGinfo.nothing1 = 0;
+                JPEGinfo.JPEGsize = 0;
+                JPEGinfo.nothing3 = 0;
+                JPEGinfo.nothing4 = 0;
+
+                secjpeginterface = dlopen("libsecjpeginterface.so", RTLD_NOW);
+                if (!secjpeginterface)
+                   ALOGE("Error Could not load libsecjpeginterface.so: %s \n", dlerror());
+                else
+                   ALOGI("libsecjpeginterface.so succesfully loaded !!");
+    
+                jpegencoderInit = NULL;
+                jpegencoderInit = (pjpegencoderInit) dlsym(secjpeginterface, "_ZN7android14SecJpegEncoder6createEPNS_12jpeg_encoderENS_12SecJpegCodec4TYPEE");
+                if (jpegencoderInit == NULL)
+                    ALOGE("_ZN7android14SecJpegEncoder6createEPNS_12jpeg_encoderENS_12SecJpegCodec4TYPEE not loaded!");
+    
+                //Get pointer to EncoderObject
+                void * enc_p = jpegencoderInit(&JPEGinfo, 0);
+
+                int v24;
+                if ( (**(int (***)(void))enc_p)() == 1 )  //Hier called ie de deferenced pointer van Encoder object die 0 (software) of 1 (=hardware) teruggeeft
+                   ALOGI("Hardware encoder !");
+                else
+                   ALOGI("Software encoder !");
+
+                jpegencoder = NULL;
+                jpegencoder = (pjpegencoder) dlsym(secjpeginterface, "_ZN7android14SecJpegEncoder15startEncodeSyncERNS_12jpeg_encoderE");
+
+                if (jpegencoder == NULL)
+                   ALOGE("_ZN7android14SecJpegEncoder15startEncodeSyncERNS_12jpeg_encoderE not loaded!");
+ 
+                if (jpegencoder (enc_p, &JPEGinfo) == 0)
+                   ALOGI("Succesfully encoded picture to jpeg !");
+                else
+                   ALOGE("Error encoded picture to jpeg !");
+
+                if (devrotation == 90)
+                {
+                   ALOGI("Modifying EXIF info to reflect rotation!");
+                   char * jp = (char*)JPEGinfo.destbuf;
+                   jp[0x22]= 0x01;
+                   jp[0x23]= 0x12;
+                   jp[0x24]= 0x00;
+                   jp[0x25]= 0x03;
+                   jp[0x26]= 0x00;
+                   jp[0x27]= 0x00;
+                   jp[0x28]= 0x00;
+                   jp[0x29]= 0x01;
+                   jp[0x2a]= 0x00;
+                   jp[0x2b]= 0x06;
+                   jp[0x2c]= 0x00;
+                   jp[0x2c]= 0x00;
+                }
+
+                ALOGI("Resulting JPEG size: %i", JPEGinfo.JPEGsize);
+
+                //And clean it all up now.
+                if(g_hEnhancer != 0)
+                {
+                    ALOGE("Destroying g_hEnhancer");
+                    if (AMNC_Uninit(&g_hEnhancer))
+          	       ALOGE("NightShot AMNC_Uninit error");  
+                    else
+	               ALOGI("NightShot AMNC_Uninit success");
+	 	    g_hEnhancer = 0;
+    	        }
+ 
+           	if (g_hNSMemMgr)
+                {
+                    ALOGI("Destroying g_hNSMemMgr");
+      		    MMemMgrDestroy(g_hNSMemMgr);
+		    g_hNSMemMgr = 0;
+	        }
+
+                if (NULL != heap.get() && NULL != heap->base())
+                {
+                    android::sp<android::MemoryBase> image = new android::MemoryBase(heap, 0, JPEGinfo.JPEGsize);
+                    ::memcpy( ((uint8_t*)heap->base()), JPEGinfo.destbuf , JPEGinfo.JPEGsize);  //Copy van heap mem naar onze buffer !
+
+                   //release buffers
+                   operator delete(membuffer);               //mmemmgr
+                   for (int i = 0; i < 6; i++)
+                      operator delete(sourcepic[i].pYUVdata);   //Release all burst photo buffers
+                   operator delete(destbuffer);             //Release combined YUV picture
+                   operator delete(JPEGbuffer); // Release final jpeg buffer
+                   ALOGI("Going to call compressed picture callback now with Lowlight photo");
+                   lowlightphotoinprogress = false;
+                   ready = true;
+                }
+            }
+            else
+               idx++;
+        } //   if (dataPtr.get())
+   }  //if ((msg_type == CAMERA_MSG_COMPRESSED_IMAGE)
+   else
+       org_data_cb(msg_type, data, index, metadata, user);
+
+
+   if (ready == true)
+   {
+       idx = 0;
+       ALOGI ("Resetting idx. %d", idx);
+       org_data_cb(msg_type, data, index, metadata, user);
+
+       ALOGI("Camera is in Lowlightmode, so now sending the post picture vendor commands");
+       camera_send_command(current_camera_device, 0x5ED, 0, 0);  //CAMERA_CMD_SET_STOP_SERIES_CAPTURE
+       camera_send_command(current_camera_device, 0x5EE, 0, 0);  
+       camera_send_command(current_camera_device, 1264, 0, 0);  
+       camera_send_command(current_camera_device, 1515, 1, 0); 
+       camera_send_command(current_camera_device, 1334, 0, 0);  //DRAMA_SHOT_MODE
+       camera_send_command(current_camera_device, 1801, 1, 0);  
+       camera_send_command(current_camera_device, 1351, 1, 0);  
+
+       android::CameraParameters parameters;
+       parameters.unflatten(android::String8(camera_get_parameters(current_camera_device)));
+       parameters.set("auto-exposure-lock", "false");
+       parameters.set("auto-whitebalance-lock", "false");
+       camera_set_parameters(current_camera_device, strdup(parameters.flatten().string()));
+
+   }
+
+   ALOGI("End MyCallback!!!!!");
+}
+
+
+
 static void camera_set_callbacks(struct camera_device *device,
         camera_notify_callback notify_cb,
         camera_data_callback data_cb,
@@ -231,7 +558,9 @@ static void camera_set_callbacks(struct camera_device *device,
     if (!device)
         return;
 
-    VENDOR_CALL(device, set_callbacks, notify_cb, data_cb, data_cb_timestamp, get_memory, user);
+    org_data_cb = data_cb;
+
+    VENDOR_CALL(device, set_callbacks, notify_cb,(camera_data_callback) mydataCallback, data_cb_timestamp, get_memory, user);
 }
 
 static void camera_enable_msg_type(struct camera_device *device,
@@ -323,6 +652,16 @@ static int camera_start_recording(struct camera_device *device)
     if (!device)
         return EINVAL;
 
+    if ((CurrentCamId == 0) && (CMcamapp == true))
+    {
+        ALOGI("Sending start_recording vendor commands");
+        camera_send_command(device, 1515, 1, 0); // 
+        camera_send_command(device, 1334, 0, 0);
+        camera_send_command(device, 1801, 0, 0); //LIGHT_CONDITION_ENABLE naar HAL. 
+        camera_send_command(device, 1351, 0, 0); 
+        camera_send_command(device, 1264, 0, 0); //LOW_LIGHT_SHOT_SET 
+    }
+
     android::CameraParameters parameters;
     parameters.unflatten(android::String8(camera_get_parameters(device)));
     parameters.set("dis", "disable");
@@ -349,6 +688,15 @@ static void camera_stop_recording(struct camera_device *device)
 
     if (!device)
         return;
+
+    if ((CurrentCamId == 0) && (CMcamapp == true))
+    {
+       ALOGI("stopRecording: Sending post record vendor commands");
+       camera_send_command(device, 1515, 1, 0);
+       camera_send_command(device, 1334, 0, 0); //drama mode
+       camera_send_command(device, 1801, 1, 0); //LIGHT_CONDITION_ENABLE naar HAL.
+       camera_send_command(device, 1351, 1, 0);
+    }
 
     VENDOR_CALL(device, stop_recording);
 }
@@ -406,6 +754,84 @@ static int camera_take_picture(struct camera_device *device)
     if (!device)
         return -EINVAL;
 
+    current_camera_device = device;
+
+    if ((lightcondition == 4) && (CurrentCamId == 0) && (CMcamapp == true))
+    {
+       ALOGI("changeToLowLightShot");
+
+       lowlightphotoinprogress = true;
+
+       camera_send_command(device, 1515, 0, 0);
+       camera_send_command(device, 1334, 0, 0); //DRAMA_SHOT_MODE to HAL
+       camera_send_command(device, 0x5EE, 1, 0); //1264, to hAL
+       camera_send_command(device, 1264, 1, 0); //LOW_LIGHT_SHOT_SET
+
+       android::CameraParameters parameters;
+       parameters.unflatten(android::String8(camera_get_parameters(device)));
+       parameters.set("auto-exposure-lock", "true");
+       parameters.set("auto-whitebalance-lock", "true");
+       parameters.getPictureSize (&picwidth, &picheight);
+       devrotation = parameters.getInt("rotation");
+       ALOGI("picdim: %i %i", picwidth, picheight);
+
+       camera_set_parameters(device, strdup(parameters.flatten().string()));
+
+       membuffer = operator new(0x1E00000);
+
+       arcsoftlib= dlopen("libarcsoft_nightportrait.so", RTLD_NOW);
+       if (!arcsoftlib)
+       {
+           ALOGE("Could not load libarcsoft_nightportrait.so: %s \n", dlerror());
+           return -1;
+       }
+
+       MMemMgrCreate = (pfMMemMgrCreate) dlsym(arcsoftlib, "MMemMgrCreate");
+       MMemMgrDestroy = (pMMemMgrDestroy) dlsym(arcsoftlib, "MMemMgrDestroy");
+       AMNC_Init = (pAMNC_Init) dlsym(arcsoftlib, "AMNC_Init");
+       AMNC_Uninit = (pAMNC_Uninit) dlsym(arcsoftlib, "AMNC_Uninit");
+       AMNC_GetDefaultParam = (pAMNC_GetDefaultParam) dlsym(arcsoftlib, "AMNC_GetDefaultParam");
+       AMNC_Enhancement = (pAMNC_Enhancement) dlsym(arcsoftlib, "AMNC_Enhancement");
+
+       //And use the just created functions.
+       g_hNSMemMgr = MMemMgrCreate (membuffer, 0x1E00000);
+
+       if(0 == membuffer || 0 == g_hNSMemMgr)
+       {
+	   ALOGE("NightShot memory init is null");
+   	   return -1;
+       }
+
+       if (AMNC_Init (g_hNSMemMgr, &g_hEnhancer))
+       {
+	   ALOGE("NightShot AMNC_Init error !");
+           return -1;
+       }
+       else
+   	   ALOGI("NightShot AMNC_Init success");
+
+       destbuffer = operator new(0x16BD000);
+
+       if(destbuffer==NULL)
+          ALOGE("Error! destbuf mem not allocated.");
+       else
+          ALOGI("Destbuf memory got allocated.");
+
+       destpic.format = 2050; //YUV NV21
+       destpic.width = picwidth; //0x14C0;
+       destpic.height = picheight; //0xBAC;
+       destpic.pYUVdata= destbuffer;
+       destpic.pYuv2ndpart = destbuffer + (picwidth*picheight); //+ 0xF23100;
+       destpic.nothing = 0;
+       destpic.nothing2 = 0;
+       destpic.width2 = picwidth; //0x14C0;
+       destpic.width3 = picwidth; //0x14C0;
+       destpic.nothing3 = 0;
+       destpic.nothing4 = 0;
+
+       camera_send_command(device, 0x5EC, 6, 0);
+    }
+
     return VENDOR_CALL(device, take_picture);
 }
 
@@ -429,7 +855,7 @@ static int camera_set_parameters(struct camera_device *device, const char *param
         return -EINVAL;
 
     char *tmp = NULL;
-    tmp = camera_fixup_setparams(CAMERA_ID(device), params);
+    tmp = camera_fixup_setparams(CAMERA_ID(device), params, device);
 
     int ret = VENDOR_CALL(device, set_parameters, tmp);
     return ret;
@@ -461,17 +887,6 @@ static void camera_put_parameters(struct camera_device *device, char *params)
         free(params);
 }
 
-static int camera_send_command(struct camera_device *device,
-        int32_t cmd, int32_t arg1, int32_t arg2)
-{
-    ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
-            (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
-
-    if (!device)
-        return -EINVAL;
-
-    return VENDOR_CALL(device, send_command, cmd, arg1, arg2);
-}
 
 static void camera_release(struct camera_device *device)
 {
@@ -542,6 +957,7 @@ done:
 static int camera_device_open(const hw_module_t *module, const char *name,
         hw_device_t **device)
 {
+    CMcamapp = false;
     int rv = 0;
     int num_cameras = 0;
     int cameraid;
@@ -550,7 +966,7 @@ static int camera_device_open(const hw_module_t *module, const char *name,
 
     android::Mutex::Autolock lock(gCameraWrapperLock);
 
-    ALOGV("camera_device open");
+    ALOGI("camera_device open");
 
     if (name != NULL) {
         if (check_vendor_module())
@@ -583,6 +999,8 @@ static int camera_device_open(const hw_module_t *module, const char *name,
         }
         memset(camera_device, 0, sizeof(*camera_device));
         camera_device->id = cameraid;
+
+        CurrentCamId = cameraid;
 
         rv = gVendorModule->common.methods->open(
                 (const hw_module_t*)gVendorModule, name,
