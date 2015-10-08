@@ -1,6 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter trlte trltetmo trltecan trltespr trlteusc trltexx,$(TARGET_DEVICE)),)
+ifneq ($(filter lentislte lentislteskt kccat6 kccat6xx,$(TARGET_DEVICE)),)
 
 # HAL module implemenation stored in
 # hw/<POWERS_HARDWARE_MODULE_ID>.<ro.hardware>.so
