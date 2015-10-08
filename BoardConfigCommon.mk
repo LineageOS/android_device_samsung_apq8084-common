@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2015 The Dokdo Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -82,8 +82,6 @@ BOARD_NFC_CHIPSET := pn547
 # Platform
 TARGET_BOARD_PLATFORM := apq8084
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno420
-
-# Power HAL not specified, we're using the one in trlte-common instead.
 
 # Qualcomm support
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP

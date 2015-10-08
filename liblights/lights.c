@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
  * Copyright (C) 2013 The CyanogenMod Project
+ * Copyright (C) 2015 The Dokdo Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -354,7 +355,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
     .version_major = 1,
     .version_minor = 0,
     .id = LIGHTS_HARDWARE_MODULE_ID,
-    .name = "D2 Lights Module",
+    .name = "Lentis Lights Module",
     .author = "The CyanogenMod Project",
     .methods = &lights_module_methods,
 };

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2015 The Dokdo Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -124,10 +124,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/flp.conf:/system/etc/flp.conf \
     $(LOCAL_PATH)/configs/gps.conf:/system/etc/gps.conf \
     $(LOCAL_PATH)/configs/sap.conf:/system/etc/sap.conf
-
-# IR
-#PRODUCT_PACKAGES += \
-#    consumerir.apq8084
 
 # Keystore
 PRODUCT_PACKAGES += \
