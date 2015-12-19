@@ -14,6 +14,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.pcm.16bit.enable=true \
     audio.offload.pcm.24bit.enable=true
 
+# Bluetooth
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.bluetooth.soc=rome \
+    enablebtsoclog=false
+
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=false \
@@ -29,8 +34,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.izat.premium_enabled=0 \
     ro.qc.sdk.izat.service_mask=0x0
 
+# NFC
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.nfc.port=I2C
+
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
+    rild.libargs=-d /dev/smd0 \
+    rild.libpath=/system/lib/libsec-ril.so \
+    ro.ril.telephony.mqanelements=6 \
+    ro.telephony.ril_class=lentislteRIL \
     persist.data.netmgrd.qos.enable=true \
     persist.radio.add_power_save=1 \
     persist.radio.lte_vrat_report=1 \
