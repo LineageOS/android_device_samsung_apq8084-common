@@ -180,8 +180,8 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    init.crda.sh \
     init.qcom.rc \
+    init.qcom.bt.sh \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
     init.qcom.post_boot.sh \
