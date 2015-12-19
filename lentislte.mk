@@ -59,14 +59,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-# GPS configuration
-PRODUCT_COPY_FILES += \
-    device/samsung/lentislte-common/configs/gps.conf:system/etc/gps.conf
-
-# GPS
-PRODUCT_PACKAGES += \
-    gps.apq8084
-
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -87,20 +79,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml
 
-# Charger images
-PRODUCT_PACKAGES += \
-    charger_res_images
-
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-    make_ext4fs \
-    e2fsck \
-    setup_fs
-
 # Camera
 PRODUCT_PACKAGES += \
     camera.apq8084 \
     libxml2
+
+# Charger images
+PRODUCT_PACKAGES += \
+    charger_res_images
 
 # Display
 PRODUCT_PACKAGES += \
@@ -109,12 +95,15 @@ PRODUCT_PACKAGES += \
     hwcomposer.apq8084 \
     memtrack.apq8084
 
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+    make_ext4fs \
+    e2fsck \
+    setup_fs
+
 # Fingerprint sensor
 PRODUCT_PACKAGES += \
     fingerprint.apq8084
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    fingerprint_enabled=1
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -170,7 +159,10 @@ PRODUCT_COPY_FILES += \
 
 # NFC
 PRODUCT_PACKAGES += \
-    nfc_nci.pn54x.default
+    nfc_nci.pn54x.default \
+    com.android.nfc_extras \
+    NfcNci \
+    Tag
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
@@ -192,20 +184,6 @@ PRODUCT_PACKAGES += \
     init.sec.boot.sh \
     ueventd.qcom.rc
 
-# NFC PACKAGES
-PRODUCT_PACKAGES += \
-    com.android.nfc_extras \
-    NfcNci \
-    Tag
-
-# Torch
-PRODUCT_PACKAGES += \
-    Torch
-
-# USB
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
 # WiFi
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
@@ -221,7 +199,3 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
    $(LOCAL_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
    $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-
-# QCOM Perf lib
-PRODUCT_PROPERTY_OVERRIDES += \
-   ro.vendor.extension_library=/vendor/lib/libqc-opt.so

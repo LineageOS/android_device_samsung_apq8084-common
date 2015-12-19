@@ -29,10 +29,6 @@ AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 BOARD_USES_ES705 := true
 TARGET_HAVE_DYN_A2DP_SAMPLERATE := true
 
-# ANT+
-#BOARD_ANT_WIRELESS_DEVICE 	:= "qualcomm-uart"
-#ANT_DEVICE_USES_UART 		:= true
-
 # Bluetooth
 BOARD_HAVE_BLUETOOTH	 	:= true
 BOARD_HAVE_BLUETOOTH_QCOM 	:= true
@@ -131,13 +127,3 @@ BOARD_SEPOLICY_UNION += \
 
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
-
-# Enable dex-preoptimization to speed up first boot sequence
-ifeq ($(HOST_OS),linux)
-  ifeq ($(TARGET_BUILD_VARIANT),user)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-    endif
-  endif
-endif
-

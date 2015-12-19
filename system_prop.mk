@@ -27,6 +27,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.secwvk=144 \
     ro.opengles.version=196609
 
+# Fingerprint
+PRODUCT_PROPERTY_OVERRIDES += \
+    fingerprint_enabled=1
+
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qc_nlp_in_use=0 \
@@ -37,6 +41,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
+
+# QCOM Perf lib
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.vendor.extension_library=/vendor/lib/libqc-opt.so
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -56,3 +64,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # USB OTG interface
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
+
+# USB
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp
