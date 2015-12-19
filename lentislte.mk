@@ -171,6 +171,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     power.apq8084
 
+# Ramdisk
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    init.crda.sh \
+    init.qcom.rc \
+    init.qcom.usb.rc \
+    init.qcom.usb.sh \
+    init.qcom.post_boot.sh \
+    init.sec.boot.sh \
+    ueventd.qcom.rc
+
 # NFC PACKAGES
 PRODUCT_PACKAGES += \
     com.android.nfc_extras \
