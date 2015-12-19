@@ -16,11 +16,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
+    bt.max.hfpclient.connections=1 \
     qcom.bluetooth.soc=rome \
-    enablebtsoclog=false
+    enablebtsoclog=false \
+    qcom.bt.le_dev_pwr_class=1 \
+    ro.bluetooth.hfp.ver=1.6 \
+    ro.qualcomm.bluetooth.sap=false
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qualcomm.cabl=0 \
     persist.hwc.mdpcomp.enable=false \
     ro.hdcp2.rx=tz \
     ro.qualcomm.cabl=1 \
@@ -60,3 +65,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sensors=1
+
+# Time
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.timed.enable=true
+
+# WLAN
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
+    wlan.driver.ath=0 \
+    wlan.driver.config=/data/misc/wifi/WCNSS_qcom_cfg.ini \
+    ro.disableWifiApFirmwareReload=true
