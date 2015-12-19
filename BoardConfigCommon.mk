@@ -102,29 +102,5 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
     device/samsung/lentislte-common/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    bluetooth.te \
-    device.te \
-    file.te \
-    file_contexts \
-    genfs_contexts \
-    kernel.te \
-    lcd_dev.te \
-    macloader.te \
-    mediaserver.te \
-    mdm_helper.te \
-    mm-qcamerad.te \
-    mpdecision.te \
-    platform_app.te \
-    rild.te \
-    system_app.te \
-    system_server.te \
-    tee.te \
-    time_daemon.te \
-    ueventd.te \
-    wpa.te \
-    vibe_dev.te \
-    vold.te
-
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
