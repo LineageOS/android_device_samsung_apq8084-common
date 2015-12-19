@@ -128,6 +128,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     keystore.apq8084
 
+# Libstlport
+PRODUCT_PACKAGES += \
+    libstlport
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.apq8084
