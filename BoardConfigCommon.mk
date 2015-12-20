@@ -96,6 +96,9 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
 
+# Sensors
+TARGET_NO_SENSOR_PERMISSION_CHECK := true
+
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
