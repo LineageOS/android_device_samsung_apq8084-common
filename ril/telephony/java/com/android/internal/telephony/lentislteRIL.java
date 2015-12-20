@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, The Dokdo Project. All rights reserved.
+ * Copyright (C) 2015 The Dokdo Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,80 +19,38 @@ package com.android.internal.telephony;
 import static com.android.internal.telephony.RILConstants.*;
 
 import android.content.Context;
-import android.telephony.Rlog;
 import android.os.Message;
 import android.os.Parcel;
-import android.telephony.PhoneNumberUtils;
+import android.telephony.Rlog;
+
 import android.telephony.SignalStrength;
-import com.android.internal.telephony.uicc.IccCardApplicationStatus;
-import com.android.internal.telephony.uicc.IccCardStatus;
+import android.telephony.PhoneNumberUtils;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.android.internal.telephony.uicc.IccCardApplicationStatus;
+import com.android.internal.telephony.uicc.IccCardStatus;
+
 /**
- * RIL customization for Galaxy S5 LTE-A X3 devices
- *
+ * RIL customization for Galaxy S5 LTE-A.
  * {@hide}
  */
-public class lentislteRIL extends RIL {
+public class lentislteRIL extends RIL implements CommandsInterface {
 
-    private static final int RIL_REQUEST_DIAL_EMERGENCY_CALL = 10016;
-    private static final int RIL_UNSOL_DEVICE_READY_NOTI = 11008;
-    private static final int RIL_UNSOL_AM = 11010;
-    private static final int RIL_UNSOL_WB_AMR_STATE = 11017;
-    private static final int RIL_UNSOL_SRVCC_HANDOVER = 11029;
-    private static final int RIL_REQUEST_ACTIVATE_DATA_CALL = 10037;
+    private boolean DBG = false;
 
     public lentislteRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
-        this(context, preferredNetworkType, cdmaSubscription);
-	}
-
-    public lentislteRIL(Context context, int networkMode, int cdmaSubscription) {
-        super(context, networkMode, cdmaSubscription);
+        super(context, preferredNetworkType, cdmaSubscription, instanceId);
         mQANElements = 6;
     }
 
-    @Override
-    public void
-    dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
-        if (PhoneNumberUtils.isEmergencyNumber(address)) {
-            dialEmergencyCall(address, clirMode, result);
-            return;
-        }
-
-        RILRequest rr = RILRequest.obtain(RIL_REQUEST_DIAL, result);
-
-        rr.mParcel.writeString(address);
-        rr.mParcel.writeInt(clirMode);
-        rr.mParcel.writeInt(0);     // CallDetails.call_type
-        rr.mParcel.writeInt(1);     // CallDetails.call_domain
-        rr.mParcel.writeString(""); // CallDetails.getCsvFromExtras
-
-        if (uusInfo == null) {
-            rr.mParcel.writeInt(0); // UUS information is absent
-        } else {
-            rr.mParcel.writeInt(1); // UUS information is present
-            rr.mParcel.writeInt(uusInfo.getType());
-            rr.mParcel.writeInt(uusInfo.getDcs());
-            rr.mParcel.writeByteArray(uusInfo.getUserData());
-        }
-
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
-
-        send(rr);
-    }
-
-    @Override
-    public void
-    acceptCall (Message result) {
-        RILRequest rr
-                = RILRequest.obtain(RIL_REQUEST_ANSWER, result);
-
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
-		rr.mParcel.writeInt(1);
-		rr.mParcel.writeInt(0);
-        send(rr);
+    public lentislteRIL(Context context, int networkMode,
+            int cdmaSubscription) {
+        super(context, networkMode, cdmaSubscription);
+        mQANElements = 6;
     }
 
     @Override
@@ -115,8 +73,11 @@ public class lentislteRIL extends RIL {
         }
         cardStatus.mApplications = new IccCardApplicationStatus[numApplications];
 
+        appStatus = new IccCardApplicationStatus();
         for (int i = 0 ; i < numApplications ; i++) {
-            appStatus = new IccCardApplicationStatus();
+            if (i!=0) {
+                appStatus = new IccCardApplicationStatus();
+            }
             appStatus.app_type       = appStatus.AppTypeFromRILInt(p.readInt());
             appStatus.app_state      = appStatus.AppStateFromRILInt(p.readInt());
             appStatus.perso_substate = appStatus.PersoSubstateFromRILInt(p.readInt());
@@ -125,18 +86,16 @@ public class lentislteRIL extends RIL {
             appStatus.pin1_replaced  = p.readInt();
             appStatus.pin1           = appStatus.PinStateFromRILInt(p.readInt());
             appStatus.pin2           = appStatus.PinStateFromRILInt(p.readInt());
-            p.readInt(); // pin1_num_retries
-            p.readInt(); // puk1_num_retries
-            p.readInt(); // pin2_num_retries
-            p.readInt(); // puk2_num_retries
-            p.readInt(); // perso_unblock_retries
-
+            p.readInt(); // remaining_count_pin1 - pin1_num_retries
+            p.readInt(); // remaining_count_puk1 - puk1_num_retries
+            p.readInt(); // remaining_count_pin2 - pin2_num_retries
+            p.readInt(); // remaining_count_puk2 - puk2_num_retries
+            p.readInt(); // - perso_unblock_retries
             cardStatus.mApplications[i] = appStatus;
         }
         return cardStatus;
     }
 
-    @Override
     protected Object
     responseCallList(Parcel p) {
         int num;
@@ -162,11 +121,10 @@ public class lentislteRIL extends RIL {
             dc.isMT = (0 != p.readInt());
             dc.als = p.readInt();
             voiceSettings = p.readInt();
-            dc.isVoice = (0 != voiceSettings);
-            boolean isVideo = (0 != p.readInt());   // Samsung CallDetails
-            int call_type = p.readInt();            // Samsung CallDetails
-            int call_domain = p.readInt();          // Samsung CallDetails
-            String csv = p.readString();            // Samsung CallDetails
+            dc.isVoice = (0 == voiceSettings) ? false : true;
+            p.readInt(); // samsung call detail
+            p.readInt(); // samsung call detail
+            p.readString(); // samsung call detail
             dc.isVoicePrivacy = (0 != p.readInt());
             dc.number = p.readString();
             int np = p.readInt();
@@ -219,48 +177,6 @@ public class lentislteRIL extends RIL {
     }
 
     @Override
-    protected Object
-    responseSignalStrength(Parcel p) {
-        int gsmSignalStrength = p.readInt() & 0xff;
-        int gsmBitErrorRate = p.readInt();
-        int cdmaDbm = p.readInt();
-        int cdmaEcio = p.readInt();
-        int evdoDbm = p.readInt();
-        int evdoEcio = p.readInt();
-        int evdoSnr = p.readInt();
-        int lteSignalStrength = p.readInt();
-        int lteRsrp = p.readInt();
-        int lteRsrq = p.readInt();
-        int lteRssnr = p.readInt();
-        int lteCqi = p.readInt();
-        int tdScdmaRscp = p.readInt();
-        // constructor sets default true, makeSignalStrengthFromRilParcel does not set it
-        boolean isGsm = true;
-
-        if ((lteSignalStrength & 0xff) == 255 || lteSignalStrength == 99) {
-            lteSignalStrength = 99;
-            lteRsrp = SignalStrength.INVALID;
-            lteRsrq = SignalStrength.INVALID;
-            lteRssnr = SignalStrength.INVALID;
-            lteCqi = SignalStrength.INVALID;
-        } else {
-            lteSignalStrength &= 0xff;
-        }
-
-        if (RILJ_LOGD)
-            riljLog("gsmSignalStrength:" + gsmSignalStrength + " gsmBitErrorRate:" + gsmBitErrorRate +
-                    " cdmaDbm:" + cdmaDbm + " cdmaEcio:" + cdmaEcio + " evdoDbm:" + evdoDbm +
-                    " evdoEcio: " + evdoEcio + " evdoSnr:" + evdoSnr +
-                    " lteSignalStrength:" + lteSignalStrength + " lteRsrp:" + lteRsrp +
-                    " lteRsrq:" + lteRsrq + " lteRssnr:" + lteRssnr + " lteCqi:" + lteCqi +
-                    " tdScdmaRscp:" + tdScdmaRscp + " isGsm:" + (isGsm ? "true" : "false"));
-
-        return new SignalStrength(gsmSignalStrength, gsmBitErrorRate, cdmaDbm, cdmaEcio, evdoDbm,
-                evdoEcio, evdoSnr, lteSignalStrength, lteRsrp, lteRsrq, lteRssnr, lteCqi,
-                tdScdmaRscp, isGsm);
-    }
-
-    @Override
     protected void
     processUnsolicited (Parcel p) {
         Object ret;
@@ -268,24 +184,23 @@ public class lentislteRIL extends RIL {
         int response = p.readInt();
 
         switch(response) {
-            case RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED:
-                ret = responseVoid(p);
-                break;
-            case RIL_UNSOL_DEVICE_READY_NOTI:
-                ret = responseVoid(p);
-                break;
-            case RIL_UNSOL_AM:
+            // SAMSUNG STATES
+            case 11010: // RIL_UNSOL_AM:
                 ret = responseString(p);
-                break;
-            case RIL_UNSOL_WB_AMR_STATE:
-                ret = responseInts(p);
-                break;
-            case RIL_UNSOL_SRVCC_HANDOVER:
-                ret = responseVoid(p);
+                String amString = (String) ret;
+                Rlog.d(RILJ_LOG_TAG, "Executing AM: " + amString);
+
+                try {
+                    Runtime.getRuntime().exec("am " + amString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Rlog.e(RILJ_LOG_TAG, "am " + amString + " could not be executed.");
+                }
                 break;
             default:
                 // Rewind the Parcel
                 p.setDataPosition(dataPosition);
+                if(DBG) Rlog.d("SHRILGET", "UNKNOWN UNSL: " + response);
 
                 // Forward responses that we are not overriding to the super class
                 super.processUnsolicited(p);
@@ -293,11 +208,43 @@ public class lentislteRIL extends RIL {
         }
     }
 
+    @Override
+    public void
+    dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
+        if (PhoneNumberUtils.isEmergencyNumber(address)) {
+            dialEmergencyCall(address, clirMode, result);
+            return;
+        }
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_DIAL, result);
+
+        rr.mParcel.writeString(address);
+        rr.mParcel.writeInt(clirMode);
+        rr.mParcel.writeInt(0);
+        rr.mParcel.writeInt(1);
+        rr.mParcel.writeString("");
+
+        if (uusInfo == null) {
+            rr.mParcel.writeInt(0); // UUS information is absent
+        } else {
+            rr.mParcel.writeInt(1); // UUS information is present
+            rr.mParcel.writeInt(uusInfo.getType());
+            rr.mParcel.writeInt(uusInfo.getDcs());
+            rr.mParcel.writeByteArray(uusInfo.getUserData());
+        }
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+
+        send(rr);
+    }
+
+    static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
+
     private void
     dialEmergencyCall(String address, int clirMode, Message result) {
         RILRequest rr;
+        Rlog.v(RILJ_LOG_TAG, "Emergency dial: " + address);
 
-        rr = RILRequest.obtain(RIL_REQUEST_DIAL_EMERGENCY_CALL, result);
+        rr = RILRequest.obtain(RIL_REQUEST_DIAL_EMERGENCY, result);
         rr.mParcel.writeString(address);
         rr.mParcel.writeInt(clirMode);
         rr.mParcel.writeInt(0);        // CallDetails.call_type
@@ -307,6 +254,17 @@ public class lentislteRIL extends RIL {
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
+        send(rr);
+    }
+
+    @Override
+    public void
+    acceptCall (Message result) {
+        RILRequest rr
+        = RILRequest.obtain(RIL_REQUEST_ANSWER, result);
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+        rr.mParcel.writeInt(1);
+        rr.mParcel.writeInt(0);
         send(rr);
     }
 }
