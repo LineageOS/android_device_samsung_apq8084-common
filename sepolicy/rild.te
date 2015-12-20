@@ -1,3 +1,0 @@
-allow rild proc_net:file write;
-allow rild self:capability dac_override;
-allow rild sysfs:file rw_file_perms;

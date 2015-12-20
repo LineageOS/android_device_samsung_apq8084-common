@@ -1,4 +1,0 @@
-type wpa_device, dev_type;
-type io_device, dev_type;
-type vibe_dev, dev_type;
-type lcd_dev, dev_type;

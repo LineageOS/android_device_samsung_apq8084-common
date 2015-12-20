@@ -1,1 +1,0 @@
-allow bluetooth proc_bluetooth_writable:dir search;

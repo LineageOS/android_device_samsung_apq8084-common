@@ -1,1 +1,0 @@
-allow lcd_dev sysfs:filesystem associate;
