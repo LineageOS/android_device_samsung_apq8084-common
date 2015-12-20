@@ -14,17 +14,7 @@
  * limitations under the License.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <sys/syscall.h>
-#include <linux/ioprio.h>
-#include <utils/Log.h>
-
 extern "C" int _ZN7android6Parcel13writeString16EPKDsj();
 extern "C" int _ZN7android6Parcel13writeString16EPKtj() {
     return _ZN7android6Parcel13writeString16EPKDsj();
-}
-extern "C" int ioprio_set(int which, int who, int ioprio) {
-    return syscall(SYS_ioprio_set, which, who, ioprio);
 }
