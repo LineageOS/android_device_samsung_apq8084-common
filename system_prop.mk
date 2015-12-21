@@ -22,6 +22,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     qcom.bt.le_dev_pwr_class=1 \
     ro.bluetooth.hfp.ver=1.6 \
     ro.qualcomm.bluetooth.sap=false
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
