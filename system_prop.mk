@@ -47,9 +47,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
 
-# QCOM Perf lib
+# QCOM
 PRODUCT_PROPERTY_OVERRIDES += \
-   ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+    persist.data.qmi.adb_logmask=0 \
+    ro.vendor.extension_library=/vendor/lib/libqc-opt.so
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
