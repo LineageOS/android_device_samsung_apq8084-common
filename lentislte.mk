@@ -105,15 +105,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fingerprint.apq8084
 
-# GPS
-PRODUCT_PACKAGES += \
-    gps.apq8084
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/flp.conf:/system/etc/flp.conf \
-    $(LOCAL_PATH)/configs/gps.conf:/system/etc/gps.conf \
-    $(LOCAL_PATH)/configs/sap.conf:/system/etc/sap.conf
-
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
