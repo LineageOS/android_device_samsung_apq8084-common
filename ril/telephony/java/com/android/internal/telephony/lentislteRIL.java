@@ -40,7 +40,8 @@ import com.android.internal.telephony.uicc.IccCardStatus;
  */
 public class lentislteRIL extends RIL implements CommandsInterface {
 
-    private boolean DBG = true;
+    private boolean DBG = false;
+    private boolean setPreferredNetworkTypeSeen = false;
 
     public lentislteRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
@@ -348,5 +349,28 @@ public class lentislteRIL extends RIL implements CommandsInterface {
             response[3] = "2";
         }
         return response;
+    }
+
+    @Override
+    public void getRadioCapability(Message response) {
+        Rlog.d("SHRILGET", "getRadioCapability: returning static radio capability");
+        if (response != null) {
+            Object ret = makeStaticRadioCapability();
+            AsyncResult.forMessage(response, ret, null);
+            response.sendToTarget();
+        }
+    }
+
+    @Override
+    public void setPreferredNetworkType(int networkType , Message response) {
+        Rlog.d("SHRILGET", "setPreferredNetworkType: " + networkType);
+
+        if (!setPreferredNetworkTypeSeen) {
+            Rlog.d("SHRILGET", "Need to reboot modem!");
+            setRadioPower(false, null);
+            setPreferredNetworkTypeSeen = true;
+        }
+
+        super.setPreferredNetworkType(networkType, response);
     }
 }
