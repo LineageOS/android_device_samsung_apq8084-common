@@ -187,6 +187,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libsamsung_symbols
 
+# Snap Camera
+PRODUCT_PACKAGES += \
+    Snap
+
 # WiFi
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
