@@ -28,7 +28,7 @@
 import init.qcom.usb.rc
 
 on early-init
-    export LD_PRELOAD "/system/lib/libsamsung_symbols.so"
+    export LD_SHIM_LIBS /system/lib/libril.so|libsamsung_symbols.so
 
     setprop sys.boot_completed 0
     mount debugfs debugfs /sys/kernel/debug
