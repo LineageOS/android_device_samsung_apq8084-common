@@ -21,7 +21,7 @@
 *
 */
 
-#define LOG_NDEBUG 0
+//#define LOG_NDEBUG 0
 
 #define LOG_TAG "CameraWrapper"
 #include <cutils/log.h>
@@ -99,18 +99,17 @@ static int check_vendor_module()
     return rv;
 }
 
-static bool is4kVideo(android::CameraParameters &params) {
+#define KEY_VIDEO_HFR_VALUES "video-hfr-values"
+
+// nv12-venus is needed for blobs, but
+// framework has no idea what it is
+#define PIXEL_FORMAT_NV12_VENUS "nv12-venus"
+
+static bool is_4k_video(android::CameraParameters &params) {
     int video_width, video_height;
     params.getVideoSize(&video_width, &video_height);
-    ALOGV("%s : VideoSize is %x", __FUNCTION__, video_width*video_height);
-    return video_width*video_height > 1920*1080;
-}
-
-static bool is480Preview(android::CameraParameters &params) {
-    int video_width, video_height;
-    params.getPreviewSize(&video_width, &video_height);
-    ALOGV("%s : PreviewSize is %x", __FUNCTION__, video_width*video_height);
-    return video_width*video_height == 720*480;
+    ALOGV("%s : VideoSize is %x", __FUNCTION__, video_width * video_height);
+    return video_width * video_height == 3840 * 2160;
 }
 
 static char *camera_fixup_getparams(int __attribute__((unused)) id,
@@ -120,30 +119,36 @@ static char *camera_fixup_getparams(int __attribute__((unused)) id,
     params.unflatten(android::String8(settings));
 
 #if !LOG_NDEBUG
-    ALOGV("%s: Original parameters:", __FUNCTION__);
+    ALOGV("%s: original parameters:", __FUNCTION__);
     params.dump();
 #endif
 
     //Hide nv12-venus from Android.
-    if (strcmp (params.getPreviewFormat(), "nv12-venus") == 0)
-          params.set("preview-format", "yuv420sp");
+    if (strcmp (params.getPreviewFormat(), PIXEL_FORMAT_NV12_VENUS) == 0)
+          params.setPreviewFormat(params.PIXEL_FORMAT_YUV420SP);
 
-    int minfps, maxfps;
-    params.getPreviewFpsRange(&minfps, &maxfps);
-    if (minfps >= 60000)
-    {
-	params.set("preview-frame-rate-values", "15,24,30,60,120");
-        if (minfps >= 120000)
-	{
-	     params.set("fast-fps-mode", "2");
-             params.set("preview-frame-rate", "120");
-	}
-	else
-	{
-	     params.set("fast-fps-mode", "1");
-	     params.set("preview-frame-rate", "60");
-	}
+    const char *videoSizeValues = params.get(
+            android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES);
+    if (videoSizeValues) {
+        char videoSizes[strlen(videoSizeValues) + 10 + 1];
+        sprintf(videoSizes, "3840x2160,%s", videoSizeValues);
+        params.set(android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES,
+                videoSizes);
     }
+
+    /* If the vendor has HFR values but doesn't also expose that
+     * this can be turned off, fixup the params to tell the Camera
+     * that it really is okay to turn it off.
+     */
+    const char *hfrModeValues = params.get(KEY_VIDEO_HFR_VALUES);
+    if (hfrModeValues && !strstr(hfrModeValues, "off")) {
+        char hfrModes[strlen(hfrModeValues) + 4 + 1];
+        sprintf(hfrModes, "%s,off", hfrModeValues);
+        params.set(KEY_VIDEO_HFR_VALUES, hfrModes);
+    }
+
+    /* Enforce video-snapshot-supported to true */
+    params.set(android::CameraParameters::KEY_VIDEO_SNAPSHOT_SUPPORTED, "true");
 
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
@@ -166,26 +171,14 @@ static char *camera_fixup_setparams(int id, const char *settings)
     params.dump();
 #endif
 
-    if (is480Preview(params)) {
-        ALOGV("%s: 480p preview detected, switching preview format to yuv420p", __FUNCTION__);
-        params.set("preview-format", "yuv420p");
-    }
+    const char *recordingHint = params.get(android::CameraParameters::KEY_RECORDING_HINT);
+    bool isVideo = recordingHint && !strcmp(recordingHint, "true");
 
-    int minfps, maxfps;
-    params.getPreviewFpsRange(&minfps, &maxfps);
-    if (minfps >= 60000)
-    {
-	params.set("preview-frame-rate-values", "15,24,30,60,120");
-        if (minfps >= 120000)
-	{
-	     params.set("fast-fps-mode", "2");
-             params.set("preview-frame-rate", "120");
-	}
-	else
-	{
-	     params.set("fast-fps-mode", "1");
-	     params.set("preview-frame-rate", "60");
-	}
+    if (isVideo) {
+        params.set(android::CameraParameters::KEY_DIS, android::CameraParameters::DIS_DISABLE);
+        params.set(android::CameraParameters::KEY_ZSL, android::CameraParameters::ZSL_OFF);
+    } else {
+        params.set(android::CameraParameters::KEY_ZSL, android::CameraParameters::ZSL_ON);
     }
 
     android::String8 strParams = params.flatten();
@@ -327,19 +320,12 @@ static int camera_start_recording(struct camera_device *device)
 
     android::CameraParameters parameters;
     parameters.unflatten(android::String8(camera_get_parameters(device)));
-    parameters.set("dis", "disable");
-    parameters.set("zsl", "off");
 
-    if (is4kVideo(parameters)) {
-        ALOGV("%s: UHD detected, switching preview-format to nv12-venus", __FUNCTION__);
-        parameters.set("preview-format", "nv12-venus");
+    if (is_4k_video(parameters)) {
+        ALOGV("%s : UHD detected, switching preview-format to nv12-venus", __FUNCTION__);
+        parameters.setPreviewFormat(PIXEL_FORMAT_NV12_VENUS);
+        camera_set_parameters(device, strdup(parameters.flatten().string()));
     }
-
-    camera_set_parameters(device, strdup(parameters.flatten().string()));
-
-    android::CameraParameters parameters2;
-    parameters2.unflatten(android::String8(VENDOR_CALL(device, get_parameters)));
-    parameters2.dump();
 
     return VENDOR_CALL(device, start_recording);
 }
