@@ -56,6 +56,9 @@ on fs
     write /sys/devices/msm_sdcc.1/mmc_host/mmc0/power/control on
     write /sys/devices/msm_sdcc.2/mmc_host/mmc1/power/control on
 
+    wait /dev/block/platform/${ro.boot.bootdevice}
+    symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
+
     mount_all fstab.qcom
     swapon_all fstab.qcom
 
