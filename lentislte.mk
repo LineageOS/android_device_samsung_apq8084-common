@@ -179,6 +179,10 @@ PRODUCT_PACKAGES += \
     init.sec.boot.sh \
     ueventd.qcom.rc
 
+# RMNET
+PRODUCT_PACKAGES += \
+    librmnetctl
+
 # Samsung symbols
 PRODUCT_PACKAGES += \
     libsamsung_symbols
