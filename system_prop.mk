@@ -31,6 +31,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.secwvk=144 \
     ro.opengles.version=196609
 
+# Fingerprint
+PRODUCT_PROPERTY_OVERRIDES += \
+    fingerprint_enabled=1
+
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qc_nlp_in_use=0 \
