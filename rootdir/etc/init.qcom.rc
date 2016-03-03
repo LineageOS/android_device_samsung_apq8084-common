@@ -1265,7 +1265,6 @@ service adsprpcd /system/bin/adsprpcd
     class main
     user media
     group media
-
 service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
