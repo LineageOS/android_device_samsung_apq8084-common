@@ -161,7 +161,7 @@ on post-fs-data
     chmod 0664 /sys/class/leds/button-backlight/max_brightness
 
     # Torch
-    chmod 0660 /sys/class/leds/torch-sec1/brightness
+    chmod 0666 /sys/class/leds/torch-sec1/brightness
     chown system camera /sys/class/leds/torch-sec1/brightness
     chmod 0660  /sys/class/camera/flash/rear_flash
     chown system camera  /sys/class/camera/flash/rear_flash
@@ -725,7 +725,11 @@ on boot
     chown system system /sys/class/input/input0/enabled
 
     # Fingerprint
-    mkdir /dev/validity 0775 system system
+    mkdir /dev/validity 0770 system system
+    mkdir /data/validity 0770 system system
+
+    # Fingerprint_sensor
+    chown system radio /sys/class/fingerprint/fingerprint/type_check
 
     # SEC DVFS sysfs node
     chown radio system /sys/power/cpufreq_max_limit
@@ -1261,6 +1265,10 @@ service adsprpcd /system/bin/adsprpcd
     class main
     user media
     group media
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
+    group input
 
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class main
@@ -1557,6 +1565,12 @@ service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
 
 service charger /charger
     class charger
+
+# SENSOR FRAMEWORK : starts fingerprintService
+service vcsFPService /system/bin/vcsFPService
+    class late_start
+    user system
+    group system
 
 on property:persist.sys.ssr.restart_level=1
     write /sys/module/subsystem_restart/parameters/restart_level 1
