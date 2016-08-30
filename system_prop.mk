@@ -1,3 +1,7 @@
+# API
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.first_api_level=19
+
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
@@ -8,15 +12,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluence \
     use.voice.path.for.pcm.voip=false \
     use.dedicated.device.for.voip=true \
+    audio.offload.buffer.size.kb=32 \
+    audio.offload.gapless.enabled=false
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     bt.max.hfpclient.connections=1 \
-    qcom.bluetooth.soc=rome \
-    enablebtsoclog=false \
-    qcom.bt.le_dev_pwr_class=1 \
-    ro.bluetooth.hfp.ver=1.6 \
-    ro.qualcomm.bluetooth.sap=false
+    qcom.bluetooth.soc=rome
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -24,12 +26,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.cabl=0 \
     persist.hwc.mdpcomp.enable=false \
     ro.hdcp2.rx=tz \
     ro.qualcomm.cabl=1 \
     ro.secwvk=144 \
-    ro.opengles.version=196609
+    ro.opengles.version=196609 \
+    persist.debug.wfd.enable=1 \
+    persist.sys.wfd.virtual=0
 
 # Fingerprint
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -38,15 +41,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qc_nlp_in_use=0 \
-    ro.gps.agps_provider=1 \
-    ro.qc.sdk.izat.premium_enabled=0 \
-    ro.qc.sdk.izat.service_mask=0x0
+    ro.gps.agps_provider=1
 
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
 
-# QCOM
+# QCOM Vendor
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0 \
     ro.vendor.extension_library=/vendor/lib/libqc-opt.so
@@ -71,7 +72,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.df.iwlan_mux=9 \
     persist.data.df.dev_name=rmnet_usb0 \
     persist.data.llf.enable=true \
-    persist.radio.lte_vrat_report=1 \
     ro.telephony.mms_data_profile=5
 
 # Sensors
@@ -84,7 +84,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # WLAN
 PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    wlan.driver.ath=0 \
-    wlan.driver.config=/data/misc/wifi/WCNSS_qcom_cfg.ini \
-    ro.disableWifiApFirmwareReload=true
+    wifi.interface=wlan0

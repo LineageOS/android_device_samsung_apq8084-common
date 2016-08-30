@@ -17,18 +17,9 @@
 <!-- Phone app resources that may need to be customized
      for different hardware or product builds. -->
 <resources>
-    <!-- This device implements a noise suppression device for in call audio-->
-    <bool name="has_in_call_noise_suppression">true</bool>
-
-    <!-- Flag indicating if the tty is enabled -->
-    <bool name="tty_enabled">true</bool>
-
     <!-- Show enabled lte option for lte device -->
     <bool name="config_enabled_lte" translatable="false">true</bool>
 
-    <!-- Flag indicating if hac is enabled -->
-    <bool name="hac_enabled">true</bool>
-
     <!-- Allows the telephony HFA logic to run even if we're not in setup wizard. -->
-    <bool name="config_allow_hfa_outside_of_setup_wizard">false</bool>
+    <bool name="config_allow_hfa_outside_of_setup_wizard">true</bool>
 </resources>
