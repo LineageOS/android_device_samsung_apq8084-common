@@ -53,7 +53,7 @@ ALL_DEFAULT_INSTALLED_MODULES += $(DTCPIP_SYMLINKS)
 KM_IMAGES := \
     keymaste.b00 keymaste.b01 keymaste.b02 keymaste.b03 keymaste.mdt
 
-KM_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/etc/firmware/keymaster/,$(notdir $(KM_IMAGES)))
+KM_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/keymaster/,$(notdir $(KM_IMAGES)))
 $(KM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "Keymaster firmware link: $@"
 	@mkdir -p $(dir $@)
