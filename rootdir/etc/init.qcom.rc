@@ -590,7 +590,7 @@ on boot
     chmod 0770 /data/firmware
     chown system system /data/firmware
     chmod 0660 /dev/ttyHS3
-    chown system system /dev/ttyHS3
+    chown media system /dev/ttyHS3
 
     #DBMD2
     chmod 0660 /dev/dbd20
