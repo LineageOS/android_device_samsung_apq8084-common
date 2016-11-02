@@ -43,8 +43,6 @@ on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
 on fs
@@ -301,7 +299,7 @@ on property:ro.debuggable=1
     mkdir /efs/drm/sdrm/data_agent 0774 drm system
     restorecon /efs/drm
     restorecon /efs/drm/sdrm
-    restorecon /efs/drm/data_agent
+    restorecon /efs/drm/sdrm/data_agent
 
     # DivX DRM
     mkdir /efs/.files 0775
@@ -516,6 +514,10 @@ on property:ro.debuggable=1
     chown system camera /sys/class/flash/flash/flash_power
     chmod 660 /sys/class/flash/flash/flash_power
 
+    # Create directories for perfd
+    mkdir /data/misc/perfd 2755 root system
+    mkdir /data/system/perfd 2770 root system
+
     # CM: We use our own ril-daemon service definition, see mmi-ril-daemon
     stop ril-daemon
 
@@ -524,6 +526,10 @@ on early-boot
     setrlimit 8 67108864 67108864
     # Allow subsystem (modem etc) debugging
     write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
+    # Remove symlinks to avoid issues with migrate after nandroid restores
+    # Will be recreated at end of boot
+    rm /data/data/com.android.providers.telephony/databases/telephony.db
+    rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
@@ -590,7 +596,7 @@ on boot
     chmod 0770 /data/firmware
     chown system system /data/firmware
     chmod 0660 /dev/ttyHS3
-    chown media system /dev/ttyHS3
+    chown media audio /dev/ttyHS3
 
     #DBMD2
     chmod 0660 /dev/dbd20
@@ -712,18 +718,6 @@ on boot
     write /proc/sys/net/ipv6/conf/rmnet5/accept_ra 2
     write /proc/sys/net/ipv6/conf/rmnet6/accept_ra 2
     write /proc/sys/net/ipv6/conf/rmnet7/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio4/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio5/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio6/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio7/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb3/accept_ra 2
 
     # To prevent out of order acknowledgements from making
     # connection tracking to treat them as not belonging to
@@ -1484,62 +1478,6 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_ibss /system/bin/dhcpcd -BKM
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-
-service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep1 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep2 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep3 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
 on property:init.svc.macloader=stopped
     chown system root /data/.cid.info
     chmod 0664 /data/.cid.info
@@ -1547,21 +1485,22 @@ on property:init.svc.macloader=stopped
     chmod 0664 /data/.rev
 # end of wifi
 
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
-
-on property:init.svc.p2p_supplicant=stopped
-    stop dhcpcd
-
 service macloader /system/bin/macloader
     class main
     oneshot
+    seclabel u:r:macloader:s0
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
     write /sys/module/rmnet_usb/parameters/dump_ctrl_msg 2
     write /sys/module/mhi/parameters/mhi_uci_dump 2
     write /sys/block/mmcblk0/queue/scheduler fiops
+
+    # Symlink telephony.db and preferred-apn.xml
+    mkdir /data/data/com.android.providers.telephony/databases 0700 radio radio
+    mkdir /data/data/com.android.providers.telephony/shared_prefs 0700 radio radio
+    symlink /data/user_de/0/com.android.providers.telephony/databases/telephony.db /data/data/com.android.providers.telephony/databases/telephony.db
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs/preferred-apn.xml /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
 
 service hostapd /system/bin/hostapd -dddd /data/misc/wifi/hostapd.conf
     class late_start

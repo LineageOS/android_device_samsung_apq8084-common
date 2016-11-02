@@ -402,15 +402,9 @@
          phone object irrespective of this config -->
     <bool name="config_switch_phone_on_voice_reg_state_change">true</bool>
 
-    <!-- Boolean to enable stk functionality on Samsung phones -->
-    <bool name="config_samsung_stk">true</bool>
-
     <!-- Traffic stats -->
     <string name="config_datause_iface">rmnet0</string>
 
     <!-- Our modem doesn't support this query yet -->
     <string name="config_radio_access_family">GSM|WCDMA|LTE|CDMA|EVDO</string>
-
-    <!-- Enable blur support -->
-    <bool name="config_ui_blur_enabled">true</bool>
 </resources>

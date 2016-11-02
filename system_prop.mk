@@ -13,7 +13,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=false \
     use.dedicated.device.for.voip=true \
     audio.offload.buffer.size.kb=32 \
-    audio.offload.gapless.enabled=false
+    audio.offload.gapless.enabled=false \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
