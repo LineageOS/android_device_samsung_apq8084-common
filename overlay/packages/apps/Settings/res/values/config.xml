@@ -21,4 +21,8 @@
 
     <!-- Volume Rocker Wake -->
     <bool name="config_show_volumeRockerWake">true</bool>
+
+    <!-- Fingerprint sensor location -->
+    <dimen name="fingerprint_dot_radius">5dp</dimen>
+    <item name="fingerprint_sensor_location_fraction_y" type="fraction">94.68%</item>
 </resources>
