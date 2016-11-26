@@ -82,7 +82,12 @@ PRODUCT_COPY_FILES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.apq8084 \
+    libstlport \
     libxml2
+
+# Doze
+PRODUCT_PACKAGES += \
+    SamsungDoze
 
 # Charger images
 PRODUCT_PACKAGES += \
@@ -113,6 +118,11 @@ PRODUCT_COPY_FILES += \
 # Gello
 PRODUCT_PACKAGES += \
     Gello
+
+# IPv6 tethering
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
