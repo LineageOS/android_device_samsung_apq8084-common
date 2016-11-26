@@ -9,7 +9,7 @@ vendor/lib/rfsa/adsp/libadsp_fd_skel.so
 
 # Audio
 lib/libcsd-client.so
-#lib/libdetectmodem.so
+lib/libdetectmodem.so
 lib/libmysound.so
 lib/libssaudio-client.so
 vendor/lib/libacdbloader.so
@@ -412,6 +412,11 @@ vendor/lib/libxml.so
 lib/hw/sensors.apq8084.so
 lib/libhr.so
 vendor/lib/libsensor1.so
+bin/sensorhubservice
+lib/hw/sensorhubs.apq8084.so
+lib/libsensorhub.so
+lib/libsensorhubservice.so
+lib/libgnustl_shared.so
 
 # Time services
 bin/time_daemon
