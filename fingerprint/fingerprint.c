@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "FingerprintHal_msm8974"
+#define LOG_TAG "FingerprintHal_apq8084"
 #define LOG_NDEBUG 1
 
 #include <errno.h>
