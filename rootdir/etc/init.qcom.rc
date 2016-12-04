@@ -131,6 +131,7 @@ on post-fs-data
     chown system wifi /efs/wifi/.mac.info
     chmod 0660 /efs/wifi/.mac.info
     chmod 0660 /efs/wifi/.mac.cob
+    restorecon /efs/wifi/.mac.info
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
@@ -1131,6 +1132,7 @@ on boot
     chown bluetooth net_bt_stack ro.bt.bdaddr_path
     chown radio net_bt_stack /efs/bluetooth/bt_addr
     chmod 0640 /efs/bluetooth/bt_addr
+    restorecon_recursive /efs/bluetooth
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
@@ -1143,6 +1145,18 @@ on boot
     chmod 0600 /dev/btlock
     chown bluetooth bluetooth /dev/btlock
 
+    # Sensors
+    chown system system /efs/prox_cal
+    chmod 0640 /efs/prox_cal
+    restorecon /efs/prox_cal
+
+    chown system system /efs/FactoryApp/baro_delta
+    chmod 0640 /efs/FactoryApp/baro_delta
+    restorecon /efs/FactoryApp/baro_delta
+
+    chown system system /efs/gyro_cal_data
+    chmod 0640 /efs/gyro_cal_data
+    restorecon /efs/gyro_cal_data
 
 # Services begin here
 
