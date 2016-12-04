@@ -124,6 +124,9 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/lentislte-common/sepolicy
+
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
 
