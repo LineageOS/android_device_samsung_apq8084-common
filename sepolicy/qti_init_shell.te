@@ -1,0 +1,2 @@
+allow qti_init_shell btnvtool_exec:file rx_file_perms;
+allow qti_init_shell kmsg_device:chr_file { w_file_perms };
