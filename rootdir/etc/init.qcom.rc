@@ -1179,6 +1179,20 @@ service qseecomd /system/bin/qseecomd
     user root
     group root
 
+service mpdecision /system/bin/mpdecision --avg_comp
+    class main
+    user root
+    group system
+    disabled
+
+service thermal-engine /system/vendor/bin/thermal-engine
+    class main
+    user root
+    socket thermal-send-client stream 0666 system system
+    socket thermal-recv-client stream 0660 system system
+    socket thermal-recv-passive-client stream 0666 system system
+    group root
+
 service sensorhubservice /system/bin/sensorhubservice
     class main
     user system
