@@ -4,4 +4,4 @@ allow cameraserver property_socket:sock_file write;
 allow cameraserver sysfs_camera:dir search;
 allow cameraserver sysfs_camera:file { open read };
 allow cameraserver system_file:file execmod;
-
+allow cameraserver rootfs:lnk_file r_file_perms;
