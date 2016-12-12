@@ -1248,6 +1248,7 @@ service qmuxd /system/bin/qmuxd
 service mdm_helper /system/bin/mdm_helper
     class core
     onrestart setprop ro.service.mdm_helper_restarted "true"
+    group root system radio qcom_diag wakelock
     disabled
 
 service mdm_helper_proxy /system/bin/mdm_helper_proxy
