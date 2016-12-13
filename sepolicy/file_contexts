@@ -50,3 +50,6 @@
 /data/.wifiver.info                                     u:object_r:wifi_data_file:s0
 /efs/wifi(/.*)?                                         u:object_r:wifi_efs_file:s0
 /sys/module/dhd/parameters/nvram_path                   u:object_r:sysfs_wifi_nv_path:s0
+
+# Samsung log
+/data/log(/.*)?                                         u:object_r:dumplog_data_file:s0
