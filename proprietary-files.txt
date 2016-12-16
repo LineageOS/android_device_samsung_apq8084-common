@@ -353,9 +353,6 @@ vendor/lib/libuiblur.so
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
-# IR
-lib/hw/consumerir.default.so
-
 # Media
 vendor/lib/libDivxDrm.so
 vendor/lib/libI420colorconvert.so
