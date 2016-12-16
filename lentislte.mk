@@ -184,6 +184,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     power.apq8084
 
+# Radio
+PRODUCT_PACKAGES += \
+    libshim_ril
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
