@@ -225,3 +225,6 @@ PRODUCT_PACKAGES += \
     WCNSS_qcom_cfg.ini \
     WCNSS_qcom_wlan_nv.bin \
     wlan_mac.bin
+
+# common lentislte
+$(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
