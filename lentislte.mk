@@ -140,7 +140,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.apq8084
+    lights.APQ8084
 
 # Media
 PRODUCT_PACKAGES += \
