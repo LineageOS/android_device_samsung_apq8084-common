@@ -124,6 +124,10 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
+# Widevine
+PRODUCT_PACKAGES += \
+    libwvm_shim
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
