@@ -1,3 +1,6 @@
 allow mdm_helper kmsg_device:chr_file w_file_perms;
-allow mdm_helper diag_device:chr_file r_file_perms;
 allow mdm_helper toolbox_exec:file { execute execute_no_trans getattr open read };
+userdebug_or_eng(`
+  diag_use(mdm_helper)
+')
+
