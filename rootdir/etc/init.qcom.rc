@@ -1412,17 +1412,13 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-on property:init.svc.macloader=stopped
-    chown system root /data/.cid.info
-    chmod 0664 /data/.cid.info
-    chown system root /data/.rev
-    chmod 0664 /data/.rev
-# end of wifi
-
 service macloader /system/bin/macloader
     class main
+    user system
+    group wifi
     oneshot
-    seclabel u:r:macloader:s0
+
+# end of wifi
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
