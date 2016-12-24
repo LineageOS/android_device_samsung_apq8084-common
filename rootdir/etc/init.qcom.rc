@@ -1156,6 +1156,9 @@ on boot
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
+    # DualWave
+    chown system system /sys/kernel/DualWave/sound/DUALWAVE_CONFIG
+
     # bluetooth LPM
     chmod 0660 /proc/bluetooth/sleep/lpm
     chmod 0220 /proc/bluetooth/sleep/btwrite
@@ -1163,6 +1166,9 @@ on boot
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
     chmod 0600 /dev/btlock
     chown bluetooth bluetooth /dev/btlock
+
+    # SSWAP
+    write /proc/sys/vm/swappiness 130
 
     # Sensors
     chown system system /efs/prox_cal
