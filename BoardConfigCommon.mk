@@ -127,6 +127,10 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
     device/samsung/lentislte-common/sepolicy
 
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_apq8084
+TARGET_RECOVERY_DEVICE_MODULES := libinit_apq8084
+
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
 
