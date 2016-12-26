@@ -85,10 +85,6 @@ PRODUCT_PACKAGES += \
     libstlport \
     libxml2
 
-# Doze
-PRODUCT_PACKAGES += \
-    SamsungDoze
-
 # Charger images
 PRODUCT_PACKAGES += \
     charger_res_images
