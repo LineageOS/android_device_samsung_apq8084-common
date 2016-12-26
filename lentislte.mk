@@ -196,8 +196,8 @@ PRODUCT_PACKAGES += \
     librmnetctl
 
 # Snap Camera
-PRODUCT_PACKAGES += \
-    Snap
+#PRODUCT_PACKAGES += \
+#    Snap
 
 # WiFi
 PRODUCT_COPY_FILES += \
