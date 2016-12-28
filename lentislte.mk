@@ -124,10 +124,6 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
-# Widevine
-PRODUCT_PACKAGES += \
-    libwvm_shim
-
 # IR Blaster
 PRODUCT_PACKAGES += \
     consumerir.apq8084

@@ -38,7 +38,6 @@ on early-init
     symlink /data/tombstones /tombstones
 
 on init
-    export LD_SHIM_LIBS "/system/vendor/lib/libwvm.so|libwvm_shim.so"
     mkdir /efs 0771 system radio
 
     # Set permissions for persist partition
