@@ -14,5 +14,9 @@
   {
     "repository": "android_device_samsung_qcom-common",
     "target_path": "device/samsung/qcom-common"
+  },
+  {
+    "repository": "android_packages_resources_devicesettings",
+    "target_path": "packages/resources/devicesettings"
   }
 ]
