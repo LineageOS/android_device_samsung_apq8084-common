@@ -186,16 +186,14 @@ on post-fs-data
     # permission for Input Device(Touchkey).
     chmod 0660 /sys/class/input/input1/enabled
     chown system system /sys/class/input/input1/enabled
+    chmod 0660 /sys/class/input/input2/enabled
+    chown system system /sys/class/input/input2/enabled
     chown radio system /sys/class/sec/sec_touchkey/touch_sensitivity
     chown radio system /sys/class/sec/sec_touchkey/touchkey_firm_update
     chown system radio /sys/class/sec/sec_touchkey/glove_mode
     chown system radio /sys/class/sec/sec_touchkey/flip_mode
     chown system radio /sys/class/sec/sec_touchkey/1mm_mode
     chown system radio /sys/class/sec/sec_touchkey/boost_level
-
-    # Touchscreen
-    chmod 0660 /sys/class/input/input2/enabled
-    chown system system /sys/class/input/input2/enabled
 
     #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
@@ -460,7 +458,6 @@ on boot
     chmod 0660 /sys/module/hci_uart/parameters/ath_btwrite
     chmod 0660 /dev/ttyHS0
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
-    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
     chmod 0660 /dev/ttyHS2
     chown bluetooth bluetooth /dev/ttyHS2
