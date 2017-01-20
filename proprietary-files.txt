@@ -137,7 +137,7 @@ lib/F16US_libchromatix_imx240_zslshot_iso400_cpp.so
 lib/F16US_libchromatix_imx240_zslshot_iso800_cpp.so
 lib/F16US_libchromatix_imx240_zslshot_lls_cpp.so
 lib/F16US_libchromatix_imx240_zslshot_pip_cpp.so
-lib/hw/camera.apq8084.so:lib/hw/camera.vendor.apq8084.so
+lib/hw/camera.apq8084.so
 lib/libTsAe.so
 lib/libTsAf.so
 lib/libTs_J_Accm.so
