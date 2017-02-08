@@ -20,3 +20,5 @@
 /devices/msm_sdcc.2/mmc_host/mmc1*                    auto             auto    defaults   voldmanaged=sdcard1:auto,encryptable=userdata
 /devices/f9200000.ssusb/f9200000.dwc3/xhci-hcd*       auto             auto    defaults   voldmanaged=usbdisk:auto,noemulatedsd
 
+# ZRAM swap
+/dev/block/zram0                                    none            swap    defaults zramsize=25%,zramstreams=4,swapprio=10,notrim
