@@ -36,6 +36,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hdcp2.rx=tz \
     ro.qualcomm.cabl=1 \
     ro.secwvk=144 \
+    debug.egl.hw=1 \
+    debug.sf.hw=1 \
+    debug.gralloc.enable_fb_ubwc=1 \
+    persist.hwc.enable_vds \
+    sdm.perf_hint_window=50 \
     ro.opengles.version=196609 \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0
