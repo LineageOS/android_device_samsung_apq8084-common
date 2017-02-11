@@ -83,6 +83,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.df.iwlan_mux=9 \
     persist.data.df.dev_name=rmnet_usb0 \
     persist.data.llf.enable=true \
+    persist.net.doxlat=true \
     ro.telephony.mms_data_profile=5
 
 # Sensors
