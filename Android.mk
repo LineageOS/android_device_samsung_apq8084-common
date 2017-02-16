@@ -16,8 +16,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(BOARD_VENDOR),samsung)
-ifeq ($(TARGET_BOARD_PLATFORM),apq8084)
+ifneq ($(filter kccat6xx lentislte,$(TARGET_DEVICE)),)
 
 ifneq ($(filter lentislte lentislteskt kccat6xx,$(TARGET_DEVICE)),)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
@@ -194,5 +193,4 @@ $(shell mkdir -p $(TARGET_OUT)/etc/firmware/wcd9320; \
 	ln -sf /data/misc/audio/wcd9320_mad_audio.bin \
 		$(TARGET_OUT)/etc/firmware/wcd9320/wcd9320_mad_audio.bin)
 
-endif
 endif
