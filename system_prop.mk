@@ -90,6 +90,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sensors=1
 
+# Storage
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sys.sdcardfs=true
+
 # Time
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true
