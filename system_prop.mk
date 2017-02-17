@@ -94,6 +94,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
 
+# Tethering
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.tethering.noprovisioning=true
+
 # Time
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true
