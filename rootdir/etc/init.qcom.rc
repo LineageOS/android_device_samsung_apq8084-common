@@ -60,6 +60,7 @@ on fs
     write /sys/devices/msm_sdcc.2/mmc_host/mmc1/power/control on
 
     mount_all fstab.qcom
+    write /proc/sys/vm/swappiness 100
     swapon_all fstab.qcom
 
     chown system radio /efs
@@ -1162,9 +1163,6 @@ on boot
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
     chmod 0600 /dev/btlock
     chown bluetooth bluetooth /dev/btlock
-
-    # SSWAP
-    write /proc/sys/vm/swappiness 130
 
     # Sensors
     chown system system /efs/prox_cal
