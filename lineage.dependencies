@@ -1,7 +1,7 @@
 [
   {
-    "repository": "android_kernel_samsung_kccat6",
-    "target_path": "kernel/samsung/kccat6"
+    "repository": "android_kernel_samsung_apq8084",
+    "target_path": "kernel/samsung/apq8084"
   },
   {
     "repository": "android_external_stlport",
