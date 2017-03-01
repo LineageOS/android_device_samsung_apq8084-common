@@ -35,22 +35,22 @@ import java.util.Collections;
 import java.io.IOException;
 
 /**
- * RIL customization for Galaxy S5 LTE-A.
+ * RIL customization for Galaxy S5 LTE+ / LTE-A.
  *
  * {@hide}
  */
-public class lentislteRIL extends RIL {
+public class apq8084RIL extends RIL {
 
     private static final int RIL_UNSOL_AM = 11010;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
 
-    public lentislteRIL(Context context, int networkMode, int cdmaSubscription)
+    public apq8084RIL(Context context, int networkMode, int cdmaSubscription)
     {
         super(context, networkMode, cdmaSubscription, null);
         mQANElements = 6;
     }
 
-    public lentislteRIL(Context context, int preferredNetworkType,
+    public apq8084RIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
         mQANElements = 6;

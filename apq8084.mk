@@ -239,5 +239,5 @@ PRODUCT_PACKAGES += \
     WCNSS_qcom_wlan_nv.bin \
     wlan_mac.bin
 
-# common lentislte
+# common apq8084
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
