@@ -16,11 +16,9 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter kccat6xx lentislte,$(TARGET_DEVICE)),)
+ifneq ($(filter kccat6 lentislte,$(TARGET_DEVICE)),)
 
-ifneq ($(filter lentislte lentislteskt kccat6xx,$(TARGET_DEVICE)),)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
-endif
 
 include $(CLEAR_VARS)
 
