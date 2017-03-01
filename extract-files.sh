@@ -3,7 +3,7 @@
 set -e
 
 export VENDOR=samsung
-export DEVICE=lentislte-common
+export DEVICE=apq8084-common
 
 function extract() {
     for FILE in `egrep -v '(^#|^$)' $1`; do

@@ -17,7 +17,7 @@
 # inherit from qcom-common
 -include device/samsung/qcom-common/BoardConfigCommon.mk
 
-LOCAL_PATH := device/samsung/lentislte-common
+LOCAL_PATH := device/samsung/apq8084-common
 
 # Architecture
 TARGET_CPU_VARIANT := krait
@@ -119,7 +119,7 @@ TARGET_GLOBAL_CPPFLAGS += -DQCOM_BSP
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
 
 # Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/lentislte-common/recovery/recovery_keys.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/apq8084-common/recovery/recovery_keys.c
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_USES_MMCUTILS := true
@@ -135,7 +135,7 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
-    device/samsung/lentislte-common/sepolicy
+    device/samsung/apq8084-common/sepolicy
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_apq8084
