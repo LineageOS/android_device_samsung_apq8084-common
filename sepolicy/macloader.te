@@ -2,11 +2,12 @@ type macloader, domain, domain_deprecated;
 type macloader_exec, exec_type, file_type;
 init_daemon_domain(macloader)
 
-type_transition macloader persist_file:file wifi_data_file;
+type_transition macloader persist_data_file:file persist_file;
 
 allow macloader efs_file:dir search;
 allow macloader wifi_efs_file:dir search;
 allow macloader wifi_efs_file:file r_file_perms;
 
+allow macloader persist_data_file:dir rw_dir_perms;
 allow macloader persist_file:dir rw_dir_perms;
-allow macloader wifi_data_file:file { create w_file_perms };
+allow macloader persist_file:file { create w_file_perms };
