@@ -285,12 +285,20 @@
 
     <!-- Default screen brightness setting.
          Must be in the range specified by minimum and maximum. -->
-    <integer name="config_screenBrightnessSettingDefault">134</integer>
+    <integer name="config_screenBrightnessSettingDefault">102</integer>
 
     <!-- Screen brightness used to dim the screen when the user activity
-         timeout expires.  May be less than the minimum allowed brightness setting
-         that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">15</integer>
+         timeout expires.  May be less than the minimum allowed brightness
+	 setting that can be set by the user. -->
+    <integer name="config_screenBrightnessDim">2</integer>
+
+    <!-- Screen brightness when dozing. -->
+    <integer name="config_screenBrightnessDoze">17</integer>
+
+    <!-- Doze mode -->
+    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
+    <bool name="config_dozeAfterScreenOff">true</bool>
+    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
 
     <!-- Default color for notification LED is white. -->
     <color name="config_defaultNotificationColor">#ffffffff</color>
@@ -348,12 +356,6 @@
         <item>10</item>
         <item>10</item>
     </integer-array>
-
-    <!-- Doze mode -->
-    <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
-    <integer name="config_screenBrightnessDoze">5</integer>
-    <bool name="config_dozeAfterScreenOff">true</bool>
-    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
 
     <string-array name="config_mobile_tcp_buffers">
         <item>"lte:2097152,4194304,8388608,1048576,3145728,4194304"</item>
