@@ -9,7 +9,7 @@ vendor/lib/rfsa/adsp/libadsp_fd_skel.so
 
 # Audio
 lib/libcsd-client.so
-lib/libdetectmodem.so
+lib/libdetectmodem.so|3e652fd03e8eea8a08141098339f3b125ead5359
 lib/libmysound.so
 lib/libssaudio-client.so
 vendor/lib/libacdbloader.so
@@ -344,7 +344,7 @@ vendor/lib/libllvm-qcom.so
 vendor/lib/librs_adreno.so
 vendor/lib/librs_adreno_sha1.so
 vendor/lib/libscale.so
-vendor/lib/libuiblur.so
+vendor/lib/libuiblur.so|2dee48b106855d40b80062700421b5ec7853d178
 
 # Graphics firmware
 etc/firmware/a420_pfp.fw
