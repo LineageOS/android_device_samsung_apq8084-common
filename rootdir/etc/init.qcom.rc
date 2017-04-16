@@ -454,7 +454,7 @@ on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
     # Allow subsystem (modem etc) debugging
-    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
+    # write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
@@ -630,16 +630,6 @@ on boot
 
     # Allow RIL daemon to assign port open fd_wakelock
     chown system radio /sys/devices/virtual/sec/mdm_hsic_pm/waketime
-
-    #To allow interfaces to get v6 address when tethering is enabled
-    write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet4/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet5/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet6/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet7/accept_ra 2
 
     # To prevent out of order acknowledgements from making
     # connection tracking to treat them as not belonging to
@@ -1223,11 +1213,6 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics radio sdcard_rw sdcard_r media_rw shell log
 
-service gsiff_daemon /system/bin/gsiff_daemon
-    class late_start
-    user system
-    group gps qcom_oncrpc net_raw
-
 service qseecomd /system/bin/qseecomd
     class core
     user root
@@ -1266,11 +1251,6 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
-
-service rfs_access /system/bin/rfs_access
-    class core
-    user system
-    group system net_raw
 
 service qmuxd /system/bin/qmuxd
     class core
@@ -1539,10 +1519,16 @@ on property:persist.sys.ssr.restart_level=3
 
 on property:service.bootanim.exit=1
     #write /sys/module/rmnet_usb/parameters/dump_ctrl_msg 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb3/accept_ra 2
+    #To allow interfaces to get v6 address when tethering is enabled
+    write /proc/sys/net/ipv6/conf/rmnet_data0/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data1/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data2/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data3/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data4/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data5/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data6/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data7/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_mhi0/accept_ra 2
 
 on charger
     #low power governing
