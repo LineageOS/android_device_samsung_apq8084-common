@@ -60,3 +60,6 @@
 
 # Samsung log
 /data/log(/.*)?                                         u:object_r:dumplog_data_file:s0
+
+# USB Gadget
+/dev/hidg[0-9]*                                   	u:object_r:hid_gadget_device:s0

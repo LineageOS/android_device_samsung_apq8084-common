@@ -1,3 +1,6 @@
 # These are safe for an untrusted_app -- they are the external SD card
 allow untrusted_app fuseblk:dir search;
 allow untrusted_app fuseblk:file { getattr read };
+
+# USB Gadget
+allow untrusted_app hid_gadget_device:chr_file rw_file_perms;
