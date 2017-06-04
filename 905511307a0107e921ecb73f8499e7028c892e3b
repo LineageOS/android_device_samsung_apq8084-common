@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da87b5cf_0d13745d",
+        "filename": "overlay/packages/apps/FlipFlap/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2017-06-04T10:30:18Z",
+      "side": 1,
+      "message": "This needs to be set for each device separately\nkccat6:    1920x1080  (0,60,960,960)\nlentislte: 2560x1440  (0,80,1280,1280)",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 12
+      },
+      "revId": "905511307a0107e921ecb73f8499e7028c892e3b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
