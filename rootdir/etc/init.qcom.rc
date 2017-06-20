@@ -1141,16 +1141,9 @@ on boot
     mkdir /data/misc/radio/hatp 0775 radio system
 
     # Vibrator
-    chmod 0660 /sys/class/timed_output/vibrator/pwm_value
-    chown system system /sys/class/timed_output/vibrator/pwm_value
-    chmod 0440 /sys/class/timed_output/vibrator/pwm_max
-    chown system system /sys/class/timed_output/vibrator/pwm_max
-    chmod 0440 /sys/class/timed_output/vibrator/pwm_min
-    chown system system /sys/class/timed_output/vibrator/pwm_min
-    chmod 0440 /sys/class/timed_output/vibrator/pwm_default
-    chown system system /sys/class/timed_output/vibrator/pwm_default
-    chmod 0440 /sys/class/timed_output/vibrator/pwm_threshold
-    chown system system /sys/class/timed_output/vibrator/pwm_threshold
+    chmod 0660 /sys/class/timed_output/vibrator/intensity
+    chmod 0660 /sys/class/timed_output/vibrator/enable
+    chown system system /sys/class/timed_output/vibrator/intensity
     chown system system /sys/class/timed_output/vibrator/enable
 
     # permissions for bluetooth.
