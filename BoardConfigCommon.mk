@@ -64,7 +64,16 @@ BOARD_CHARGING_CMDLINE_VALUE := "charger"
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # CMHW
-BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
+#   Note that the first path is already added to BOARD_HARDWARE_CLASS
+#   by device/samsung/qcom-common/BoardConfigCommon.mk
+#
+#   However:
+#
+#   For some reason, if the first line is delete, the local files in
+#   the second path are not picked up.  For some reason, if the first
+#   expression uses += instead of :=, the local files in the second path
+#   are not picked up either.  Weird.
+BOARD_HARDWARE_CLASS := hardware/samsung/cmhw
 BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
 
 # Display
