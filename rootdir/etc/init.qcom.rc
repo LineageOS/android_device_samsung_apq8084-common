@@ -1232,11 +1232,6 @@ service thermal-engine /system/vendor/bin/thermal-engine
     socket thermal-recv-passive-client stream 0666 system system
     group root
 
-service sensorhubservice /system/bin/sensorhubservice
-    class main
-    user system
-    group input
-
 service time_daemon /system/bin/time_daemon
     class late_start
     user root
