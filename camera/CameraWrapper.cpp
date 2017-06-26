@@ -198,7 +198,7 @@ static char *camera_fixup_setparams(int id, const char *settings)
         }
     }
 
-    params.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "7500,30000");
+    params.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "8000,30000");
 
     ALOGV("%s: Fixed parameters:", __FUNCTION__);
     params.dump();
