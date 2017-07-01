@@ -733,14 +733,14 @@
 
 	<path name="speaker">
 		<path name="spk" />
-		<ctl name="RX7 Digital Volume" value="79" />
+		<ctl name="RX7 Digital Volume" value="84" />
 		<ctl name="SPK DRV Volume" value="8" />
 		<ctl name="COMP0 Switch" value="1" />
 	</path>
 
 	<path name="speaker-reverse">
 		<path name="spk" />
-		<ctl name="RX7 Digital Volume" value="79" />
+		<ctl name="RX7 Digital Volume" value="84" />
 		<ctl name="SPK DRV Volume" value="8" />
 		<ctl name="COMP0 Switch" value="1" />
 	</path>
@@ -1730,7 +1730,7 @@
 	<path name="voip-handset-carrier">
 		<path name="rcv" />
 		<ctl name="EAR PA Gain" value="POS_6_DB" />
-		<ctl name="RX1 Digital Volume" value="80" />
+		<ctl name="RX1 Digital Volume" value="84" />
 	</path>
 
 	<path name="voip-speaker-carrier">
@@ -1741,8 +1741,8 @@
 
 	<path name="voip-headset-carrier">
 		<path name="ear" />
-		<ctl name="HPHL Volume" value="13" />
-		<ctl name="HPHR Volume" value="13" />
+		<ctl name="HPHL Volume" value="15" />
+		<ctl name="HPHR Volume" value="15" />
 		<ctl name="RX1 Digital Volume" value="84" />
 		<ctl name="RX2 Digital Volume" value="84" />
 	</path>
@@ -1836,17 +1836,17 @@
 
 	<path name="voip-main-mic-carrier">
 		<path name="main-mic" />
-		<ctl name="DEC2 Volume" value="84" />
+		<ctl name="DEC2 Volume" value="93" />
 	</path>
 
 	<path name="voip-sub-mic-carrier">
 		<path name="sub-mic" />
-		<ctl name="DEC4 Volume" value="84" />
+		<ctl name="DEC4 Volume" value="90" />
 	</path>
 
 	<path name="voip-headphone-mic-carrier">
 		<path name="main-mic" />
-		<ctl name="DEC2 Volume" value="84" />
+		<ctl name="DEC2 Volume" value="86" />
 	</path>
 
 	<path name="voip-headset-mic-carrier">
