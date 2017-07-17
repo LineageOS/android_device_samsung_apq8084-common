@@ -213,6 +213,10 @@ PRODUCT_PACKAGES += \
 #PRODUCT_PACKAGES += \
 #    Snap
 
+# Thermal engine
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+
 # WiFi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/qca_cld/WCNSS_cfg.dat \
