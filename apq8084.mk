@@ -104,7 +104,8 @@ PRODUCT_PACKAGES += \
     copybit.apq8084 \
     gralloc.apq8084 \
     hwcomposer.apq8084 \
-    memtrack.apq8084
+    memtrack.apq8084 \
+    hdmi_cec.apq8084
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -161,6 +162,7 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVdecHevc \
     libOmxVenc \
+    libOmxVdpp \
     libstagefrighthw \
     qcmediaplayer
 
