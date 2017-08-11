@@ -1,4 +1,5 @@
 allow tee vcs_data_file:dir create_dir_perms;
 allow tee vcs_data_file:file create_file_perms;
+allow tee system_prop:property_service set;
 allow tee efs_file:dir rw_dir_perms;
 allow tee efs_file:file { create rw_file_perms unlink };
