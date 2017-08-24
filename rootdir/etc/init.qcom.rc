@@ -1196,7 +1196,7 @@ service mmi-ril-daemon /system/bin/rild
     socket rild-debug stream 660 radio system
     socket rild-cas stream 660 casdrm mmb
     user root
-    group radio cache inet misc audio sdcard_rw log qcom_diag net_raw diag wifi system drmrpc
+    group radio cache inet misc audio sdcard_rw log qcom_diag net_raw diag wifi system wakelock drmrpc
 
 service adsprpcd /system/bin/adsprpcd
     class main
