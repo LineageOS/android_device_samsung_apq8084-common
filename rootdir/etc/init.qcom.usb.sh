@@ -113,7 +113,7 @@ baseband=`getprop ro.baseband`
 echo 1  > /sys/class/android_usb/f_mass_storage/lun/nofua
 usb_config=`getprop persist.sys.usb.config`
 case "$usb_config" in
-    "" | "adb") #USB persist config not set, select default configuration
+    "" | "none" | "adb") #USB persist config not set, select default configuration
       case "$esoc_link" in
           "HSIC")
               setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,serial_tty,rmnet_hsic,mass_storage,adb
