@@ -42,6 +42,9 @@ BOARD_HAS_QCA_BT_ROME := true
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := APQ8084
 
+# Camera
+TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_ext
+
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 dwc3_msm.cpu_to_affin=1
