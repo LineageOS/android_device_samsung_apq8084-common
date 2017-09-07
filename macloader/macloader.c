@@ -17,7 +17,7 @@
  *
  * The Samsung proprietary macloader uses an undocumented way to load
  * the address stored in /efs/wifi/.mac.info into the wlan driver.
- * The permissions requied for this method collides with default
+ * The permissions required for this method collides with default
  * SELinux settings since Android 7.
  *
  * What we do here instead is to implement our own macloader.
@@ -27,24 +27,26 @@
  * wlan/qca_cld/wlan_mac.bin.  This file in /system/etc/firmware is a
  * symlink pointing to /persist/wlan_mac.bin.
  *
- * So our macloader checks if /persist/wlan_mac.bin exists.  If not,
- * it tries to open /efs/wifi/.mac.info.  If this file contains a valid
- * MAC, it copies this over into /persist/wlan_mac.bin in the required
- * format.
+ * So our macloader tries to open /efs/wifi/.mac.info.  If this file
+ * contains a valid MAC, it copies this over into /persist/wlan_mac.bin.temp
+ * in the required format.  On success it renames the file to it's final
+ * name /persist/wlan_mac.bin.
  */
 
-#define MAC_EFSINFO_PATH "/efs/wifi/.mac.info"
-#define MAC_PERSIST_PATH "/persist/wlan_mac.bin"
+#define MAC_EFSINFO_PATH	"/efs/wifi/.mac.info"
+#define MAC_PERSIST_PATH	"/persist/wlan_mac.bin.temp"
+#define MAC_PERSIST_PATH_FINAL	"/persist/wlan_mac.bin"
 
-#define MACINFO_LEN  17
-#define MACINFO_FMT  "%2hhx:%2hhx:%2hhx:%2hhx:%2hhx:%2hhx"
+#define MACINFO_LEN 17
+#define MACINFO_FMT "%2hhx:%2hhx:%2hhx:%2hhx:%2hhx:%2hhx"
 
-#define MACBIN_LEN   29
-#define MACBIN_FMT   "Intf0MacAddress=%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx\n"
+#define MACBIN_LEN 33
+#define MACBIN_FMT "Intf0MacAddress=%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx\nEND\n"
 
 int
 main ()
 {
+  struct stat st;
   FILE *efsinfo_fp, *persist_fp;
   char infomac[MACINFO_LEN + 1];
   char *got;
@@ -53,11 +55,21 @@ main ()
 
   /* If the .mac.info file doesn't exist, we're done. */
   if (access (MAC_EFSINFO_PATH, F_OK))
-    return 0;
+    {
+      ALOGD ("%s doesn't exist, exit\n", MAC_EFSINFO_PATH);
+      return 0;
+    }
 
-  /* If the wlan_mac.bin file already exists, don't overwrite. */
-  if (!access (MAC_PERSIST_PATH, F_OK))
-    return 0;
+  /* If the wlan_mac.bin file already exists and is at least MACBIN_LEN bytes,
+     don't overwrite.  The size check is done to make sure the file is using
+     the right format.  An earlier version of macloader neglected to write
+     the "END" line, so the files were 4 bytes shorter. */
+  if (!stat (MAC_PERSIST_PATH_FINAL, &st) && st.st_size >= MACBIN_LEN)
+    {
+      ALOGD ("%s exists and is big enough (%zu >= %u bytes), exit\n",
+	     MAC_PERSIST_PATH_FINAL, st.st_size, MACBIN_LEN);
+      return 0;
+    }
 
   /* Open .mac.info source file. */
   efsinfo_fp = fopen (MAC_EFSINFO_PATH, "r");
@@ -94,8 +106,8 @@ main ()
       return 1;
     }
 
-  /* Open wlan_mac.bin file for writing.  Make sure umask is only allowing
-     640 permissions. */
+  /* Open wlan_mac.bin.temp file for writing.  Make sure umask is only
+     allowing 640 permissions. */
   umask (0027);
   persist_fp = fopen (MAC_PERSIST_PATH, "w");
   if (!persist_fp)
@@ -117,6 +129,14 @@ main ()
       unlink (MAC_PERSIST_PATH);
       return 1;
     }
-
+  if (rename (MAC_PERSIST_PATH, MAC_PERSIST_PATH_FINAL))
+    {
+      fprintf (stderr, "renaming file %s to %s failed (errno=%d)\n",
+	       MAC_PERSIST_PATH, MAC_PERSIST_PATH_FINAL, errno);
+      ALOGE ("Can't rename %s to %s (errno %d)\n",
+	     MAC_PERSIST_PATH, MAC_PERSIST_PATH_FINAL, errno);
+      unlink (MAC_PERSIST_PATH);
+      return 1;
+    }
   return 0;
 }
