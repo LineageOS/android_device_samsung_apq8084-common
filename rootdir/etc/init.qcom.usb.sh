@@ -116,11 +116,11 @@ case "$usb_config" in
     "" | "none" | "adb") #USB persist config not set, select default configuration
       case "$esoc_link" in
           "HSIC")
-              setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,serial_tty,rmnet_hsic,mass_storage,adb
+              #setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,serial_tty,rmnet_hsic,mass_storage,adb
               setprop persist.rmnet.mux enabled
           ;;
           "HSIC+PCIe")
-              setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,rmnet_qti_ether,mass_storage,adb
+              #setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,rmnet_qti_ether,mass_storage,adb
           ;;
           "PCIe")
               setprop persist.sys.usb.config diag,diag_mdm,serial_tty,rmnet_qti_ether,mass_storage,adb
@@ -148,12 +148,13 @@ case "$usb_config" in
               ;;
           esac
              # setprop persist.sys.usb.config diag,serial_smd,serial_tty,rmnet_bam,mass_storage,adb
-	       setprop persist.sys.usb.config mtp,adb
+	       #setprop persist.sys.usb.config mtp,adb
           ;;
       esac
     ;;
     * ) ;; #USB persist config exists, do nothing
 esac
+setprop persist.sys.usb.config adb
 
 target=`getprop ro.board.platform`
 #
