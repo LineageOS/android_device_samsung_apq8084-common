@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 The Dokdo Project
+ * Copyright (C) 2014-2016 The CyanogenMod Project
  * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,23 +18,24 @@
 
 package com.android.internal.telephony;
 
-import static com.android.internal.telephony.RILConstants.*;
-
 import android.content.Context;
-import android.telephony.Rlog;
-import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
-import android.os.SystemProperties;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SignalStrength;
 
+import com.android.internal.telephony.cdma.CdmaInformationRecords;
+import com.android.internal.telephony.cdma.CdmaInformationRecords.CdmaSignalInfoRec;
+import com.android.internal.telephony.cdma.SignalToneUtil;
 import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 import com.android.internal.telephony.uicc.IccCardStatus;
 import com.android.internal.telephony.uicc.IccUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.io.IOException;
+
+import static com.android.internal.telephony.RILConstants.*;
 
 /**
  * RIL customization for Galaxy S5 LTE+ / LTE-A.
@@ -42,25 +44,19 @@ import java.io.IOException;
  */
 public class apq8084RIL extends RIL {
 
-    private static final int RIL_UNSOL_AM = 11010;
-    private static final int RIL_UNSOL_ON_SS_LL = 11055;
-
     public apq8084RIL(Context context, int networkMode, int cdmaSubscription)
     {
         super(context, networkMode, cdmaSubscription, null);
-        mQANElements = 6;
     }
 
     public apq8084RIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
-        mQANElements = 6;
     }
 
     @Override
     public void
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
-
         RILRequest rr = RILRequest.obtain(RIL_REQUEST_DIAL, result);
 
         rr.mParcel.writeString(address);
@@ -84,6 +80,20 @@ public class apq8084RIL extends RIL {
     }
 
     @Override
+    public void
+    acceptCall(Message result) {
+        RILRequest rr
+                = RILRequest.obtain(RIL_REQUEST_ANSWER, result);
+
+        rr.mParcel.writeInt(1);
+        rr.mParcel.writeInt(0);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
+
+        send(rr);
+    }
+
+    @Override
     protected Object
     responseIccCardStatus(Parcel p) {
         IccCardApplicationStatus appStatus;
@@ -94,7 +104,6 @@ public class apq8084RIL extends RIL {
         cardStatus.mGsmUmtsSubscriptionAppIndex = p.readInt();
         cardStatus.mCdmaSubscriptionAppIndex = p.readInt();
         cardStatus.mImsSubscriptionAppIndex = p.readInt();
-
         int numApplications = p.readInt();
 
         // limit to maximum allowed applications
@@ -102,12 +111,8 @@ public class apq8084RIL extends RIL {
             numApplications = IccCardStatus.CARD_MAX_APPS;
         }
         cardStatus.mApplications = new IccCardApplicationStatus[numApplications];
-
-        appStatus = new IccCardApplicationStatus();
-        for (int i = 0 ; i < numApplications ; i++) {
-            if (i!=0) {
-                appStatus = new IccCardApplicationStatus();
-            }
+        for (int i = 0; i < numApplications; i++) {
+            appStatus = new IccCardApplicationStatus();
             appStatus.app_type       = appStatus.AppTypeFromRILInt(p.readInt());
             appStatus.app_state      = appStatus.AppStateFromRILInt(p.readInt());
             appStatus.perso_substate = appStatus.PersoSubstateFromRILInt(p.readInt());
@@ -142,7 +147,7 @@ public class apq8084RIL extends RIL {
                     " mEmergencyCallbackModeRegistrant=" + mEmergencyCallbackModeRegistrant +
                     " mTestingEmergencyCall=" + mTestingEmergencyCall.get());
         }
-        for (int i = 0 ; i < num ; i++) {
+        for (int i = 0; i < num; i++) {
             dc = new DriverCall();
 
             dc.state = DriverCall.stateFromCLCC(p.readInt());
@@ -151,8 +156,7 @@ public class apq8084RIL extends RIL {
             dc.isMpty = (0 != p.readInt());
             dc.isMT = (0 != p.readInt());
             dc.als = p.readInt();
-            voiceSettings = p.readInt();
-            dc.isVoice = (0 != voiceSettings);
+            dc.isVoice = (0 != p.readInt());
             int call_type = p.readInt();            // Samsung CallDetails
             int call_domain = p.readInt();          // Samsung CallDetails
             String csv = p.readString();            // Samsung CallDetails
@@ -228,124 +232,21 @@ public class apq8084RIL extends RIL {
 
     }
 
-    @Override
-    protected void
-    processUnsolicited (Parcel p, int type) {
-        Object ret;
-        int dataPosition = p.dataPosition();
-        int response = p.readInt();
-        int newResponse = response;
+    protected void notifyRegistrantsCdmaInfoRec(CdmaInformationRecords infoRec) {
+        final int response = RIL_UNSOL_CDMA_INFO_REC;
 
-        switch(response) {
-            // SAMSUNG STATES
-            case RIL_UNSOL_AM:
-                ret = responseString(p);
-                String amString = (String) ret;
-                Rlog.d(RILJ_LOG_TAG, "Executing AM: " + amString);
-
-                try {
-                    Runtime.getRuntime().exec("am " + amString);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Rlog.e(RILJ_LOG_TAG, "am " + amString + " could not be executed.");
-                }
-                break;
-            case RIL_UNSOL_ON_SS_LL:
-                newResponse = RIL_UNSOL_ON_SS;
-                break;
-        }
-        if (newResponse != response) {
-            p.setDataPosition(dataPosition);
-            p.writeInt(newResponse);
-        }
-        p.setDataPosition(dataPosition);
-        super.processUnsolicited(p, type);
-    }
-
-    @Override
-    public void
-    acceptCall (Message result) {
-        RILRequest rr
-                = RILRequest.obtain(RIL_REQUEST_ANSWER, result);
-
-        rr.mParcel.writeInt(1);
-        rr.mParcel.writeInt(0);
-
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
-
-        send(rr);
-    }
-
-    @Override
-    protected RILRequest
-    processSolicited (Parcel p, int type) {
-        int serial, error;
-        boolean found = false;
-        int dataPosition = p.dataPosition(); // save off position within the Parcel
-        serial = p.readInt();
-        error = p.readInt();
-        RILRequest rr = null;
-        /* Pre-process the reply before popping it */
-        synchronized (mRequestList) {
-            RILRequest tr = mRequestList.get(serial);
-            if (tr != null && tr.mSerial == serial) {
-                if (error == 0 || p.dataAvail() > 0) {
-                    try {switch (tr.mRequest) {
-                            /* Get those we're interested in */
-                        case RIL_REQUEST_DATA_REGISTRATION_STATE:
-                            rr = tr;
-                            break;
-                    }} catch (Throwable thr) {
-                        // Exceptions here usually mean invalid RIL responses
-                        if (tr.mResult != null) {
-                            AsyncResult.forMessage(tr.mResult, null, thr);
-                            tr.mResult.sendToTarget();
-                        }
-                        return tr;
-                    }
-                }
+        if (infoRec.record instanceof CdmaSignalInfoRec) {
+            CdmaSignalInfoRec rec = (CdmaSignalInfoRec) infoRec.record;
+            if (rec != null
+                    && rec.isPresent
+                    && rec.signalType == SignalToneUtil.IS95_CONST_IR_SIGNAL_IS54B
+                    && rec.alertPitch == SignalToneUtil.IS95_CONST_IR_ALERT_MED
+                    && rec.signal == SignalToneUtil.IS95_CONST_IR_SIG_IS54B_L) {
+                /* Drop record, otherwise IS95_CONST_IR_SIG_IS54B_L tone will
+                 * continue to play after the call is connected */
+                return;
             }
         }
-        if (rr == null) {
-            /* Nothing we care about, go up */
-            p.setDataPosition(dataPosition);
-            // Forward responses that we are not overriding to the super class
-            return super.processSolicited(p, type);
-        }
-        rr = findAndRemoveRequestFromList(serial);
-        if (rr == null) {
-            return rr;
-        }
-        Object ret = null;
-        if (error == 0 || p.dataAvail() > 0) {
-            switch (rr.mRequest) {
-                case RIL_REQUEST_DATA_REGISTRATION_STATE: ret = responseDataRegistrationState(p); break;
-                default:
-                    throw new RuntimeException("Unrecognized solicited response: " + rr.mRequest);
-            }
-            //break;
-        }
-        if (RILJ_LOGD) riljLog(rr.serialString() + "< " + requestToString(rr.mRequest)
-                               + " " + retToString(rr.mRequest, ret));
-        if (rr.mResult != null) {
-            AsyncResult.forMessage(rr.mResult, ret, null);
-            rr.mResult.sendToTarget();
-        }
-        return rr;
-    }
-
-    private Object
-    responseDataRegistrationState(Parcel p) {
-        String response[] = (String[])responseStrings(p);
-        /* DANGER WILL ROBINSON
-         * In some cases from Vodaphone we are receiving a RAT of 102
-         * while in tunnels of the metro. Lets Assume that if we
-         * receive 102 we actually want a RAT of 2 for EDGE service */
-        if (response.length > 4 &&
-            response[0].equals("1") &&
-            response[3].equals("102")) {
-            response[3] = "2";
-        }
-        return response;
+        super.notifyRegistrantsCdmaInfoRec(infoRec);
     }
 }

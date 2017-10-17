@@ -67,6 +67,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libargs=-d /dev/smd0 \
     rild.libpath=/system/lib/libsec-ril.so \
+    ro.telephony.mms_data_profile=5 \
     ro.ril.telephony.mqanelements=6 \
     ro.telephony.ril_class=apq8084RIL \
     persist.radio.apm_mdm_not_pwdn=1 \
@@ -83,8 +84,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.df.iwlan_mux=9 \
     persist.data.df.dev_name=rmnet_usb0 \
     persist.data.llf.enable=true \
-    persist.net.doxlat=true \
-    ro.telephony.mms_data_profile=5
+    persist.net.doxlat=true
 
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 PRODUCT_PROPERTY_OVERRIDES += \
