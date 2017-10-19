@@ -413,7 +413,7 @@ lib/libsensorhubservice.so
 lib/libgnustl_shared.so
 
 # Time services
-bin/time_daemon
+bin/time_daemon|c7a4af99b06bd48fa388ffc7518236ba929d4d61
 -app/TimeService/TimeService.apk
 vendor/lib/libTimeService.so
 -vendor/lib/libtime_genoff.so
