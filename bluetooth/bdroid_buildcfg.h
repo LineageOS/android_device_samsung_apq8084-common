@@ -34,7 +34,7 @@
 #define BLE_VND_INCLUDED   FALSE
 #define BLE_PRIVACY_SPT    FALSE
 #define BT_CLEAN_TURN_ON_DISABLED 1
-#define BTM_WBS_INCLUDED TRUE       /* Enable WBS */
+#define BLUETOOTH_QTI_SW TRUE       /* Enable Qcom WBS */
 #define BTIF_HF_WBS_PREFERRED FALSE /* Don't prefer WBS    */
 /* Defined if the kernel does not have support for CLOCK_BOOTTIME_ALARM */
 #define KERNEL_MISSING_CLOCK_BOOTTIME_ALARM TRUE
