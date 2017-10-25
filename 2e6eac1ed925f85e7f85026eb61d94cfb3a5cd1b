@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ceb10e53_95ae6167",
+        "filename": "common-proprietary-files.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2017-10-25T19:46:29Z",
+      "side": 1,
+      "message": "If I use OSS libs libgps, libloc_code and libloc_eng, rather than the proprietary ones, GPS stops working.  It doesn\u0027t find any satellite.  I also tried this with the Samsung-customized gps.h removed, but still, no satellites are found.\n\nIs it worth the effort if only gps.default.so gets replaced?",
+      "parentUuid": "6498ac3f_f68fb911",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 19
+      },
+      "revId": "2e6eac1ed925f85e7f85026eb61d94cfb3a5cd1b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c8b03bb_d7149717",
         "filename": "common-proprietary-files.txt",
         "patchSetId": 1
