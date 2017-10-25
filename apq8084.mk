@@ -118,6 +118,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     FlipFlap
 
+# GPS
+PRODUCT_PACKAGES += \
+    gps.apq8084
+
 # IPv6 tethering
 PRODUCT_PACKAGES += \
     ebtables \

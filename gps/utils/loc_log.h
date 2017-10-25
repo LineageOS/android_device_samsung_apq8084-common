@@ -45,7 +45,7 @@ typedef struct
    long        val;
 } loc_name_val_s_type;
 
-#define NAME_VAL(x) {"" #x "", x }
+#define NAME_VAL(x) {"" #x "", (long)(x) }
 
 #define UNKNOWN_STR "UNKNOWN"
 
