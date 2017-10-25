@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6498ac3f_f68fb911",
+        "filename": "common-proprietary-files.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2017-10-25T14:58:21Z",
+      "side": 1,
+      "message": "If you build the HAL from source, this is built from source as well since it\u0027s a dependency",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 19
+      },
+      "revId": "2e6eac1ed925f85e7f85026eb61d94cfb3a5cd1b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c8b03bb_d7149717",
+        "filename": "common-proprietary-files.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2017-10-25T14:58:21Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 318,
+        "endChar": 17
+      },
+      "revId": "2e6eac1ed925f85e7f85026eb61d94cfb3a5cd1b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
