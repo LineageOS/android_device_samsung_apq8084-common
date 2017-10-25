@@ -81,10 +81,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
 
-# Wifi
-PRODUCT_PACKAGES += \
-    macloader
-
 # Camera
 PRODUCT_PACKAGES += \
     camera.apq8084 \
@@ -118,10 +114,6 @@ PRODUCT_PACKAGES += \
     fingerprintd \
     fingerprint.apq8084
 
-# IRSC
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
-
 # FlipFlap
 PRODUCT_PACKAGES += \
     FlipFlap
@@ -134,6 +126,10 @@ PRODUCT_PACKAGES += \
 # IR Blaster
 PRODUCT_PACKAGES += \
     consumerir.apq8084
+
+# IRSC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -229,6 +225,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/qca_cld/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin
+
+# Wifi
+PRODUCT_PACKAGES += \
+    macloader
 
 PRODUCT_PACKAGES += \
     hostapd \
