@@ -286,7 +286,6 @@ on post-fs-data
     chown system radio /sys/class/mhl/test_v2
     chown system radio /sys/class/mhl/connection
 # on userdebug and eng builds, permision change mhl sysfs
-on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/timing
     chmod 0666 /sys/class/mhl/swing_v2
     chmod 0666 /sys/class/mhl/reg_tuning
