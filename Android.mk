@@ -49,7 +49,7 @@ $(DTCPIP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 ALL_DEFAULT_INSTALLED_MODULES += $(DTCPIP_SYMLINKS)
 
 KM_IMAGES := \
-    keymaster.b00 keymaster.b01 keymaster.b02 keymaster.b03 keymaster.mdt
+    skeymast.b00 skeymast.b01 skeymast.b02 skeymast.b03 skeymast.mdt
 
 KM_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/keymaster/,$(notdir $(KM_IMAGES)))
 $(KM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
