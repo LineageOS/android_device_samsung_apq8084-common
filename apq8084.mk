@@ -141,10 +141,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/Synaptics_HID_TouchPad.idc:system/usr/idc/Synaptics_HID_TouchPad.idc \
     $(LOCAL_PATH)/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
-# Keystore
-PRODUCT_PACKAGES += \
-    keystore.apq8084
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.APQ8084
