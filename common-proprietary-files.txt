@@ -391,11 +391,8 @@ bin/qmuxd
 bin/radish
 bin/rild
 lib/libprotobuf-cpp-full.so
-lib/libreference-ril.so
 lib/libril.so
 lib/libsec-ril.so
-lib/libsecnativefeature.so
-lib/libsecril-client.so
 vendor/lib/libconfigdb.so
 vendor/lib/libmdmdetect.so
 vendor/lib/libnetmgr.so
