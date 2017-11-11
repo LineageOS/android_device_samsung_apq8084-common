@@ -30,8 +30,6 @@ import init.qcom.power.rc
 import init.trace.rc
 
 on early-init
-    export LD_SHIM_LIBS /system/lib/libril.so|libshim_ril.so
-
     setprop sys.boot_completed 0
     write /sys/block/mmcblk0/queue/scheduler noop
 
