@@ -389,9 +389,7 @@ bin/netmgrd
 bin/qcks
 bin/qmuxd
 bin/radish
-bin/rild
 lib/libprotobuf-cpp-full.so
-lib/libril.so
 lib/libsec-ril.so
 vendor/lib/libconfigdb.so
 vendor/lib/libmdmdetect.so

@@ -110,7 +110,8 @@ TARGET_GLOBAL_CFLAGS += -DQCOM_BSP
 TARGET_GLOBAL_CPPFLAGS += -DQCOM_BSP
 
 # Radio
-BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
+BOARD_PROVIDES_LIBRIL := true
+TARGET_RIL_VARIANT := caf
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/apq8084-common/recovery/recovery_keys.c
