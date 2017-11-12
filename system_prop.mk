@@ -70,7 +70,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.telephony.mqanelements=6 \
     persist.radio.apm_mdm_not_pwdn=1 \
     persist.radio.apm_sim_not_pwdn=1 \
-    ro.use_data_netmgrd=false \
     persist.radio.add_power_save=1 \
     persist.rmnet.data.enable=true \
     persist.data.wda.enable=true \
