@@ -113,48 +113,15 @@ baseband=`getprop ro.baseband`
 echo 1  > /sys/class/android_usb/f_mass_storage/lun/nofua
 usb_config=`getprop persist.sys.usb.config`
 case "$usb_config" in
-    "" | "none" | "adb") #USB persist config not set, select default configuration
+    "" | "none" | "adb")
       case "$esoc_link" in
           "HSIC")
-              #setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,serial_tty,rmnet_hsic,mass_storage,adb
               setprop persist.rmnet.mux enabled
-          ;;
-          "HSIC+PCIe")
-              #setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,rmnet_qti_ether,mass_storage,adb
-          ;;
-          "PCIe")
-              setprop persist.sys.usb.config diag,diag_mdm,serial_tty,rmnet_qti_ether,mass_storage,adb
-          ;;
-          *)
-          case "$baseband" in
-              "mdm")
-                   setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,serial_tty,rmnet_hsic,mass_storage,adb
-              ;;
-              "mdm2")
-                   setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,serial_tty,rmnet_hsic,mass_storage,adb
-              ;;
-              "sglte")
-                   setprop persist.sys.usb.config diag,diag_qsc,serial_smd,serial_tty,serial_hsuart,rmnet_hsuart,mass_storage,adb
-              ;;
-              "dsda" | "sglte2")
-                   setprop persist.sys.usb.config diag,diag_mdm,diag_qsc,serial_hsic,serial_hsuart,rmnet_hsic,rmnet_hsuart,mass_storage,adb
-              ;;
-              "dsda2")
-                   setprop persist.sys.usb.config diag,diag_mdm,diag_mdm2,serial_hsic,serial_hsusb,rmnet_hsic,rmnet_hsusb,mass_storage,adb
-              ;;
-              *)
-                   create_luns $target $cdromenable
-                   setprop persist.sys.usb.config diag,serial_smd,serial_tty,rmnet_bam,mass_storage,adb
-              ;;
-          esac
-             # setprop persist.sys.usb.config diag,serial_smd,serial_tty,rmnet_bam,mass_storage,adb
-	       #setprop persist.sys.usb.config mtp,adb
           ;;
       esac
     ;;
     * ) ;; #USB persist config exists, do nothing
 esac
-setprop persist.sys.usb.config adb
 
 target=`getprop ro.board.platform`
 #
