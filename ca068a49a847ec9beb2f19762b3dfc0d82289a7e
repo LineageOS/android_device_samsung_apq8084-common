@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0842bcad_2b009e43",
+        "filename": "libril/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14403
+      },
+      "writtenOn": "2017-11-16T01:05:15Z",
+      "side": 1,
+      "message": "you need to remove this if you want to build our libril right ?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "ca068a49a847ec9beb2f19762b3dfc0d82289a7e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "827bbe00_9045347b",
+        "filename": "libril/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14403
+      },
+      "writtenOn": "2017-11-16T01:05:15Z",
+      "side": 1,
+      "message": "with this too",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "ca068a49a847ec9beb2f19762b3dfc0d82289a7e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
