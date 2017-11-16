@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6e27bef4_e3577b41",
+        "filename": "libril/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2017-11-16T08:17:36Z",
+      "side": 1,
+      "message": "Actually you did it in the \"Import libril from hardware/ril\" patch, too, Paul.  I took your klte patch verbatim.",
+      "parentUuid": "ed019037_360f7f74",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "ca068a49a847ec9beb2f19762b3dfc0d82289a7e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "827bbe00_9045347b",
         "filename": "libril/Android.mk",
         "patchSetId": 1
