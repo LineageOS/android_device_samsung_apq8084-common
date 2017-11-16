@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "8af3d85e_0c1d2d37",
+        "filename": "libril/Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 11801
+      },
+      "writtenOn": "2017-11-16T13:16:52Z",
+      "side": 1,
+      "message": "Looking back, looks like I did. my bad, I had not intended that.",
+      "parentUuid": "6e27bef4_e3577b41",
+      "revId": "ca068a49a847ec9beb2f19762b3dfc0d82289a7e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "827bbe00_9045347b",
         "filename": "libril/Android.mk",
         "patchSetId": 1
