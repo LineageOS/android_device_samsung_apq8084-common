@@ -23,5 +23,5 @@ PRODUCT_PACKAGES += \
     nfc_nci.apq8084
 
 PRODUCT_COPY_FILES += \
-    device/samsung/apq8084-common/nfc/pn547/libnfc-brcm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-brcm.conf \
+    device/samsung/apq8084-common/nfc/pn547/libnfc-nci.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nci.conf \
     device/samsung/apq8084-common/nfc/pn547/libnfc-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
