@@ -153,10 +153,7 @@ LZMA_RAMDISK_TARGETS := recovery
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
-
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/apq8084-common/sepolicy
+include device/samsung/apq8084-common/sepolicy/sepolicy.mk
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_apq8084
