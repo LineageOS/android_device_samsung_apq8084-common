@@ -16,5 +16,6 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_CFLAGS := -Wall -Werror
 
 LOCAL_MODULE := libsecnativefeature
+LOCAL_PROPRIETARY_MODULE := true
 
 include $(BUILD_SHARED_LIBRARY)
