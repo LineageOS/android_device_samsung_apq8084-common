@@ -56,6 +56,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/vendor/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/vendor/etc/permissions/handheld_core_hardware.xml
 
+# Advanced Display
+PRODUCT_PACKAGES += \
+    AdvancedDisplay
+
 # Audio
 PRODUCT_PACKAGES += \
     audio_policy.apq8084 \
