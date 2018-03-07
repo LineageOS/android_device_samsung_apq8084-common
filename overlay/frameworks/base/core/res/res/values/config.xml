@@ -20,34 +20,6 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- Hardware keys present on the device, stored as a bit field.
-         This integer should equal the sum of the corresponding value for each
-         of the following keys present:
-             1 - Home
-             2 - Back
-             4 - Menu
-             8 - Assistant (search)
-            16 - App switch
-            32 - Camera
-            64 - Volume rocker
-         For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareKeys">83</integer>
-
-    <!-- Hardware keys present on the device with the ability to wake, stored as a bit field.
-         This integer should equal the sum of the corresponding value for each
-         of the following keys present:
-             1 - Home
-             2 - Back
-             4 - Menu
-             8 - Assistant (search)
-            16 - App switch
-            32 - Camera
-            64 - Volume rocker
-         For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareWakeKeys">65</integer>
-
     <!-- Boolean indicating if current platform supports BLE peripheral mode -->
     <bool name="config_bluetooth_le_peripheral_mode_supported">true</bool>
 
@@ -187,9 +159,6 @@
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
 
-    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveBatteryLed">true</bool>
-
     <!-- Default color for notification LED is white. -->
     <color name="config_defaultNotificationColor">#ffffffff</color>
 
@@ -325,14 +294,6 @@
     </integer-array>
 
     <!-- Vibrator pattern for feedback about booting with safe mode disabled -->
-    <integer-array name="config_safeModeDisabledVibePattern">
-        <item>0</item>
-        <item>1</item>
-        <item>20</item>
-        <item>21</item>
-    </integer-array>
-
-    <!-- Vibrator pattern for feedback about booting with safe mode disabled -->
     <integer-array name="config_safeModeEnabledVibePattern">
         <item>0</item>
         <item>1</item>
@@ -376,9 +337,6 @@
          2 - The device DOES NOT have a permanent menu key; ignore autodetection. -->
     <integer name="config_overrideHasPermanentMenuKey">2</integer>
 
-    <!-- Enable blur support -->
-    <bool name="config_uiBlurEnabled">true</bool>
-
     <!-- MMS user agent string -->
     <string name="config_mms_user_agent" translatable="false">note4</string>
 
@@ -399,22 +357,8 @@
     <!-- Our modem doesn't support this query yet -->
     <string name="config_radio_access_family">GSM|WCDMA|LTE|CDMA|EVDO</string>
 
-    <!-- Configuration to support SIM contact batch operation -->
-    <bool name="config_sim_phonebook_batch_operation">false</bool>
-
     <!-- Certain sensor firmwares break with having a batch
          size set. By setting this to false, devices can opt
          out of setting a batch size, which fixes rotation. -->
     <bool name="config_useDefaultBatchingForAccel">false</bool>
-
-    <!-- If enabled, capacitive keys will only light up when pressed.
-         Otherwise, the buttons will light up whenever the user interacts
-         with the device -->
-    <bool name="config_buttonLightOnKeypressOnly">true</bool>
-
-    <!-- When true use the linux /dev/input/event subsystem to detect the
-         switch changes on the headphone/microphone jack. When false use
-         the older uevent framework. -->
-    <bool name="config_useDevInputEventForAudioJack">false</bool>
-
 </resources>
