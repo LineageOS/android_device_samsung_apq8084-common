@@ -22,4 +22,4 @@
 /devices/f9200000.ssusb/f9200000.dwc3/xhci-hcd*  auto               auto    defaults                                                                                        voldmanaged=usb:auto
 
 # ZRAM swap
-/dev/block/zram0                                 none               swap    defaults                                                                                        zramsize=25%,zramstreams=4,swapprio=10,notrim
+/dev/block/zram0                                 none               swap    defaults                                                                                        zramsize=25%,notrim
