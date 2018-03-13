@@ -195,6 +195,8 @@ RilSapSocket::RilSapSocket(const char *socketName,
         RilSocket(socketName, socketId) {
     if (inputUimFuncs) {
         uimFuncs = inputUimFuncs;
+    } else {
+        uimFuncs = NULL;
     }
 }
 
