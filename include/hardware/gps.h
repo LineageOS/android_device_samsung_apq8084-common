@@ -26,7 +26,7 @@
 
 #include <hardware/hardware.h>
 
-#include "gnss-base.h"
+#include <hardware/gnss-base.h>
 
 __BEGIN_DECLS
 
