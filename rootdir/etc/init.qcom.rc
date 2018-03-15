@@ -1306,6 +1306,12 @@ on property:wc_transport.start_root=true
 on property:wc_transport.start_root=false
     stop start_hci_filter
 
+service start_hci_filter /system/vendor/bin/wcnss_filter
+    class late_start
+    user root
+    group bluetooth qcom_diag
+    disabled
+
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
 on property:ro.data.large_tcp_window_size=true
