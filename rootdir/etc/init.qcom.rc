@@ -539,6 +539,7 @@ on boot
     chmod 2770 /data/system/perfd
 
     setprop wifi.interface wlan0
+    chown wifi wifi /sys/module/wlan/parameters/fwpath
 
 #   Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
