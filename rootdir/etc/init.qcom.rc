@@ -453,9 +453,6 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-    # CM: We use our own ril-daemon service definition, see mmi-ril-daemon
-    stop ril-daemon
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -1200,15 +1197,6 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/connection
 
 # Services begin here
-
-service mmi-ril-daemon system/vendor/bin/hw/rild
-    class main
-    socket rild stream 660 root radio
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    socket rild-debug stream 660 radio system
-    socket rild-cas stream 660 casdrm mmb
-    user root
-    group radio cache inet misc audio sdcard_rw log qcom_diag net_raw diag wifi system drmrpc
 
 service adsprpcd /system/vendor/bin/adsprpcd
     class main
