@@ -54,7 +54,7 @@ persist.data.qmi.adb_logmask=0
 ro.vendor.extension_library=/vendor/lib/libqc-opt.so
 
 # Radio
-rild.libpath=/system/lib/libsec-ril.so
+rild.libpath=/system/vendor/lib/libsec-ril.so
 ro.telephony.mms_data_profile=5
 ro.ril.telephony.mqanelements=6
 persist.radio.apm_mdm_not_pwdn=1
