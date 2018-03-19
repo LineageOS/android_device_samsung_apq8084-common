@@ -57,6 +57,7 @@ ro.vendor.extension_library=/vendor/lib/libqc-opt.so
 rild.libpath=/system/vendor/lib/libsec-ril.so
 ro.telephony.mms_data_profile=5
 ro.ril.telephony.mqanelements=6
+ro.telephony.default_network=9
 persist.radio.apm_mdm_not_pwdn=1
 persist.radio.apm_sim_not_pwdn=1
 persist.radio.add_power_save=1
