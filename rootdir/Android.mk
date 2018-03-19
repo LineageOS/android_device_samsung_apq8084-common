@@ -69,3 +69,5 @@ LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := etc/init.trace.rc
 include $(BUILD_PREBUILT)
+
+BOARD_ROOT_EXTRA_SYMLINKS := /data/ssh:var/run/ssh
