@@ -108,7 +108,6 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint sensor
 PRODUCT_PACKAGES += \
-    fingerprintd \
     fingerprint.apq8084
 
 # FlipFlap
