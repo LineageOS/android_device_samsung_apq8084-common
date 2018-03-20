@@ -1235,11 +1235,6 @@ service wcnss-service /system/vendor/bin/wcnss_service
     group system wifi qcom_diag radio
     oneshot
 
-service audiod /system/bin/audiod
-    class late_start
-    user system
-    group system
-
 service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     class main
     user root
