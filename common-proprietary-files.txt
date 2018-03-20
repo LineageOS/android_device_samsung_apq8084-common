@@ -273,6 +273,7 @@ vendor/lib/libmmcamera_s5k6d1yx.so
 vendor/lib/libmmcamera_s5k8b1yx.so
 vendor/lib/libmmcamera_vpu_module.so
 vendor/lib/liboemcamera.so
+vendor/lib/libstlport.so|bbd5131b5cf7a8a4ce7e716b5cba502a
 
 # Camera Firmware
 cameradata/F16UL_Isp1_s5k2p2xx.bin
