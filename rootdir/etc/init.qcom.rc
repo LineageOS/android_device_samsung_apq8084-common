@@ -217,9 +217,9 @@ on post-fs-data
 
     # Torch
     chmod 0666 /sys/class/leds/torch-sec1/brightness
-    chown system camera /sys/class/leds/torch-sec1/brightness
+    chown system system /sys/class/leds/torch-sec1/brightness
     chmod 0660  /sys/class/camera/flash/rear_flash
-    chown system camera  /sys/class/camera/flash/rear_flash
+    chown system system  /sys/class/camera/flash/rear_flash
 
     # permission for Input Device(Touchkey).
     chmod 0660 /sys/class/input/input1/enabled
@@ -430,7 +430,7 @@ on post-fs-data
     chown system system /dev/ice4_dev
     chmod 0660 /dev/ice4_dev
 
-    chown system camera /sys/class/flash/flash/flash_power
+    chown system system /sys/class/flash/flash/flash_power
     chmod 660 /sys/class/flash/flash/flash_power
 
     # Create directories for perfd
@@ -853,24 +853,21 @@ on boot
     chmod 0660 /sys/class/sec/sec_epen/input/enabled
 
     # Permissions for Camera
-    chown system radio /sys/class/camera/rear/rear_camfw
-    chown system radio /sys/class/camera/rear/rear_camfw_full
-    chown system radio /sys/class/camera/rear/rear_camfw_load
-    chown system radio /sys/class/camera/rear/rear_latest_module_check
-    chown system radio /sys/class/camera/rear/rear_camtype
-    chown system radio /sys/class/camera/rear/rear_corever
-    chown system radio /sys/class/camera/rear/rear_companionfw_full
-    chown system radio /sys/class/camera/rear/rear_calcheck
-    chown system radio /sys/class/camera/rear/rear_fwcheck
-    chown system radio /sys/class/camera/rear/isp_core
-    chown system radio /sys/class/camera/flash/rear_flash
-    chown system radio /sys/class/camera/front/front_camfw
-    chown system radio /sys/class/camera/front/front_camtype
-    chown system radio /sys/class/camera/ois/selftest
-    chown system radio /sys/class/camera/ois/ois_power
-    chown system radio /sys/class/camera/ois/ois_rawdata
-    chown system radio /sys/class/camera/ois/oisfw
-    chown system radio /sys/class/camera/ois/ois_fw_load
+    chown system system /sys/class/camera/rear/isp_core
+    chown system system /sys/class/camera/rear/rear_calcheck
+    chown system system /sys/class/camera/rear/rear_camfw
+    chown system system /sys/class/camera/rear/rear_camfw_full
+    chown system system /sys/class/camera/rear/rear_camfw_load
+    chown system system /sys/class/camera/rear/rear_camtype
+    chown system system /sys/class/camera/rear/rear_checkfw_factory
+    chown system system /sys/class/camera/rear/rear_checkfw_user
+    chown system system /sys/class/camera/rear/rear_companionfw_full
+    chown system system /sys/class/camera/rear/rear_corever
+    chown system system /sys/class/camera/rear/rear_fwcheck
+    chown system system /sys/class/camera/rear/rear_latest_module_check
+    chown system system /sys/class/camera/flash/rear_flash
+    chown system system /sys/class/camera/front/front_camfw
+    chown system system /sys/class/camera/front/front_camtype
 
     #OTG Test
     chown system radio /sys/class/host_notify/usb_otg/booster
