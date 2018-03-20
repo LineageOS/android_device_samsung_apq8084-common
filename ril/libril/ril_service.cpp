@@ -67,6 +67,12 @@ using android::sp;
 #define CALL_ONSTATEREQUEST(a) s_vendorFunctions->onStateRequest()
 #endif
 
+#ifdef OEM_HOOK_DISABLED
+constexpr bool kOemHookEnabled = false;
+#else
+constexpr bool kOemHookEnabled = true;
+#endif
+
 RIL_RadioFunctions *s_vendorFunctions = NULL;
 static CommandInfo *s_commands;
 
@@ -6739,6 +6745,8 @@ int radio::sendRequestRawResponse(int slotId,
    RLOGD("sendRequestRawResponse: serial %d", serial);
 #endif
 
+    if (!kOemHookEnabled) return 0;
+
     if (oemHookService[slotId]->mOemHookResponse != NULL) {
         RadioResponseInfo responseInfo = {};
         populateResponseInfo(responseInfo, serial, responseType, e);
@@ -6767,6 +6775,8 @@ int radio::sendRequestStringsResponse(int slotId,
 #if VDBG
     RLOGD("sendRequestStringsResponse: serial %d", serial);
 #endif
+
+    if (!kOemHookEnabled) return 0;
 
     if (oemHookService[slotId]->mOemHookResponse != NULL) {
         RadioResponseInfo responseInfo = {};
@@ -8609,6 +8619,8 @@ int radio::keepaliveStatusInd(int slotId,
 int radio::oemHookRawInd(int slotId,
                          int indicationType, int token, RIL_Errno e, void *response,
                          size_t responseLen) {
+    if (!kOemHookEnabled) return 0;
+
     if (oemHookService[slotId] != NULL && oemHookService[slotId]->mOemHookIndication != NULL) {
         if (response == NULL || responseLen == 0) {
             RLOGE("oemHookRawInd: invalid response");
@@ -8658,12 +8670,15 @@ void radio::registerService(RIL_RadioFunctions *callbacks, CommandInfo *commands
 
         radioService[i] = new RadioImpl;
         radioService[i]->mSlotId = i;
-        oemHookService[i] = new OemHookImpl;
-        oemHookService[i]->mSlotId = i;
         RLOGD("registerService: starting android::hardware::radio::V1_1::IRadio %s",
                 serviceNames[i]);
         android::status_t status = radioService[i]->registerAsService(serviceNames[i]);
-        status = oemHookService[i]->registerAsService(serviceNames[i]);
+
+        if (kOemHookEnabled) {
+            oemHookService[i] = new OemHookImpl;
+            oemHookService[i]->mSlotId = i;
+            status = oemHookService[i]->registerAsService(serviceNames[i]);
+        }
 
         ret = pthread_rwlock_unlock(radioServiceRwlockPtr);
         assert(ret == 0);
