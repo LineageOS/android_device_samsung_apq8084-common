@@ -22,4 +22,4 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     device/samsung/apq8084-common/nfc/s3fwrn5/libnfc-sec.conf:system/vendor/etc/libnfc-brcm.conf \
-    device/samsung/apq8084-common/nfc/s3fwrn5/libnfc-sec-hal.conf:system/vendor/etc/sec-nfc.conf
+    device/samsung/apq8084-common/nfc/s3fwrn5/libnfc-sec-hal.conf:system/vendor/etc/libnfc-sec-hal.conf
