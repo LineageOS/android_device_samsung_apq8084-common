@@ -46,14 +46,14 @@ include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
 SEC_WIFI_FILES := \
-	WCNSS_qcom_cfg.ini WCNSS_qcom_wlan_nv.bin
+	WCNSS_cfg.dat WCNSS_qcom_cfg.ini WCNSS_qcom_wlan_nv.bin
 
 SEC_WIFI_SYMLINKS := $(addprefix $(TARGET_OUT)/etc/firmware/wlan/qca_cld/,$(notdir $(SEC_WIFI_FILES)))
 $(SEC_WIFI_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "SEC WIFI symlink: $@"
+	@echo "WIFI symlink: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /system/etc/wifi/$(notdir $@) $@
+	$(hide) ln -sf /system/vendor/firmware/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(SEC_WIFI_SYMLINKS)
 
@@ -63,7 +63,7 @@ SEC_PERSIST_FILES := \
 
 SEC_PERSIST_SYMLINKS := $(addprefix $(TARGET_OUT)/etc/firmware/wlan/qca_cld/,$(notdir $(SEC_PERSIST_FILES)))
 $(SEC_PERSIST_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "SEC PERSIST symlink: $@"
+	@echo "WIFI PERSIST symlink: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
 	$(hide) ln -sf /persist/$(notdir $@) $@
