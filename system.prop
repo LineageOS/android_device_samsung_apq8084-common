@@ -46,9 +46,6 @@ fingerprint_enabled=1
 persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
 
-# NFC
-ro.nfc.port=I2C
-
 # QCOM Vendor
 persist.data.qmi.adb_logmask=0
 ro.vendor.extension_library=/vendor/lib/libqc-opt.so
