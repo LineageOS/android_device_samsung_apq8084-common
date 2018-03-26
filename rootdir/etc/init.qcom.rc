@@ -1255,8 +1255,9 @@ service sshd /system/bin/start-ssh
     group root
     disabled
 
-on property:ro.build.type=eng
-    start sshd
+# ro.build.type is currently broken on eng builds
+#on property:ro.build.type=eng
+#    start sshd
 
 on property:ro.build.flavor=lineage_kccat6-eng
     start sshd
