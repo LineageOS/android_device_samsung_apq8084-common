@@ -45,6 +45,7 @@ fingerprint_enabled=1
 # GPS
 persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
+sys.qca1530=detect
 
 # QCOM Vendor
 persist.data.qmi.adb_logmask=0
@@ -54,10 +55,18 @@ ro.vendor.extension_library=/vendor/lib/libqc-opt.so
 rild.libpath=/system/vendor/lib/libsec-ril.so
 ro.telephony.mms_data_profile=5
 ro.ril.telephony.mqanelements=6
-ro.telephony.default_network=9
 persist.radio.apm_mdm_not_pwdn=1
 persist.radio.apm_sim_not_pwdn=1
 persist.radio.add_power_save=1
+persist.radio.sib16_support=0
+
+# Radio: default to LTE
+ro.telephony.default_network=9
+
+# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
+ro.telephony.call_ring.multiple=0
+
+# Rmnet
 persist.rmnet.data.enable=true
 persist.data.wda.enable=true
 persist.data.df.dl_mode=5
@@ -69,9 +78,6 @@ persist.data.df.iwlan_mux=9
 persist.data.df.dev_name=rmnet_usb0
 persist.data.llf.enable=true
 persist.net.doxlat=true
-
-# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
-ro.telephony.call_ring.multiple=0
 
 # Sensors
 debug.sensors=1
