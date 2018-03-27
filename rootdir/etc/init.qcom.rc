@@ -1135,7 +1135,7 @@ on boot
     chmod 0644 /efs/h2k.dat
     mkdir /data/misc/radio/hatp 0775 radio system
 
-    # Vibrator
+    # Vibrator (old CMHW nodes, still used by TWRP)
     chmod 0660 /sys/class/timed_output/vibrator/pwm_value
     chown system system /sys/class/timed_output/vibrator/pwm_value
     chmod 0440 /sys/class/timed_output/vibrator/pwm_max
