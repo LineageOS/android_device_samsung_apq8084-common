@@ -64,6 +64,14 @@ BOARD_CHARGING_CMDLINE_NAME := "androidboot.mode"
 BOARD_CHARGING_CMDLINE_VALUE := "charger"
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+# Dexpreopt
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= false
+    WITH_DEXPREOPT := true
+  endif
+endif
+
 # Display & Render
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
