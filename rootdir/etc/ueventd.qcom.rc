@@ -176,8 +176,6 @@
 /sys/devices/virtual/input/input*                   poll           0660    input    system
 /sys/devices/virtual/input/input*                   pollrate_ms    0660    input    system
 
-# wlan
-/dev/wcnss_wlan           0660   system     system
 #nfc permissions
 /dev/nfc-nci              0660    nfc         nfc
 
