@@ -213,32 +213,6 @@ $(BT_FW_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 ALL_DEFAULT_INSTALLED_MODULES += $(BT_FW_SYMLINKS)
 
 include $(CLEAR_VARS)
-SEC_LIB_FILES := \
-	libprotobuf-cpp-full.so
-
-SEC_LIB_SYMLINKS := $(addprefix $(TARGET_OUT)/lib/,$(notdir $(SEC_LIB_FILES)))
-$(SEC_LIB_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "SEC LIB symlink: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /system/vendor/lib/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(SEC_LIB_SYMLINKS)
-
-include $(CLEAR_VARS)
-SEC_BIN_FILES := \
-	ks
-
-SEC_BIN_SYMLINKS := $(addprefix $(TARGET_OUT)/bin/,$(notdir $(SEC_BIN_FILES)))
-$(SEC_BIN_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "SEC BIN symlink: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /system/vendor/bin/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(SEC_BIN_SYMLINKS)
-
-include $(CLEAR_VARS)
 CAMVERS_FILES := \
     F16UL_s5k2p2xx_module_info.xml F16US_imx240_module_info.xml
 
