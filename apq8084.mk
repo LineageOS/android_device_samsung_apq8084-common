@@ -24,9 +24,6 @@ $(call inherit-product-if-exists, vendor/samsung/apq8084-common/apq8084-common-v
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
 
-# System properties
--include $(LOCAL_PATH)/system_prop.mk
-
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
