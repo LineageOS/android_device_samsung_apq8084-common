@@ -5,6 +5,7 @@
 # data files
 /data/.cid.info                                         u:object_r:wifi_data_file:s0
 /data/.wifiver.info                                     u:object_r:wifi_data_file:s0
+/data/validity(/.*)?                                    u:object_r:vcs_data_file:s0
 
 # device nodes
 /dev/batch_io                                           u:object_r:sensors_device:s0
@@ -13,6 +14,8 @@
 /dev/pn547                                              u:object_r:nfc_device:s0
 /dev/rfkill                                             u:object_r:wlan_device:s0
 /dev/sec-nfc                                            u:object_r:nfc_device:s0
+/dev/ttyHS3                                             u:object_r:audio_device:s0
+/dev/vfsspi                                             u:object_r:vcs_device:s0
 
 # efs files
 /efs/bluetooth(/.*)?                                    u:object_r:bluetooth_efs_file:s0
@@ -31,6 +34,7 @@
 
 # sysfs
 /sys/devices/battery.[0-9]+/power_supply/battery(/.*)?           u:object_r:sysfs_batteryinfo:s0
+/sys/devices(/.*)?/input/input[1-2]/enabled             u:object_r:sysfs_hal_pwr:s0
 /sys/module/dhd/parameters/firmware_path                         u:object_r:sysfs_wifi_writeable:s0
 /sys/module/dhd/parameters/nvram_path                            u:object_r:sysfs_wifi_writeable:s0
 /sys/devices/platform/bcm[0-9]+_bluetooth/rfkill/rfkill0/state   u:object_r:sysfs_bluetooth_writable:s0
