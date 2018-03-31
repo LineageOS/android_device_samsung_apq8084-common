@@ -51,6 +51,7 @@ BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm
 BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DT := true
+BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 TARGET_KERNEL_CONFIG := apq8084_sec_defconfig
 TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
@@ -82,6 +83,8 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 HAVE_ADRENO_SOURCE := false
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
+VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
@@ -93,12 +96,12 @@ DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
 
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_apq8084
+TARGET_RECOVERY_DEVICE_MODULES := libinit_apq8084
+
 # Graphics
 TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
-
-# Display
-SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
-VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 
 # Extended Filesystem Support
 TARGET_EXFAT_DRIVER := sdfat
@@ -145,19 +148,13 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
-
-# Size counts
 LZMA_RAMDISK_TARGETS := recovery
 
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
 # SELinux
-include device/samsung/apq8084-common/sepolicy/sepolicy.mk
-
-# Init
-TARGET_INIT_VENDOR_LIB := libinit_apq8084
-TARGET_RECOVERY_DEVICE_MODULES := libinit_apq8084
+include $(COMMON_PATH)/sepolicy/sepolicy.mk
 
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
