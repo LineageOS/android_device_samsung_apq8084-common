@@ -23,6 +23,9 @@
 
 # firmware
 /system/vendor/firmware/bcm(.*).hcd                     u:object_r:bt_fw_file:s0
+/system/vendor/firmware/nvm_tlv(.*).bin                 u:object_r:bt_fw_file:s0
+/system/vendor/firmware/rampatch_tlv.img                u:object_r:bt_fw_file:s0
+/system/vendor/firmware/rampatch_tlv_(.*).tlv           u:object_r:bt_fw_file:s0
 /system/vendor/firmware/bcm2079x(.*).ncd                u:object_r:nfc_fw_file:s0
 /system/vendor/firmware/libpn547_fw.so                  u:object_r:nfc_fw_file:s0
 
@@ -39,6 +42,8 @@
 /sys/module/dhd/parameters/firmware_path                         u:object_r:sysfs_wifi_writeable:s0
 /sys/module/dhd/parameters/nvram_path                            u:object_r:sysfs_wifi_writeable:s0
 /sys/devices/platform/bcm[0-9]+_bluetooth/rfkill/rfkill0/state   u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/bt_qca6174.[0-9]+/extldo                   u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/bt_qca6174.[0-9]+/rfkill/rfkill0/state              u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/virtual/sec/sec_key/hall_irq_ctrl                   u:object_r:sysfs_sec:s0
 
 # mdnie sysfs
