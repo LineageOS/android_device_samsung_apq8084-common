@@ -21,9 +21,6 @@
 /efs/bluetooth(/.*)?                                    u:object_r:bluetooth_efs_file:s0
 /efs/wifi(/.*)?                                         u:object_r:wifi_efs_file:s0
 
-# executeables
-/system/vendor/bin/macloader                            u:object_r:macloader_exec:s0
-
 # firmware
 /system/vendor/firmware/bcm(.*).hcd                     u:object_r:bt_fw_file:s0
 /system/vendor/firmware/bcm2079x(.*).ncd                u:object_r:nfc_fw_file:s0
