@@ -1246,6 +1246,8 @@ service mdm_helper /system/vendor/bin/mdm_helper
 
 service mdm_helper_proxy /system/vendor/bin/mdm_helper_proxy
     class core
+    user system
+    group system
     disabled
 
 service sshd /system/bin/start-ssh
