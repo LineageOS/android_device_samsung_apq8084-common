@@ -178,10 +178,6 @@ PRODUCT_COPY_FILES += \
 # NFC
 $(call inherit-product, device/samsung/apq8084-common/nfc/pn547/product.mk)
 
-# Power HAL
-PRODUCT_PACKAGES += \
-    power.apq8084
-
 # Radio
 PRODUCT_PACKAGES += \
     libsecnativefeature
