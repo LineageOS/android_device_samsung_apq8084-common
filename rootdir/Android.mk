@@ -34,10 +34,14 @@ LOCAL_MODULE_PATH  := $(TARGET_ROOT_OUT)
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE       := init.qcom.usb.sh
+LOCAL_MODULE       := init.qcom.usb.mdm.rc
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES    := etc/init.qcom.usb.sh
+ifneq ($(filter kccat6 lentislte trltexx trltedt tbltexx tbltedt,$(TARGET_DEVICE)),)
+LOCAL_SRC_FILES    := etc/init.qcom.usb.9x35.rc
+else
+LOCAL_SRC_FILES    := etc/init.qcom.usb.9x25.rc
+endif
 LOCAL_MODULE_PATH  := $(TARGET_ROOT_OUT)
 include $(BUILD_PREBUILT)
 
