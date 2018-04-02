@@ -24,7 +24,7 @@
                          AudioDecoderCap)>
 <!ELEMENT CamcorderProfiles (EncoderProfile+, ImageEncoding+, ImageDecoding, Camera)>
 <!ELEMENT EncoderProfile (Video, Audio)>
-<!ATTLIST EncoderProfile quality (low|high|qcif|qvga|720p|1080p|timelapselow|timelapsehigh|timelapseqcif|timelapseqvga|timelapse720p|timelapse1080p) #REQUIRED>
+<!ATTLIST EncoderProfile quality (low|high|qcif|qvga|720p|1080p|timelapselow|timelapsehigh|timelapseqcif|timelapseqvga|timelapse720p|timelapse1080p|timelapse2160p) #REQUIRED>
 <!ATTLIST EncoderProfile fileFormat (mp4|3gp) #REQUIRED>
 <!ATTLIST EncoderProfile duration (30|60) #REQUIRED>
 <!ATTLIST EncoderProfile cameraId (0|1) #REQUIRED>
@@ -35,10 +35,10 @@
 <!ATTLIST Video height CDATA #REQUIRED>
 <!ATTLIST Video frameRate CDATA #REQUIRED>
 <!ELEMENT Audio EMPTY>
-<!ATTLIST Audio codec (amrnb|amrwb|aac|lpcm) #REQUIRED>
+<!ATTLIST Audio codec (amrnb|amrwb|aac) #REQUIRED>
 <!ATTLIST Audio bitRate CDATA #REQUIRED>
 <!ATTLIST Audio sampleRate CDATA #REQUIRED>
-<!ATTLIST Audio channels (1|2|6) #REQUIRED>
+<!ATTLIST Audio channels (1|2) #REQUIRED>
 <!ELEMENT ImageEncoding EMPTY>
 <!ATTLIST ImageEncoding quality (90|80|70|60|50|40) #REQUIRED>
 <!ELEMENT ImageDecoding EMPTY>
@@ -57,11 +57,8 @@
 <!ATTLIST VideoEncoderCap maxFrameHeight CDATA #REQUIRED>
 <!ATTLIST VideoEncoderCap minFrameRate CDATA #REQUIRED>
 <!ATTLIST VideoEncoderCap maxFrameRate CDATA #REQUIRED>
-<!ATTLIST VideoEncoderCap maxHFRFrameWidth CDATA #REQUIRED>
-<!ATTLIST VideoEncoderCap maxHFRFrameHeight CDATA #REQUIRED>
-<!ATTLIST VideoEncoderCap maxHFRMode CDATA #REQUIRED>
 <!ELEMENT AudioEncoderCap EMPTY>
-<!ATTLIST AudioEncoderCap name (amrnb|amrwb|aac|wma|lpcm) #REQUIRED>
+<!ATTLIST AudioEncoderCap name (amrnb|amrwb|aac|wma) #REQUIRED>
 <!ATTLIST AudioEncoderCap enabled (true|false) #REQUIRED>
 <!ATTLIST AudioEncoderCap minBitRate CDATA #REQUIRED>
 <!ATTLIST AudioEncoderCap maxBitRate CDATA #REQUIRED>
@@ -534,25 +531,19 @@
         minBitRate="64000" maxBitRate="50000000"
         minFrameWidth="176" maxFrameWidth="3840"
         minFrameHeight="144" maxFrameHeight="2160"
-        minFrameRate="1" maxFrameRate="30"
-        maxHFRFrameWidth="1920" maxHFRFrameHeight="1080"
-        maxHFRMode="120" />
+        minFrameRate="1" maxFrameRate="30" />
 
     <VideoEncoderCap name="h263" enabled="true"
         minBitRate="64000" maxBitRate="1000000"
         minFrameWidth="176" maxFrameWidth="800"
         minFrameHeight="144" maxFrameHeight="480"
-        minFrameRate="1" maxFrameRate="30"
-        maxHFRFrameWidth="0" maxHFRFrameHeight="0"
-        maxHFRMode="0" />
+        minFrameRate="1" maxFrameRate="30" />
 
     <VideoEncoderCap name="m4v" enabled="true"
         minBitRate="64000" maxBitRate="20000000"
         minFrameWidth="176" maxFrameWidth="1920"
         minFrameHeight="144" maxFrameHeight="1080"
-        minFrameRate="1" maxFrameRate="30"
-        maxHFRFrameWidth="0" maxHFRFrameHeight="0"
-        maxHFRMode="0" />
+        minFrameRate="1" maxFrameRate="30" />
 
     <AudioEncoderCap name="aac" enabled="true"
       minBitRate="8192" maxBitRate="256000"
@@ -578,11 +569,6 @@
         minBitRate="5525" maxBitRate="12200"
         minSampleRate="8000" maxSampleRate="8000"
         minChannels="1" maxChannels="1" />
-
-    <AudioEncoderCap name="lpcm" enabled="true"
-        minBitRate="768000" maxBitRate="4608000"
-        minSampleRate="48000" maxSampleRate="48000"
-        minChannels="1" maxChannels="6" />
 
     <!--
         FIXME:
