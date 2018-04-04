@@ -322,26 +322,29 @@ vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
 
 # Graphics
-vendor/lib/egl/eglSubDriverAndroid.so
-vendor/lib/egl/libEGL_adreno.so
-vendor/lib/egl/libGLESv1_CM_adreno.so
-vendor/lib/egl/libGLESv2_adreno.so
+vendor/lib/egl/eglsubAndroid.so|ad3f90b93adc0adb3231683d23d73fdc
+vendor/lib/egl/eglSubDriverAndroid.so|7506ba3af7f76fe8d27f1b67020d6981
 vendor/lib/egl/libQTapGLES.so
-vendor/lib/egl/libq3dtools_adreno.so
-vendor/lib/egl/libq3dtools_esx.so
-vendor/lib/libC2D2.so
-vendor/lib/libCB.so
-vendor/lib/libOpenCL.so
-vendor/lib/libRSDriver_adreno.so
-vendor/lib/libadreno_utils.so
-vendor/lib/libbccQTI.so
-vendor/lib/libc2d30-a4xx.so
-vendor/lib/libgsl.so
-vendor/lib/libllvm-glnext.so
-vendor/lib/libllvm-qcom.so
-vendor/lib/librs_adreno.so
-vendor/lib/librs_adreno_sha1.so
+vendor/lib/egl/libEGL_adreno.so|29ec058d4829aa3c6fc6126433acde61
+vendor/lib/egl/libGLESv1_CM_adreno.so|0938c4c2a8d47900cd707f829485001b
+vendor/lib/egl/libGLESv2_adreno.so|9ddc283ad7c9a7de8a9106d7929ab94f
+vendor/lib/egl/libq3dtools_adreno.so|319b15299f8c67198ca84b384aca7b3d
+vendor/lib/egl/libq3dtools_esx.so|d3742658bd31580202520e9c6a01463c
+vendor/lib/libadreno_utils.so|f5fb29971913b5cc709f0e1c3fadcd02
+vendor/lib/libbccQTI.so|ac22c671778c99f097532ec6fa6b0144
+vendor/lib/libC2D2.so|3df0eefe84d5d4cc23c4915034f80718
+vendor/lib/libc2d30-a4xx.so|bf452640f3c401d6853dc004ea5f78b9
+vendor/lib/libc2d30-a3xx.so|70f1493cf4e537b4d442c70e829370f7
+vendor/lib/libc2d30.so|782a61b4effc612e1aca994d074927ca
+vendor/lib/libCB.so|839c5200adc1d57a9420facb2ad8c004
+vendor/lib/libgsl.so|391693925e6e9b9344bb64c9a5e3cc21
+vendor/lib/libllvm-qcom.so|8fb092398feada8dc57377448aef69ae
+vendor/lib/libllvm-glnext.so|e1967fcd236ed6e2fbd26cf6c93a291a
+vendor/lib/libRSDriver_adreno.so|dc252be026c936272c2739e75a6a72de
+vendor/lib/librs_adreno.so|67f1e78d36aaa73363625116f4c9d069
+vendor/lib/librs_adreno_sha1.so|9e87dc30c698229e2a97d25d45a95e80
 vendor/lib/libscale.so
+vendor/lib/libOpenCL.so
 vendor/lib/libuiblur.so|2dee48b106855d40b80062700421b5ec7853d178
 
 # Graphics firmware
