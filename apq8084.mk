@@ -196,7 +196,6 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.power.rc \
     init.qcom.usb.rc \
-    init.qcom.usb.mdm.rc \
     init.sec.boot.sh \
     init.trace.rc \
     ueventd.qcom.rc

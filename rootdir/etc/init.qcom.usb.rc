@@ -25,8 +25,6 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import init.qcom.usb.mdm.rc
-
 on init
     write /sys/class/android_usb/android0/f_rndis/wceis 1
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
@@ -45,6 +43,31 @@ on fs
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     write /sys/class/android_usb/android0/f_ffs/aliases adb
+
+on boot && property:persist.ril.modem.board=MDM9225M
+  write /sys/class/android_usb/android0/f_rmnet/transports hsic,hsic
+  write /sys/class/android_usb/android0/f_rmnet/transport_names rmnet_hsic
+  setprop persist.rmnet.mux enabled
+  write /sys/module/rmnet_usb/parameters/mux_enabled 1
+  write /sys/module/rmnet_usb/parameters/no_fwd_rmnet_links 8
+  write /sys/module/rmnet_usb/parameters/no_rmnet_insts_per_dev 17
+  write /sys/module/rmnet_usb/parameters/rmnet_data_init 1
+  chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
+on boot && property:persist.ril.modem.board=MDM9625M
+  write /sys/class/android_usb/android0/f_rmnet/transports hsic,hsic
+  write /sys/class/android_usb/android0/f_rmnet/transport_names rmnet_hsic
+  setprop persist.rmnet.mux enabled
+  write /sys/module/rmnet_usb/parameters/mux_enabled 1
+  write /sys/module/rmnet_usb/parameters/no_fwd_rmnet_links 8
+  write /sys/module/rmnet_usb/parameters/no_rmnet_insts_per_dev 17
+  write /sys/module/rmnet_usb/parameters/rmnet_data_init 1
+  chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
+on boot && property:persist.ril.modem.board=MDM9235
+  write /sys/class/android_usb/android0/f_rmnet/transports qti,ether
+  write /sys/module/g_android/parameters/tx_qmult 2
+  write /sys/module/g_android/parameters/min_cpu_freq 1036800
 
 # Following are the parameters required for usb functionality. They provide configurable options like
 # product_id/vendor id and allows specifying required functions:
