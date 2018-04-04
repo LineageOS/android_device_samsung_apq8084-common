@@ -442,14 +442,6 @@ on post-fs-data
     rm /data/data/com.android.providers.telephony/databases
     rm /data/data/com.android.providers.telephony/shared_prefs
 
-    # COMPAT: Handle upgrade from previous implementation of this idea. If the
-    # above could not be unlinked then we have the old symlinked files
-    # scenario. Clean that up.
-    rm /data/data/com.android.providers.telephony/databases/telephony.db
-    rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
-    rmdir /data/data/com.android.providers.telephony/databases
-    rmdir /data/data/com.android.providers.telephony/shared_prefs
-
     setprop vold.post_fs_data_done 1
 
 on early-boot
