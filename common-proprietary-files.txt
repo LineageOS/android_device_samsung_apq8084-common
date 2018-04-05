@@ -366,9 +366,6 @@ vendor/lib/libSHIMDivxDrm.so
 vendor/lib/libmm-color-convertor.so
 vendor/lib/libmmosal.so
 
-# NFC
-vendor/firmware/libpn547_fw.so
-
 # Qualcomm framework
 bin/irsc_util
 vendor/lib/libdiag.so
