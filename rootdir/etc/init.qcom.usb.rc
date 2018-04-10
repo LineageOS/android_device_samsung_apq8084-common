@@ -44,7 +44,7 @@ on fs
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     write /sys/class/android_usb/android0/f_ffs/aliases adb
 
-on boot && property:persist.ril.modem.board=MDM9225M
+on property:persist.ril.modem.board=MDM9225M
   write /sys/class/android_usb/android0/f_rmnet/transports hsic,hsic
   write /sys/class/android_usb/android0/f_rmnet/transport_names rmnet_hsic
   setprop persist.rmnet.mux enabled
@@ -54,7 +54,7 @@ on boot && property:persist.ril.modem.board=MDM9225M
   write /sys/module/rmnet_usb/parameters/rmnet_data_init 1
   chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
-on boot && property:persist.ril.modem.board=MDM9625M
+on property:persist.ril.modem.board=MDM9625M
   write /sys/class/android_usb/android0/f_rmnet/transports hsic,hsic
   write /sys/class/android_usb/android0/f_rmnet/transport_names rmnet_hsic
   setprop persist.rmnet.mux enabled
@@ -64,7 +64,7 @@ on boot && property:persist.ril.modem.board=MDM9625M
   write /sys/module/rmnet_usb/parameters/rmnet_data_init 1
   chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
-on boot && property:persist.ril.modem.board=MDM9235
+on property:persist.ril.modem.board=MDM9235
   write /sys/class/android_usb/android0/f_rmnet/transports qti,ether
   write /sys/module/g_android/parameters/tx_qmult 2
   write /sys/module/g_android/parameters/min_cpu_freq 1036800
