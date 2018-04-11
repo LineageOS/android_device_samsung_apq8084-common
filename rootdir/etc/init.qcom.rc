@@ -499,7 +499,7 @@ on boot
     chmod 0770 /data/firmware
     chown system system /data/firmware
     chmod 0660 /dev/ttyHS3
-    chown media audio /dev/ttyHS3
+    # Deferred to boot_completed: chown media audio /dev/ttyHS3
 
     # For WiFi
     chown wifi wifi /dev/rfkill
@@ -1314,6 +1314,10 @@ service wpa_supplicant /system/vendor/bin/hw/wpa_supplicant \
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
+
+    #Audience ES705 UART
+    # Late chown to make sure the kernel can access the device
+    chown media audio /dev/ttyHS3
 
     # disable debug logging
     write /sys/module/rmnet_usb/parameters/dump_ctrl_msg 0
