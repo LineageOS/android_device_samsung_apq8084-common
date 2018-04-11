@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/vendor/bin/sh
 
 echo "init.sec.boot.sh: start" > /dev/kmsg
 
