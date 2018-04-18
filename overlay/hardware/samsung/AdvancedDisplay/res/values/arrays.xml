@@ -48,7 +48,6 @@
         <item>@string/mdnie_accessibility_normal</item>
         <item>@string/mdnie_accessibility_inverse</item>
         <item>@string/mdnie_accessibility_color_blind</item>
-        <item>@string/mdnie_accessibility_screen_curtain</item>
         <item>@string/mdnie_accessibility_grayscale</item>
         <item>@string/mdnie_accessibility_gray_negative</item>
     </string-array>
@@ -57,7 +56,6 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
-        <item>3</item>
         <item>4</item>
         <item>5</item>
     </string-array>
