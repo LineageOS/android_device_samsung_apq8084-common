@@ -10,4 +10,4 @@ type bt_fw_file, file_type;
 type nfc_fw_file, file_type;
 type wifi_efs_file, file_type;
 
-type vcs_data_file, file_type, data_file_type;
+type vfsspi_data_file, file_type, data_file_type;
