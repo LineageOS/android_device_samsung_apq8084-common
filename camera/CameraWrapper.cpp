@@ -53,48 +53,6 @@ static const char KEY_QC_VIDEO_HDR_VALUES[] = "video-hdr-values";
 
 using namespace android;
 
-static Mutex gCameraWrapperLock;
-static camera_module_t *gVendorModule = 0;
-
-static camera_notify_callback gUserNotifyCb = NULL;
-static camera_data_callback gUserDataCb = NULL;
-static camera_data_timestamp_callback gUserDataCbTimestamp = NULL;
-static camera_request_memory gUserGetMemory = NULL;
-static void *gUserCameraDevice = NULL;
-
-static char **fixed_set_params = NULL;
-
-static int camera_device_open(const hw_module_t *module, const char *name,
-        hw_device_t **device);
-static int camera_get_number_of_cameras(void);
-static int camera_get_camera_info(int camera_id, struct camera_info *info);
-
-static struct hw_module_methods_t camera_module_methods = {
-    .open = camera_device_open,
-};
-
-camera_module_t HAL_MODULE_INFO_SYM = {
-    .common = {
-         .tag = HARDWARE_MODULE_TAG,
-         .module_api_version = CAMERA_MODULE_API_VERSION_1_0,
-         .hal_api_version = HARDWARE_HAL_API_VERSION,
-         .id = CAMERA_HARDWARE_MODULE_ID,
-         .name = "APQ8084 Camera Wrapper",
-         .author = "The LineageOS Project",
-         .methods = &camera_module_methods,
-         .dso = NULL,
-         .reserved = {0},
-    },
-    .get_number_of_cameras = camera_get_number_of_cameras,
-    .get_camera_info = camera_get_camera_info,
-    .set_callbacks = NULL,
-    .get_vendor_tag_ops = NULL,
-    .open_legacy = NULL,
-    .set_torch_mode = NULL,
-    .init = NULL,
-    .reserved = {0},
-};
-
 typedef struct wrapper_camera_device {
     camera_device_t base;
     int id;
@@ -107,6 +65,17 @@ typedef struct wrapper_camera_device {
 })
 
 #define CAMERA_ID(device) (((wrapper_camera_device_t *)device)->id)
+
+static Mutex gCameraWrapperLock;
+static camera_module_t *gVendorModule = 0;
+
+static camera_notify_callback gUserNotifyCb = NULL;
+static camera_data_callback gUserDataCb = NULL;
+static camera_data_timestamp_callback gUserDataCbTimestamp = NULL;
+static camera_request_memory gUserGetMemory = NULL;
+static void *gUserCameraDevice = NULL;
+
+static char **fixed_set_params = NULL;
 
 static int check_vendor_module()
 {
@@ -235,7 +204,6 @@ static char *camera_fixup_setparams(int id, const char *settings)
  * Implementation of camera_device_ops functions
  *******************************************************************/
 static char *camera_get_parameters(struct camera_device *device);
-static int camera_set_parameters(struct camera_device *device, const char *params);
 
 static int camera_set_preview_window(struct camera_device *device,
         struct preview_stream_ops *window)
@@ -712,3 +680,29 @@ static int camera_get_camera_info(int camera_id, struct camera_info *info)
         return 0;
     return gVendorModule->get_camera_info(camera_id, info);
 }
+
+static struct hw_module_methods_t camera_module_methods = {
+    .open = camera_device_open,
+};
+
+camera_module_t HAL_MODULE_INFO_SYM = {
+    .common = {
+         .tag = HARDWARE_MODULE_TAG,
+         .module_api_version = CAMERA_MODULE_API_VERSION_1_0,
+         .hal_api_version = HARDWARE_HAL_API_VERSION,
+         .id = CAMERA_HARDWARE_MODULE_ID,
+         .name = "APQ8084 Camera Wrapper",
+         .author = "The LineageOS Project",
+         .methods = &camera_module_methods,
+         .dso = NULL,
+         .reserved = {0},
+    },
+    .get_number_of_cameras = camera_get_number_of_cameras,
+    .get_camera_info = camera_get_camera_info,
+    .set_callbacks = NULL,
+    .get_vendor_tag_ops = NULL,
+    .open_legacy = NULL,
+    .set_torch_mode = NULL,
+    .init = NULL,
+    .reserved = {0},
+};
