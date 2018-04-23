@@ -185,7 +185,9 @@ static char *camera_fixup_setparams(int id, const char *settings)
         }
     }
 
-    params.set(KEY_PREVIEW_FPS_RANGE, "8000,30000");
+    /* Fix for Camera2.  Without this, the cam 1 preview is much too dark. */
+    if (id == FRONT_CAMERA_ID)
+        params.set(KEY_PREVIEW_FPS_RANGE, "7000,30000");
 
     ALOGV("%s: Fixed parameters:", __FUNCTION__);
     params.dump();
