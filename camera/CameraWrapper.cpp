@@ -117,9 +117,9 @@ static char *camera_fixup_getparams(int id, const char *settings)
      * that it really is okay to turn it off.
      */
     const char *hfrModeValues = params.get(KEY_VIDEO_HFR_VALUES);
-    if (hfrModeValues && !strstr(hfrModeValues, "off")) {
-        char hfrModes[strlen(hfrModeValues) + 4 + 1];
-        sprintf(hfrModes, "%s,off", hfrModeValues);
+    if (hfrModeValues && !strstr(hfrModeValues, OFF)) {
+        char hfrModes[strlen(OFF) + 1 + strlen(hfrModeValues) + 1];
+        snprintf(hfrModes, sizeof hfrModes, "%s,%s", OFF, hfrModeValues);
         params.set(KEY_VIDEO_HFR_VALUES, hfrModes);
     }
 
