@@ -602,13 +602,14 @@ status_t CameraParameters::dump(int fd, const Vector<String16>& /*args*/) const
     const size_t SIZE = 256;
     char buffer[SIZE];
     String8 result;
-    snprintf(buffer, 255, "CameraParameters::dump: mMap.size = %zu\n", mMap.size());
+    snprintf(buffer, sizeof buffer,
+        "CameraParameters::dump: mMap.size = %zu\n", mMap.size());
     result.append(buffer);
     for (size_t i = 0; i < mMap.size(); i++) {
         String8 k, v;
         k = mMap.keyAt(i);
         v = mMap.valueAt(i);
-        snprintf(buffer, 255, "\t%s: %s\n", k.string(), v.string());
+        snprintf(buffer, sizeof buffer, "\t%s: %s\n", k.string(), v.string());
         result.append(buffer);
     }
     write(fd, result.string(), result.size());
