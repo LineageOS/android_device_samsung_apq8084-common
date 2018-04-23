@@ -36,6 +36,7 @@ static const char DIS_DISABLE[] = "disable";
 static const char KEY_ZSL[] = "zsl";
 static const char ON[] = "on";
 static const char OFF[] = "off";
+static const char KEY_VIDEO_HFR_VALUES[] = "video-hfr-values";
 static const char KEY_VIDEO_SNAPSHOT_SUPPORTED[] = "video-snapshot-supported";
 static const char KEY_FLASH_MODE[] = "flash-mode";
 static const char FLASH_MODE_TORCH[] = "mode-torch";
@@ -122,8 +123,6 @@ static int check_vendor_module()
 
     return rv;
 }
-
-#define KEY_VIDEO_HFR_VALUES "video-hfr-values"
 
 // nv12-venus is needed for blobs, but
 // framework has no idea what it is
