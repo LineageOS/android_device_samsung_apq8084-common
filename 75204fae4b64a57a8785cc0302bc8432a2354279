@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "970669c1_1beba6c3",
+        "filename": "apq8084.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2018-04-24T13:48:56Z",
+      "side": 1,
+      "message": "Why don\u0027t you simply remove it? So that git blame can always show the evidence about Camera2 + Snap concurrency issue?",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 10
+      },
+      "revId": "75204fae4b64a57a8785cc0302bc8432a2354279",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
