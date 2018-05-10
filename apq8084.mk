@@ -25,6 +25,11 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
+ifneq ($(RR_BUILD),)
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/rr-overlay
+endif
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:system/vendor/etc/permissions/android.hardware.fingerprint.xml \
