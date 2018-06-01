@@ -306,8 +306,8 @@ vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
 
-# Widevine from Exynos
-vendor/lib/mediadrm/libwvdrmengine.so|8d8f13b2b20db3fdeeca94fa03063d0bf5597718
+# Widevine (Google angler - OPR6.170623.017)
+vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90ab
 
 # GPS
 lib/hw/gps.default.so
