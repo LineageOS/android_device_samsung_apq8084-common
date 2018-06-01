@@ -27,7 +27,7 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 ifneq ($(RR_BUILD),)
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/rr-overlay
+    $(LOCAL_PATH)/overlay-rr
 endif
 
 # Permissions
