@@ -98,7 +98,7 @@ persist.timed.enable=true
 sys.use_fifo_ui=1
 
 # Vendor security patch level
-ro.vendor.build.security_patch=2017-08-01
+ro.lineage.build.vendor_security_patch=2017-08-01
 
 # WLAN
 wifi.interface=wlan0
