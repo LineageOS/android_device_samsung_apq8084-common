@@ -94,5 +94,8 @@ persist.timed.enable=true
 # Timeout failed shutdowns
 ro.build.shutdown_timeout=5
 
+# Vendor security patch level
+ro.vendor.build.security_patch=2017-08-01
+
 # WLAN
 wifi.interface=wlan0
