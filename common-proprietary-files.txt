@@ -297,7 +297,7 @@ vendor/lib/libqc-opt.so
 vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
 
-# DRM from shamu
+# DRM
 bin/qseecomd
 vendor/lib/libQSEEComAPI.so
 vendor/lib/libdrmfs.so
