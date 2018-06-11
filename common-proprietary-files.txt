@@ -273,7 +273,7 @@ vendor/lib/libmmcamera_s5k6d1yx.so
 vendor/lib/libmmcamera_s5k8b1yx.so
 vendor/lib/libmmcamera_vpu_module.so
 vendor/lib/liboemcamera.so
-vendor/lib/libstlport.so|bbd5131b5cf7a8a4ce7e716b5cba502a
+vendor/lib/libstlport.so|73fcd42bcf813f8355eaba4dbd6e5ef97d3c7291
 
 # Camera Firmware
 cameradata/F16UL_Isp1_s5k2p2xx.bin
@@ -322,27 +322,27 @@ vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
 
 # Graphics
-vendor/lib/egl/eglsubAndroid.so|ad3f90b93adc0adb3231683d23d73fdc
-vendor/lib/egl/eglSubDriverAndroid.so|7506ba3af7f76fe8d27f1b67020d6981
+vendor/lib/egl/eglsubAndroid.so|87543927766befff467f45aa352fc904eafcce16
+vendor/lib/egl/eglSubDriverAndroid.so|089b947cb8de428e784728bc549dcae36174e6a7
 vendor/lib/egl/libQTapGLES.so
-vendor/lib/egl/libEGL_adreno.so|29ec058d4829aa3c6fc6126433acde61
-vendor/lib/egl/libGLESv1_CM_adreno.so|0938c4c2a8d47900cd707f829485001b
-vendor/lib/egl/libGLESv2_adreno.so|9ddc283ad7c9a7de8a9106d7929ab94f
-vendor/lib/egl/libq3dtools_adreno.so|319b15299f8c67198ca84b384aca7b3d
-vendor/lib/egl/libq3dtools_esx.so|d3742658bd31580202520e9c6a01463c
-vendor/lib/libadreno_utils.so|f5fb29971913b5cc709f0e1c3fadcd02
-vendor/lib/libbccQTI.so|ac22c671778c99f097532ec6fa6b0144
-vendor/lib/libC2D2.so|3df0eefe84d5d4cc23c4915034f80718
-vendor/lib/libc2d30-a4xx.so|bf452640f3c401d6853dc004ea5f78b9
-vendor/lib/libc2d30-a3xx.so|70f1493cf4e537b4d442c70e829370f7
-vendor/lib/libc2d30.so|782a61b4effc612e1aca994d074927ca
-vendor/lib/libCB.so|839c5200adc1d57a9420facb2ad8c004
-vendor/lib/libgsl.so|391693925e6e9b9344bb64c9a5e3cc21
-vendor/lib/libllvm-qcom.so|8fb092398feada8dc57377448aef69ae
-vendor/lib/libllvm-glnext.so|e1967fcd236ed6e2fbd26cf6c93a291a
-vendor/lib/libRSDriver_adreno.so|dc252be026c936272c2739e75a6a72de
-vendor/lib/librs_adreno.so|67f1e78d36aaa73363625116f4c9d069
-vendor/lib/librs_adreno_sha1.so|9e87dc30c698229e2a97d25d45a95e80
+vendor/lib/egl/libEGL_adreno.so|a19a64d992b516302b2f1018fbb3ed13138a91c1
+vendor/lib/egl/libGLESv1_CM_adreno.so|d4cd45c53485aec6c8a3649c7fe3af249f1be123
+vendor/lib/egl/libGLESv2_adreno.so|50b8ec48649c9f64503943088e313d3becbdd087
+vendor/lib/egl/libq3dtools_adreno.so|250c1927cda4c1b6b2ae7edd57e7cf106b5d7435
+vendor/lib/egl/libq3dtools_esx.so|5d91614d39d26cc9d7e46b9c07816e28078f6b3e
+vendor/lib/libadreno_utils.so|300747700e53993d5a88d6e8ee0d18506f06f76a
+vendor/lib/libbccQTI.so|cc525d038a96837bf5f63c2aa8e4cd8106cf82fa
+vendor/lib/libC2D2.so|5a2d54074222eb027289012f0dd2cbad7cf938be
+vendor/lib/libc2d30-a4xx.so|7016f57fc967a3e042f41abc55809a609d5b3f6a
+vendor/lib/libc2d30-a3xx.so|ccbd718ab4621466fd22d06ccb97be31864922ce
+vendor/lib/libc2d30.so|1108e5d100321d24a44b73006065faa036f28897
+vendor/lib/libCB.so|a9e503b973d625323aa2be9c400b177c3af514f2
+vendor/lib/libgsl.so|08e32bbe6d6e9900f0c8e65b7b7a948acfaecb60
+vendor/lib/libllvm-qcom.so|28927bcafaa6d472859c08d26d9e505191e7b9d5
+vendor/lib/libllvm-glnext.so|5ec28acc4541c6b46ecbef650b69e98525db0fc7
+vendor/lib/libRSDriver_adreno.so|ea931887e2ac8fbe71565cb83aa1619c53287133
+vendor/lib/librs_adreno.so|b9e8063c64af74e04962e1e9fd2da5575e737586
+vendor/lib/librs_adreno_sha1.so|1260e3918d629164f8e6e46b66e17b18bf85acd0
 vendor/lib/libscale.so
 vendor/lib/libOpenCL.so
 vendor/lib/libuiblur.so|2dee48b106855d40b80062700421b5ec7853d178
