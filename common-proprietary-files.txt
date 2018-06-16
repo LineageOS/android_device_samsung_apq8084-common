@@ -345,7 +345,6 @@ vendor/lib/librs_adreno.so|b9e8063c64af74e04962e1e9fd2da5575e737586
 vendor/lib/librs_adreno_sha1.so|1260e3918d629164f8e6e46b66e17b18bf85acd0
 vendor/lib/libscale.so
 vendor/lib/libOpenCL.so
-vendor/lib/libuiblur.so|2dee48b106855d40b80062700421b5ec7853d178
 
 # Graphics firmware
 etc/firmware/a420_pfp.fw:vendor/firmware/a420_pfp.fw
