@@ -199,6 +199,9 @@ $(call inherit-product, device/samsung/apq8084-common/nfc/pn547/product.mk)
 PRODUCT_PACKAGES += \
     libsecnativefeature
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/qmi_config.xml:/system/etc/data/qmi_config.xml
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
