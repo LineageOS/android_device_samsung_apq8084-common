@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98779140_2e0cc07e",
+        "filename": "configs/qmi_config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2018-06-21T10:33:29Z",
+      "side": 1,
+      "message": "Move to the vendor repo.",
+      "range": {
+        "startLine": 6,
+        "startChar": 5,
+        "endLine": 6,
+        "endChar": 56
+      },
+      "revId": "1fd4eebd6fb7aef5ed37b80f7b7e1326e543cae7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
