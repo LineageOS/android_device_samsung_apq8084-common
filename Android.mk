@@ -341,3 +341,13 @@ $(CAMLIB_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /system/vendor/lib/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(CAMLIB_SYMLINKS)
+
+include $(CLEAR_VARS)
+QMUX_CONFIG_SYMLINK := $(TARGET_OUT_ETC)/data
+$(QMUX_CONFIG_SYMLINK): $(LOCAL_INSTALLED_MODULE)
+	@echo "qmuxd config dir symlink: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /system/vendor/etc/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(QMUX_CONFIG_SYMLINK)

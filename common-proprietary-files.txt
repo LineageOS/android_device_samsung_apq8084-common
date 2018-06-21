@@ -367,6 +367,7 @@ vendor/lib/libmmosal.so
 
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
+etc/data/qmi_config.xml:vendor/etc/data/qmi_config.xml
 vendor/lib/libdiag.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
