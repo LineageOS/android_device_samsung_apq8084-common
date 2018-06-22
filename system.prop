@@ -97,6 +97,9 @@ persist.timed.enable=true
 # Timeout failed shutdowns
 ro.build.shutdown_timeout=5
 
+# UI thread scheduling
+sys.use_fifo_ui=1
+
 # Vendor security patch level
 ro.vendor.build.security_patch=2017-08-01
 
