@@ -323,9 +323,13 @@ vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
 
 # Graphics
+vendor/lib/egl/libQTapGLES.so
+vendor/lib/libscale.so
+vendor/lib/libOpenCL.so
+
+# Graphics (Google shamu - N6F26Q)
 vendor/lib/egl/eglsubAndroid.so|87543927766befff467f45aa352fc904eafcce16
 vendor/lib/egl/eglSubDriverAndroid.so|089b947cb8de428e784728bc549dcae36174e6a7
-vendor/lib/egl/libQTapGLES.so
 vendor/lib/egl/libEGL_adreno.so|a19a64d992b516302b2f1018fbb3ed13138a91c1
 vendor/lib/egl/libGLESv1_CM_adreno.so|d4cd45c53485aec6c8a3649c7fe3af249f1be123
 vendor/lib/egl/libGLESv2_adreno.so|50b8ec48649c9f64503943088e313d3becbdd087
@@ -341,11 +345,11 @@ vendor/lib/libCB.so|a9e503b973d625323aa2be9c400b177c3af514f2
 vendor/lib/libgsl.so|08e32bbe6d6e9900f0c8e65b7b7a948acfaecb60
 vendor/lib/libllvm-qcom.so|28927bcafaa6d472859c08d26d9e505191e7b9d5
 vendor/lib/libllvm-glnext.so|5ec28acc4541c6b46ecbef650b69e98525db0fc7
-vendor/lib/libRSDriver_adreno.so|ea931887e2ac8fbe71565cb83aa1619c53287133
-vendor/lib/librs_adreno.so|b9e8063c64af74e04962e1e9fd2da5575e737586
-vendor/lib/librs_adreno_sha1.so|1260e3918d629164f8e6e46b66e17b18bf85acd0
-vendor/lib/libscale.so
-vendor/lib/libOpenCL.so
+
+# Renderscript (Google bullhead - OPR4.170623.006)
+vendor/lib/libRSDriver_adreno.so|2044baf0169177e52aba6d7138f80559ecf2b58d
+vendor/lib/librs_adreno.so|cceaf847d749ac2f1a3af3a1ae6ba653d93e0ed9
+vendor/lib/librs_adreno_sha1.so|e797997d3ac69dfa87904863672c5b9769c796cc
 
 # Graphics firmware
 etc/firmware/a420_pfp.fw:vendor/firmware/a420_pfp.fw
