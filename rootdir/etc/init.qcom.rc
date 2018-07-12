@@ -251,12 +251,6 @@ on post-fs-data
     mkdir /data/fota 0771
     chown system system /data/fota
 
-    #Create PERFD deamon related dirs
-    mkdir /data/misc/perfd 0755 root system
-    chmod 2755 /data/misc/perfd
-    mkdir /data/system/perfd 0770 root system
-    chmod 2770 /data/system/perfd
-
     #Create directory for hostapd
     mkdir /data/misc/wifi/hostapd 0770 system wifi
 
@@ -431,10 +425,6 @@ on post-fs-data
 
     chown system system /sys/class/flash/flash/flash_power
     chmod 660 /sys/class/flash/flash/flash_power
-
-    # Create directories for perfd
-    mkdir /data/misc/perfd 2755 root system
-    mkdir /data/system/perfd 2770 root system
 
     # Remove symlinks to avoid issues with migrate after nandroid restores
     # Will be recreated at end of boot
