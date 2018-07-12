@@ -48,10 +48,6 @@ on init
 
     symlink /sdcard /storage/sdcard0
 
-    # start mdm_helper early (required since Oreo)
-    start mdm_helper
-    start mdm_helper_proxy
-
     # Setup zram options
     write /sys/block/zram0/comp_algorithm lz4
     write /sys/block/zram0/max_comp_streams 4
@@ -1262,6 +1258,19 @@ on property:ro.build.flavor=lineage_kccat6-eng
 
 on property:ro.build.flavor=lineage_lentislte-eng
     start sshd
+
+on property:init.svc.ril-daemon=running
+    setprop ro.mdm_helper_proxy_req true
+
+on property:ro.baseband=mdm
+    start mdm_helper
+
+on property:ro.baseband=mdm2
+    start mdm_helper
+
+# Start mdm_helper_proxy
+on property:ro.mdm_helper_proxy_req=true
+    start mdm_helper_proxy
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
