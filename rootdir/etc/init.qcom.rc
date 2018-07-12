@@ -482,6 +482,22 @@ on boot
     # for BT MAC address
     mkdir /efs/bluetooth 0775 radio system
 
+    # add a cpuset for the camera daemon
+    # we want all the cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/mems 0
+    chown system system /dev/cpuset/camera-daemon
+    chown system system /dev/cpuset/camera-daemon/tasks
+    chmod 0664 /dev/cpuset/camera-daemon/tasks
+
+    # update foreground cpuset now that processors are up
+    # reserve CPU 3 for the top app and camera-daemon
+    write /dev/cpuset/foreground/cpus 0-2
+    write /dev/cpuset/background/cpus 0
+    write /dev/cpuset/system-background/cpus 0-1
+    write /dev/cpuset/top-app/cpus 0-3
+    write /dev/cpuset/camera-daemon/cpus 0-3
+
     # Permissions for usb_lock
     chown system radio /sys/class/android_usb/android0/usb_lock
 
@@ -1198,17 +1214,20 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class main
     user camera
     group camera system inet input graphics radio sdcard_rw sdcard_r media_rw shell log
+    writepid /dev/cpuset/camera-daemon/tasks
 
 service qseecomd /system/vendor/bin/qseecomd
     class core
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 service mpdecision /system/vendor/bin/mpdecision --avg_comp
     class main
     user root
     group root readproc
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service thermal-engine /system/vendor/bin/thermal-engine
     class main
@@ -1217,11 +1236,13 @@ service thermal-engine /system/vendor/bin/thermal-engine
     socket thermal-recv-client stream 0660 system system
     socket thermal-recv-passive-client stream 0666 system system
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 service time_daemon /system/vendor/bin/time_daemon
     class late_start
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 service irsc_util /system/vendor/bin/irsc_util "/vendor/etc/sec_config"
     class main
@@ -1232,6 +1253,7 @@ service qmuxd /system/vendor/bin/qmuxd
     class core
     user root
     group radio audio bluetooth gps oem_2950 log
+    writepid /dev/cpuset/system-background/tasks
 
 service mdm_helper /system/vendor/bin/mdm_helper
     class core
@@ -1262,6 +1284,7 @@ service sshd /system/bin/start-ssh
     group root
     oneshot
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 on property:ro.build.flavor=lineage_kccat6-eng
     start sshd
@@ -1306,6 +1329,7 @@ service wpa_supplicant /system/vendor/bin/hw/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+    writepid /dev/cpuset/system-background/tasks
 
 # end of wifi
 
@@ -1347,6 +1371,7 @@ service sec-sh /vendor/bin/sh /vendor/etc/init.sec.boot.sh
 service charger /charger
     class charger
     seclabel u:r:healthd:s0
+    writepid /dev/cpuset/system-background/tasks
 
 on property:persist.sys.ssr.restart_level=1
     write /sys/module/subsystem_restart/parameters/restart_level 1
