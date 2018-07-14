@@ -108,6 +108,11 @@ on post-fs
     mount debugfs debugfs /sys/kernel/debug
 
 on post-fs-data
+    # Remove dalvik files that cause modem issues
+    rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.art
+    rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.vdex
+    rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.oat
+
     mkdir /data/vendor/misc 01771 system system
 
     # Create directory used by display clients
