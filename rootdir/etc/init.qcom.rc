@@ -1231,7 +1231,6 @@ service mpdecision /system/vendor/bin/mpdecision --avg_comp
     class main
     user root
     group root readproc
-    disabled
     writepid /dev/cpuset/system-background/tasks
 
 service thermal-engine /system/vendor/bin/thermal-engine
@@ -1358,7 +1357,6 @@ on property:sys.boot_completed=1
 
     # Post boot services
     rm /data/system/perfd/default_values
-    start mpdecision
 
     # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
     symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
