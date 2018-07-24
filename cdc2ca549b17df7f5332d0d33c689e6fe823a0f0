@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd05c60d_ed27f8ff",
+        "filename": "rootdir/etc/init.qcom.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2018-07-24T14:25:24Z",
+      "side": 0,
+      "message": "how do you make sure the rm is called prior to starting mpdecision then?",
+      "range": {
+        "startLine": 1361,
+        "startChar": 4,
+        "endLine": 1361,
+        "endChar": 9
+      },
+      "revId": "cdc2ca549b17df7f5332d0d33c689e6fe823a0f0",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
