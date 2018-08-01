@@ -47,6 +47,9 @@ persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
 sys.qca1530=detect
 
+# logd
+ro.logd.auditd.dmesg=false
+
 # QCOM Vendor
 persist.data.qmi.adb_logmask=0
 ro.vendor.extension_library=/vendor/lib/libqc-opt.so
