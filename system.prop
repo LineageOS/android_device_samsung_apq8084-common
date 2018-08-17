@@ -95,7 +95,7 @@ net.tethering.noprovisioning=true
 persist.timed.enable=true
 
 # Timeout failed shutdowns
-ro.build.shutdown_timeout=5
+ro.build.shutdown_timeout=30
 
 # UI thread scheduling
 sys.use_fifo_ui=1
