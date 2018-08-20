@@ -693,6 +693,8 @@ bool dispatchCallForwardStatus(int serial, int slotId, int request,
     cf.serviceClass = callInfo.serviceClass;
     cf.toa = callInfo.toa;
     cf.timeSeconds = callInfo.timeSeconds;
+    cf.startTime = NULL;
+    cf.endTime = NULL;
 
     if (!copyHidlStringToRil(&cf.number, callInfo.number, pRI)) {
         return false;
