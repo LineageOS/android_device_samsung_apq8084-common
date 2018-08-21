@@ -6,13 +6,13 @@ ro.product.first_api_level=19
 
 # Audio
 af.fast_track_multiplier=1
-audio_hal.period_size=192
-persist.audio.fluence.speaker=true
-persist.audio.fluence.voicecall=true
-persist.audio.fluence.voicerec=false
-ro.qc.sdk.audio.fluencetype=fluence
-use.voice.path.for.pcm.voip=false
-use.dedicated.device.for.voip=true
+vendor.audio_hal.period_size=192
+persist.vendor.audio.fluence.speaker=true
+persist.vendor.audio.fluence.voicecall=true
+persist.vendor.audio.fluence.voicerec=false
+ro.vendor.audio.sdk.fluencetype=fluence
+vendor.voice.path.for.pcm.voip=false
+vendor.dedicated.device.for.voip=true
 audio.offload.buffer.size.kb=32
 audio.offload.gapless.enabled=false
 media.stagefright.legacyencoder=true
