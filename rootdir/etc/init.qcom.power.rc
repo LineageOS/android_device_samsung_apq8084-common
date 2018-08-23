@@ -23,8 +23,6 @@ on boot
     chmod 664 /sys/devices/system/cpu/cpu2/online
     chmod 664 /sys/devices/system/cpu/cpu3/online
 
-on property:sys.boot_completed=1
-
     # Configure the hardware properly
     write /sys/module/lpm_levels/enable_low_power/l2 4
     write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
@@ -72,3 +70,7 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
     write /dev/cpuctl/cpu.notify_on_migrate 0
+
+    # Start mpdecision here to make sure cpufreq is set up
+    rm /data/system/perfd/default_values
+    start mpdecision
