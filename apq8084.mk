@@ -195,6 +195,10 @@ PRODUCT_COPY_FILES += \
 # NFC
 $(call inherit-product, device/samsung/apq8084-common/nfc/pn547/product.mk)
 
+# Power
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/android.hardware.power@1.0-service-qti.rc:system/vendor/etc/init/android.hardware.power@1.0-service-qti.rc
+
 # Radio
 PRODUCT_PACKAGES += \
     libsecnativefeature
