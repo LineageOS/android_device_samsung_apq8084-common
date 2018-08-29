@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b4e1edb_54ddd570",
+        "filename": "apq8084.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2018-08-29T12:14:16Z",
+      "side": 1,
+      "message": "I am not sure if you should be doing this.",
+      "revId": "f05c14273f19dded266de23afc9c4fd7a6664149",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
