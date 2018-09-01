@@ -19,8 +19,7 @@ $(call inherit-product, device/samsung/apq8084-common/nfc/product.mk)
 
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-impl \
-    libpn547_fw \
-    nfc_nci.apq8084
+    libpn547_fw
 
 PRODUCT_COPY_FILES += \
     device/samsung/apq8084-common/nfc/pn547/libnfc-nci.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nci.conf \
