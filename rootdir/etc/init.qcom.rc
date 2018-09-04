@@ -113,6 +113,9 @@ on post-fs-data
     rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.vdex
     rm /data/dalvik-cache/arm/system@framework@boot-telephony-common.oat
 
+    # Remove old mpdecision data
+    rm /data/system/perfd/default_values
+
     mkdir /data/vendor/misc 01771 system system
 
     # Create directory used by display clients
@@ -1231,7 +1234,6 @@ service mpdecision /system/vendor/bin/mpdecision --avg_comp
     class main
     user root
     group root readproc
-    disabled
     writepid /dev/cpuset/system-background/tasks
 
 service thermal-engine /system/vendor/bin/thermal-engine
