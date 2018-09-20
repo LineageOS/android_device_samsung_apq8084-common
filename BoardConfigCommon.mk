@@ -114,6 +114,9 @@ TARGET_EXFAT_DRIVER := sdfat
 
 # Legacy BLOB Support
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
+    /system/bin/mediaserver=22 \
+    /system/vendor/bin/mm-qcamera-daemon=22
 
 # Media
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
