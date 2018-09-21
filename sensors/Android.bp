@@ -1,5 +1,5 @@
 cc_library_static {
-    name: "multihal-samsung",
+    name: "multihal-apq8084",
     vendor: true,
     srcs: [
         "multihal.cpp",
@@ -19,7 +19,7 @@ cc_library_static {
 }
 
 cc_library_shared {
-    name: "android.hardware.sensors@1.0-impl",
+    name: "android.hardware.sensors@1.0-impl.apq8084",
     defaults: ["hidl_defaults"],
     proprietary: true,
     relative_install_path: "hw",
@@ -36,16 +36,16 @@ cc_library_shared {
     ],
     static_libs: [
         "android.hardware.sensors@1.0-convert",
-        "multihal",
+        "multihal-apq8084",
     ],
     local_include_dirs: ["include/sensors"],
 }
 
 cc_binary {
-    name: "android.hardware.sensors@1.0-service",
+    name: "android.hardware.sensors@1.0-service.apq8084",
     relative_install_path: "hw",
     vendor: true,
-    init_rc: ["android.hardware.sensors@1.0-service.rc"],
+    init_rc: ["android.hardware.sensors@1.0-service.apq8084.rc"],
     srcs: ["service.cpp"],
 
     shared_libs: [
