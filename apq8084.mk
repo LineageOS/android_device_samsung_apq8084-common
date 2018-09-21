@@ -225,9 +225,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/_hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/_hals.conf
 
-PRODUCT_PACKAGES += \
-    sensors.apq8084
-
 # Snap Camera
 # PRODUCT_PACKAGES += \
 #     Snap
