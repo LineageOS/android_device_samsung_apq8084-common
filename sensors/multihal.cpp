@@ -381,7 +381,6 @@ int sensors_poll_context_t::inject_sensor_data(struct sensors_poll_device_1 *dev
     int retval = -EINVAL;
     ALOGV("inject_sensor_data");
     // Get handle for the sensor owning the event being injected
-    int local_handle = get_local_handle(data->sensor);
     sensors_poll_device_1_t* v1 = this->get_v1_device_by_handle(data->sensor);
     retval = v1->inject_sensor_data(dev, data);
     ALOGV("retval %d", retval);
@@ -430,6 +429,9 @@ static int device__poll(struct sensors_poll_device_t *dev, sensors_event_t* data
 
 static int device__batch(struct sensors_poll_device_1 *dev, int handle,
         int flags, int64_t period_ns, int64_t timeout) {
+    (void)flags;
+    (void)timeout;
+
     sensors_poll_context_t* ctx = (sensors_poll_context_t*) dev;
 
     ctx->setDelay(handle, period_ns);
@@ -438,6 +440,9 @@ static int device__batch(struct sensors_poll_device_1 *dev, int handle,
 }
 
 static int device__flush(struct sensors_poll_device_1 *dev, int handle) {
+    (void)dev;
+    (void)handle;
+
     return -EINVAL;
 }
 
