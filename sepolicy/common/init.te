@@ -1,2 +1,8 @@
 allow init debugfs:file rw_file_perms;
 allow init sysfs_mdnie:file setattr;
+allow init sysfs_graphics:file r_file_perms;
+
+allow init {
+    sysfs_graphics
+    sysfs_mdnie
+}:file setattr;

@@ -46,5 +46,11 @@
 /sys/devices/bt_qca6174.[0-9]+/rfkill/rfkill0/state              u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/virtual/sec/sec_key/hall_irq_ctrl                   u:object_r:sysfs_sec:s0
 
+# sysfs - graphics/panel
+/sys/class/mhl(/.*)?                                    u:object_r:sysfs_graphics:s0
+/sys/devices/mdp\.[0-9](/.*)?                           u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/graphics/fb0/csc_cfg               u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/lcd/panel(/.*)?                    u:object_r:sysfs_graphics:s0
+
 # sysfs - mdnie
 /sys/devices/virtual/mdnie/mdnie(/.*)?                  u:object_r:sysfs_mdnie:s0
