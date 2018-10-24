@@ -94,4 +94,7 @@
     -->
     <integer name="config_doubleTapOnHomeBehavior">5</integer>
 
+    <!-- Flag indicating that button lights are supported -->
+    <bool name="config_button_brightness_support">true</bool>
+
 </resources>
