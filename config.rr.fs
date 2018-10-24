@@ -1,5 +1,0 @@
-[AID_RFS]
-value:2951
-
-[AID_RFS_SHARED]
-value:2952
