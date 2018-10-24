@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4543e38_59f034d5",
+        "filename": "apq8084.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2018-10-24T18:12:01Z",
+      "side": 0,
+      "message": "RR requires config_button_brightness_support, Lineage doesn\u0027t",
+      "range": {
+        "startLine": 29,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "800ff40b9abdbe7aa4bf1d1d6cae339d321718cc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9994bef_9caa0761",
+        "filename": "apq8084.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2018-10-24T18:12:01Z",
+      "side": 0,
+      "message": "Jelly isn\u0027t installed on RR so this is needed",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "800ff40b9abdbe7aa4bf1d1d6cae339d321718cc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
