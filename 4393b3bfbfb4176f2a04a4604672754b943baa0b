@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aee76bc1_181d37dd",
+        "filename": "apq8084.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2018-10-24T18:45:32Z",
+      "side": 1,
+      "message": "do not add arbitrary trailing whitespaces",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 4
+      },
+      "revId": "4393b3bfbfb4176f2a04a4604672754b943baa0b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1412a99_7dc29bec",
+        "filename": "apq8084.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2018-10-24T18:45:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 4
+      },
+      "revId": "4393b3bfbfb4176f2a04a4604672754b943baa0b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
