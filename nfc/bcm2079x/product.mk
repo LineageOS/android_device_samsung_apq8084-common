@@ -26,4 +26,3 @@ PRODUCT_COPY_FILES += \
     device/samsung/apq8084-common/nfc/bcm2079x/libnfc-brcm.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-brcm.conf \
     device/samsung/apq8084-common/nfc/bcm2079x/libnfc-brcm-20791b04.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-brcm-20791b04.conf \
     device/samsung/apq8084-common/nfc/bcm2079x/libnfc-brcm-20791b05.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-brcm-20791b05.conf
-
