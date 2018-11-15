@@ -4,6 +4,7 @@ allow init sysfs_iio:lnk_file read;
 allow init {
     sysfs_iio
     sysfs_sec_tsp
+    sysfs_sensors
 }:lnk_file read;
 
 allow init sysfs_input:file rw_file_perms;
@@ -29,6 +30,7 @@ allow init {
     sysfs_sec_switch
     sysfs_sec_tsp
     sysfs_sec_vib
+    sysfs_sensors
 }:file setattr;
 
 allow init {
