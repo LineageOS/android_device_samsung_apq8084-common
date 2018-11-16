@@ -31,6 +31,7 @@ allow init {
     sysfs_sec_tsp
     sysfs_sec_vib
     sysfs_sensors
+    sysfs_socinfo
 }:file setattr;
 
 allow init {
