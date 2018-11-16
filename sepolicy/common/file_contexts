@@ -100,3 +100,6 @@
 
 # sysfs - usb
 /sys/devices/virtual/host_notify/usb_otg(/.*)?               u:object_r:sysfs_usb_otg:s0
+
+# sysfs - fingerprint
+/sys/devices/virtual/fingerprint(/.*)?                  u:object_r:sysfs_fingerprint:s0
