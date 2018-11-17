@@ -21,6 +21,7 @@ allow init {
     sysfs_sec_bsp
     sysfs_sec_led
     sysfs_sec_sdcard
+    sysfs_msmuart_file
     sysfs_sec_barcode_emul
     sysfs_sec_ir
     sysfs_sec_key
