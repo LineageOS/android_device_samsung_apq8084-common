@@ -101,10 +101,6 @@
 /sys/devices/qcom,mdm1.[0-9]+/esoc[0-9]/subsys3/restart_level                                u:object_r:sysfs_ssr_toggle:s0
 /sys/devices/qcom,mdm1.[0-9]+/esoc[0-9]/subsys3/recovery_policy                              u:object_r:sysfs_ssr_toggle:s0
 
-# sysfs - net
-/sys/devices/msm_sdcc\.[0-9]/mmc_host/.*/net(/.*)?      u:object_r:sysfs_net:s0
-/sys/devices/virtual/net(/.*)?                          u:object_r:sysfs_net:s0
-
 # sysfs - sec
 /sys/devices/virtual/sec/bsp(/.*)?                      u:object_r:sysfs_sec_bsp:s0
 /sys/devices/virtual/sec/led(/.*)?                      u:object_r:sysfs_sec_led:s0
