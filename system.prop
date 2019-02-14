@@ -20,7 +20,7 @@ media.stagefright.less-secure=true
 
 # Bluetooth
 bt.max.hfpclient.connections=1
-qcom.bluetooth.soc=rome
+vendor.qcom.bluetooth.soc=rome
 
 # Camera
 camera2.portability.force_api=1
