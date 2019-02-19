@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2016 The Sayanogen Project
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017-2019 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -76,9 +76,6 @@ BOARD_BATTERY_DEVICE_NAME := "battery"
 BOARD_CHARGING_CMDLINE_NAME := "androidboot.mode"
 BOARD_CHARGING_CMDLINE_VALUE := "charger"
 BOARD_CHARGER_ENABLE_SUSPEND := true
-
-# CMHW
-BOARD_HARDWARE_CLASS += $(COMMON_PATH)/lineagehw
 
 # Dexpreopt
 ifeq ($(HOST_OS),linux)
