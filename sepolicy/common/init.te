@@ -5,7 +5,8 @@
 selinux_check_context(init)
 
 allow init debugfs:file rw_file_perms;
-allow init sysfs_iio:lnk_file read;
+allow init proc_boot_reason:file read;
+allow init proc_printk:file w_file_perms;
 allow init {
     sysfs_iio
     sysfs_sec_tsp
@@ -46,7 +47,6 @@ allow init {
 }:file setattr;
 
 allow init {
-    proc_printk
     sysfs_bluetooth_writable
     sysfs_cpu_boost
     sysfs_devices_system_cpu
