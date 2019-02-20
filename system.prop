@@ -58,7 +58,7 @@ sys.qca1530=detect
 # logd
 ro.logd.auditd.dmesg=false
 # disable chatty
-#ro.logd.filter=disable
+ro.logd.filter=disable
 
 # QCOM Vendor
 persist.data.qmi.adb_logmask=0
