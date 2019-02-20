@@ -51,6 +51,7 @@ allow init {
     sysfs_cpu_boost
     sysfs_devices_system_cpu
     sysfs_graphics
+    sysfs_iio
     sysfs_lowmemorykiller
     sysfs_mmc_host
     sysfs_modules
