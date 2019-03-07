@@ -48,8 +48,8 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl \
-    android.hardware.gnss@1.0-service
+    android.hardware.gnss@1.0-impl.apq8084 \
+    android.hardware.gnss@1.0-service.apq8084
 
 # IR Blaster
 PRODUCT_PACKAGES += \
