@@ -60,6 +60,9 @@ ro.logd.auditd.dmesg=false
 # disable chatty
 ro.logd.filter=disable
 
+# Memory optimizations
+ro.vendor.qti.sys.fw.bservice_enable=true
+
 # QCOM Vendor
 persist.data.qmi.adb_logmask=0
 ro.vendor.extension_library=/vendor/lib/libqc-opt.so
