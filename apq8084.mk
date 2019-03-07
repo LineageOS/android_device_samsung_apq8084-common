@@ -67,6 +67,8 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
     audio_policy.apq8084 \
     audio.a2dp.default \
     audio.primary.apq8084 \
@@ -95,12 +97,19 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl \
+    libbt-vendor
+
 # Browser
 PRODUCT_PACKAGES += \
     Jelly
 
 # Camera
 PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl \
+    camera.device@1.0-impl \
     camera.apq8084 \
     libxml2
 
@@ -123,6 +132,11 @@ PRODUCT_PACKAGES += \
     memtrack.apq8084 \
     hdmi_cec.apq8084
 
+# DRM
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
@@ -131,26 +145,41 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint sensor
 PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.1-service \
     fingerprint.apq8084
 
 # FlipFlap
 PRODUCT_PACKAGES += \
     FlipFlap
 
-# IPv6 tethering
+# Graphics
 PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes
+    android.hardware.configstore@1.0-service \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.memtrack@1.0-impl
 
 # GPS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl.apq8084 \
+    android.hardware.gnss@1.0-service.apq8084 \
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/flp.conf:/system/etc/flp.conf \
     $(LOCAL_PATH)/configs/gps.conf:/system/etc/gps.conf \
     $(LOCAL_PATH)/configs/izat.conf:/system/etc/izat.conf \
     $(LOCAL_PATH)/configs/sap.conf:/system/etc/sap.conf
 
+# IPv6 tethering
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
+
 # IR Blaster
 PRODUCT_PACKAGES += \
+    android.hardware.ir@1.0-impl \
     consumerir.apq8084
 
 # IRSC
@@ -167,8 +196,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/Synaptics_HID_TouchPad.idc:system/usr/idc/Synaptics_HID_TouchPad.idc \
     $(LOCAL_PATH)/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl
+
 # Lights
 PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-impl \
     lights.APQ8084
 
 # Media
@@ -198,6 +232,10 @@ PRODUCT_COPY_FILES += \
 # NFC
 $(call inherit-product, device/samsung/apq8084-common/nfc/pn547/product.mk)
 
+# Power HAL
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.1-service-qti
+
 # Radio
 PRODUCT_PACKAGES += \
     libsecnativefeature
@@ -212,6 +250,10 @@ PRODUCT_PACKAGES += \
     init.trace.rc \
     ueventd.qcom.rc
 
+# RenderScript HAL
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
+
 # RMNET
 PRODUCT_PACKAGES += \
     librmnetctl
@@ -222,6 +264,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
 
 # Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl.apq8084 \
+    android.hardware.sensors@1.0-service.apq8084
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/_hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/_hals.conf
 
@@ -237,22 +283,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
 
-# WiFi
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:$(TARGET_COPY_OUT_VENDOR)/firmware/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/WCNSS_qcom_wlan_nv.bin \
-    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
-
+# USB
 PRODUCT_PACKAGES += \
-    libnetcmdiface
+    android.hardware.usb@1.0-service.basic
 
+# Vibrator
 PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.0-service.lineage
+
+# Wifi
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
+    libnetcmdiface \
     hostapd \
-    wpa_supplicant
-
-PRODUCT_PACKAGES += \
+    wpa_supplicant \
     dhcpcd.conf \
     hostapd_default.conf \
     hostapd.accept \
@@ -264,8 +308,12 @@ PRODUCT_PACKAGES += \
     WCNSS_qcom_wlan_nv.bin \
     wlan_mac.bin
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:$(TARGET_COPY_OUT_VENDOR)/firmware/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+
 # common apq8084
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
-
-# Treble packages
-$(call inherit-product, device/samsung/apq8084-common/treble.mk)
