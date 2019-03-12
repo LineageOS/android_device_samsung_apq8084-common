@@ -100,6 +100,7 @@ persist.net.doxlat=true
 debug.sensors=1
 
 # Storage
+ro.storaged.event.interval=999999
 ro.sys.sdcardfs=true
 
 # Tethering
