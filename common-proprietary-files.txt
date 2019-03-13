@@ -385,7 +385,7 @@ vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
 
-# Radio
+# Radio (libsec-ril.so tweaked for libprotobuf-cpp-sec.so)
 bin/efsks:vendor/bin/efsks
 bin/ks:vendor/bin/ks
 bin/mdm_helper:vendor/bin/mdm_helper
@@ -393,8 +393,8 @@ bin/mdm_helper_proxy:vendor/bin/mdm_helper_proxy
 bin/qcks:vendor/bin/qcks
 bin/qmuxd:vendor/bin/qmuxd
 bin/radish:vendor/bin/radish
-lib/libprotobuf-cpp-full.so:vendor/lib/libprotobuf-cpp-full.so
-lib/libsec-ril.so:vendor/lib/libsec-ril.so
+lib/libprotobuf-cpp-full.so:vendor/lib/libprotobuf-cpp-sec.so
+vendor/lib/libsec-ril.so|920b0082135ae0a53c59803edca0c193299c6e6c
 vendor/lib/libconfigdb.so
 vendor/lib/libmdmdetect.so
 vendor/lib/libril-qcril-hook-oem.so
