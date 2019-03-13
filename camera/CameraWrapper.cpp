@@ -111,7 +111,8 @@ static char *camera_fixup_getparams(int id, const char *settings)
     bool videoMode = recordHint ? !strcmp(recordHint, "true") : false;
 
     //Hide nv12-venus from Android.
-    if (strcmp (params.getPreviewFormat(), PIXEL_FORMAT_NV12_VENUS) == 0)
+    const char *preview_fmt = params.getPreviewFormat ();
+    if (!preview_fmt || !strcmp (preview_fmt, PIXEL_FORMAT_NV12_VENUS))
           params.setPreviewFormat(params.PIXEL_FORMAT_YUV420SP);
 
     /* If the vendor has HFR values but doesn't also expose that
