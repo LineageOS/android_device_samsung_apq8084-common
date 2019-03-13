@@ -401,7 +401,7 @@ vendor/lib/libril-qcril-hook-oem.so
 vendor/lib/libxml.so
 
 # Sensors
-lib/hw/sensors.apq8084.so:/vendor/lib/hw/sensors.vendor.apq8084.so
+lib/hw/sensors.apq8084.so:vendor/lib/hw/sensors.vendor.apq8084.so
 lib/libhr.so:vendor/lib/libhr.so
 vendor/lib/libsensor1.so
 bin/sensorhubservice:vendor/bin/sensorhubservice
