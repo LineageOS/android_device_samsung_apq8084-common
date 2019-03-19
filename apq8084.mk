@@ -272,8 +272,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/_hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/_hals.conf
 
 # Snap Camera
-# PRODUCT_PACKAGES += \
-#     Snap
+PRODUCT_PACKAGES += \
+    Snap
 
 # Thermal engine
 PRODUCT_COPY_FILES += \
