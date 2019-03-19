@@ -164,7 +164,7 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl.apq8084 \
-    android.hardware.gnss@1.0-service.apq8084 \
+    android.hardware.gnss@1.0-service.apq8084
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/flp.conf:/system/etc/flp.conf \
