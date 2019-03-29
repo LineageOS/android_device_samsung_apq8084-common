@@ -6,15 +6,17 @@ ro.product.first_api_level=19
 
 # Audio
 af.fast_track_multiplier=1
-vendor.audio_hal.period_size=192
+audio.offload.buffer.size.kb=32
+audio.offload.gapless.enabled=false
+audio.offload.video=true
 persist.vendor.audio.fluence.speaker=true
 persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.fluence.voicerec=false
 ro.vendor.audio.sdk.fluencetype=fluence
-vendor.voice.path.for.pcm.voip=false
+vendor.audio.offload.multiple.enabled=false
+vendor.audio_hal.period_size=192
 vendor.dedicated.device.for.voip=true
-audio.offload.buffer.size.kb=32
-audio.offload.gapless.enabled=false
+vendor.voice.path.for.pcm.voip=false
 media.stagefright.legacyencoder=true
 media.stagefright.less-secure=true
 
