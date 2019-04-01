@@ -346,12 +346,6 @@
          2 - The device DOES NOT have a permanent menu key; ignore autodetection. -->
     <integer name="config_overrideHasPermanentMenuKey">2</integer>
 
-    <!-- MMS user agent string -->
-    <string name="config_mms_user_agent" translatable="false">note4</string>
-
-    <!-- MMS user agent prolfile url -->
-    <!--string name="config_mms_user_agent_profile_url" translatable="false">http://uaprof.motorola.com/phoneconfig/nexus6/Profile/nexus6.rdf</string-->
-
     <!-- The VoiceMail default value is displayed to my own number if it is true -->
     <bool name="config_telephony_use_own_number_for_voicemail">false</bool>
 
