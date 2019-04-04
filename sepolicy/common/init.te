@@ -42,7 +42,6 @@ allow init {
     sysfs_sensors
     sysfs_ssr_toggle
     sysfs_usb_otg
-    sysfs_usb_storage_gadget
     sysfs_wlan_fwpath
 }:file setattr;
 
@@ -62,7 +61,6 @@ allow init {
     sysfs_sec_touchkey
     sysfs_ssr_toggle
     sysfs_thermal
-    sysfs_usb_storage_gadget
 }:file w_file_perms;
 
 allow init sysfs_fingerprint:file setattr;
