@@ -351,13 +351,3 @@ $(QMUX_CONFIG_SYMLINK): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /system/vendor/etc/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(QMUX_CONFIG_SYMLINK)
-
-include $(CLEAR_VARS)
-SAMSUNG_PRODUCT_MEDIA_SYMLINK := $(TARGET_OUT)/product/media
-$(SAMSUNG_PRODUCT_MEDIA_SYMLINK): $(LOCAL_INSTALLED_MODULE)
-	@echo "Create /system/product symlink"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /system/media $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(SAMSUNG_PRODUCT_MEDIA_SYMLINK)
