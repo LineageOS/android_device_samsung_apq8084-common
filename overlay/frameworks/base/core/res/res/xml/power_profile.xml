@@ -36,7 +36,6 @@
     </array>
     <item name="cpu.suspend">4.8</item>
     <item name="wakeup.power">0.15</item>
-    <item name="cpu.idle">20.3</item>
     <item name="cpu.clusters.cores">4</item>
     <array name="cpu.core_power.cluster0">
         <value>58</value>
