@@ -93,6 +93,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 HAVE_ADRENO_SOURCE := false
 
 # Filesystem
+BOARD_ROOT_EXTRA_FOLDERS := efs firmware firmware-modem persist persdata persdata/absolute
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
 # HIDL
