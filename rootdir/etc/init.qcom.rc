@@ -40,8 +40,6 @@ on early-init
     symlink /data/tombstones /tombstones
 
 on init
-    symlink /sdcard /storage/sdcard0
-
     # Setup zram options
     write /sys/block/zram0/comp_algorithm lz4
     write /sys/block/zram0/max_comp_streams 4
