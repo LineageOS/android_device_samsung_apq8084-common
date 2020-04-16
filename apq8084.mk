@@ -172,11 +172,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/izat.conf:/system/etc/izat.conf \
     $(LOCAL_PATH)/configs/sap.conf:/system/etc/sap.conf
 
-# IPv6 tethering
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes
-
 # IR Blaster
 PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-impl \
