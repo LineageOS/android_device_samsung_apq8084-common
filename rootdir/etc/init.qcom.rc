@@ -1260,7 +1260,7 @@ service irsc_util /system/vendor/bin/irsc_util "/vendor/etc/sec_config"
 
 service qmuxd /system/vendor/bin/qmuxd
     class core
-    user root
+    user radio
     group radio audio bluetooth gps oem_2950 log
     writepid /dev/cpuset/system-background/tasks
 
